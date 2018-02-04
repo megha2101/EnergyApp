@@ -1,0 +1,87 @@
+
+<ion-header>
+  <ion-navbar #navbar >
+    <ion-title>
+      Energy
+    </ion-title>
+
+    <ion-buttons end>
+        <button ion-button icon-only (click)="logIn()">
+            LogIn
+        </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+<ion-content >
+
+    <p *ngIf="submitAttempt" ></p>
+
+        <form [formGroup]="basicInformationForm">
+
+                <ion-item  center text-center no-lines >
+                    <h2 text-wrap><b>Get Started !</b></h2>      
+                </ion-item>
+          
+                <ion-item  center text-center no-lines >
+                    <h3 text-wrap>It takes only few taps to add your <b>building's data</b> and start seeing insight.</h3>
+                </ion-item>
+          
+                <ion-item no-lines >
+                    <img class = "image_center" src="assets/imgs/buildings_green.png">
+                 </ion-item>
+                
+                <ion-item class="mtop">
+                    <ion-label stacked > What is your Location?</ion-label>
+                    <ion-input formControlName="location" type="text" tappable [class.invalid]="!basicInformationForm.controls.location.valid  && (basicInformationForm.controls.location.dirty || submitAttempt)"></ion-input>
+                </ion-item>
+      
+                <ion-item no-lines *ngIf="!basicInformationForm.controls.location.valid  && (basicInformationForm.controls.location.dirty || submitAttempt)">
+                    <p class="error_message" text-wrap>Please specify location.</p>
+                </ion-item>
+
+                <ion-item class="mtop">
+                    <ion-label stacked > What is your last month electricity consumption?</ion-label>
+                    <ion-input formControlName="electricity_consumption" type="number" pattern="[0-9]*" tappable [class.invalid]="!basicInformationForm.controls.electricity_consumption.valid  && (basicInformationForm.controls.electricity_consumption.dirty || submitAttempt)"></ion-input>
+                </ion-item>
+      
+                <ion-item no-lines *ngIf="!basicInformationForm.controls.electricity_consumption.valid  && (basicInformationForm.controls.electricity_consumption.dirty || submitAttempt)">
+                    <p class="error_message" text-wrap>Please specify your electricity consumption.</p>
+                </ion-item>
+
+                <ion-item class="mtop">
+                    <ion-label stacked > Number of persons living in the building?</ion-label>
+                    <ion-input formControlName="number_persons" type="number" pattern="[0-9]*" tappable [class.invalid]="!basicInformationForm.controls.number_persons.valid  && (basicInformationForm.controls.number_persons.dirty || submitAttempt)"></ion-input>
+                </ion-item>
+      
+                <ion-item no-lines *ngIf="!basicInformationForm.controls.number_persons.valid  && (basicInformationForm.controls.number_persons.dirty || submitAttempt)">
+                    <p class="error_message" text-wrap>Please specify the number of persons living in the building.</p>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label stacked >Select your electricity provider</ion-label>
+                    <ion-select [(ngModel)]="elect_provider" formControlName="electricity_provider" [placeholder]="select" [class.invalid]="!basicInformationForm.controls.electricity_provider.valid  && (basicInformationForm.controls.electricity_provider.dirty || submitAttempt)">
+                    <ion-option value="electricityProviderSelect" disabled selected>Select Electricity Provider</ion-option>
+                    <ion-option value="CPL Retail Energy">CPL Retail Energy</ion-option>
+                    <ion-option value="Direct Energy">Direct Energy</ion-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-item no-lines *ngIf="!basicInformationForm.controls.electricity_provider.valid  && (basicInformationForm.controls.electricity_provider.dirty || submitAttempt)">
+                    <p class="error_message" text-wrap>Please select your electricity provider.</p>
+                </ion-item> 
+
+                <ion-item no-lines></ion-item>
+
+                <ion-row>
+                    <ion-col center text-center >
+                        <button ion-button block (click)="score()" >
+                            Check Score 
+                        </button>
+                    </ion-col>
+                </ion-row>     
+            
+        </form>
+
+</ion-content>
+ 

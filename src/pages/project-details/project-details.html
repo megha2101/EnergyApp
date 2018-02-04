@@ -1,0 +1,49 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Project Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="bgColor">
+
+    <ion-item no-lines >
+        <ion-avatar item-start class="smallScorepuckBlank">
+          <h2>56</h2>
+        </ion-avatar>
+        <h3 text-wrap>Innovation Unlimited</h3>
+        <p text-wrap>Washington, DC, US</p>
+    </ion-item>
+
+    <ion-row>
+        <ion-col>
+        <button ion-button block (click)="goToAddSourcePage()">
+            Add Source
+            </button>
+        </ion-col>
+    </ion-row>
+
+    <ion-card tappable (click)="goToProjectAnalysisPage()"> 
+        <ion-card-header>
+            <h2>Analysis</h2>
+        </ion-card-header>
+        <ion-card-content >              
+            <div id="analysis_new"></div>       
+        </ion-card-content>
+    </ion-card>
+    
+    <ion-item-divider color="light" no-lines >All Sources</ion-item-divider>
+    
+    <ion-card tappable (click)="goToSourcePage()"> 
+        <ion-card-header class="pb">
+            <h2>HVAC- Meter</h2>
+        </ion-card-header>
+        <ion-card-content >
+            <div id="chartdiv1" ></div>                 
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

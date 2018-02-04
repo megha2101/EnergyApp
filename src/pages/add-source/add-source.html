@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-navbar >
+      <ion-title>
+        Add Meter
+      </ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content >
+  
+    <p *ngIf="submitAttempt" ></p>
+      
+    <form [formGroup]="addMeterForm" >
+  
+      <ion-item id="add-meter-input1">
+        <ion-label stacked> Meter Name</ion-label>
+        <ion-input formControlName="meterName" type="text" [class.invalid]="!addMeterForm.controls.meterName.valid  && (addMeterForm.controls.meterName.dirty || submitAttempt)">></ion-input>
+      </ion-item>
+  
+      <ion-item no-lines *ngIf="!addMeterForm.controls.meterName.valid  && (addMeterForm.controls.meterName.dirty || submitAttempt)">
+          <p class="errorMessage">Please specify meter name.</p>
+      </ion-item>
+  
+       <ion-item id="add-meter-select2" class="mtop">
+        <ion-label stacked>
+          Unit
+        </ion-label>
+        <ion-select name="meter_unit" formControlName="meterUnit">
+          <ion-option value="kWh">kWh</ion-option>
+          <ion-option value="mWh">mWh</ion-option>
+          <ion-option value="mBtu">mBtu</ion-option>
+          <ion-option value="kBtu">kBtu</ion-option>
+          <ion-option value="GJ">GJ</ion-option>
+        </ion-select>
+      </ion-item> 
+
+      <ion-item no-lines>
+
+      </ion-item>
+
+      <ion-row>
+          <ion-col center text-center >
+              <button ion-button block (click)="addMeter()" >
+                  Add Meter
+              </button>
+          </ion-col>
+      </ion-row>    
+  
+    </form>
+  </ion-content>

@@ -6,16 +6,7 @@ import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 
 import { HomePage } from '../pages/home/home';
 import { DashboardPage } from '../pages/dashboard/dashboard';
-import { LoginPage } from '../pages/login/login';
-import { AnalysisPage } from '../pages/analysis/analysis';
-import { AddProjectPage } from '../pages/add-project/add-project';
-import { ProjectListPage } from '../pages/project-list/project-list';
-import { ProjectDetailsPage } from '../pages/project-details/project-details';
-import { ProjectAnalysisPage } from '../pages/project-analysis/project-analysis';
-import { SourcePage } from '../pages/source/source';
-import { AddMeterDataPage } from '../pages/add-meter-data/add-meter-data';
-import { SignupPage } from '../pages/signup/signup';
-import { AddSourcePage } from '../pages/add-source/add-source';
+
 
 
 @Component({

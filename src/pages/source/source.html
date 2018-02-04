@@ -1,0 +1,108 @@
+<ion-header>
+    
+    <ion-navbar>
+        <ion-title>Energy App</ion-title>
+    </ion-navbar>
+    
+</ion-header>
+    
+    
+<ion-content class="bgColor">
+    <ion-grid>
+        <ion-item no-lines >
+            <ion-avatar item-start class="smallScorepuckBlank">
+                <h2>56</h2>
+            </ion-avatar>
+                <h3 text-wrap>Innovation Unlimited</h3>
+                <p text-wrap>Washington, DC, US</p>
+        </ion-item>
+        
+        <ion-row>
+            <ion-col>
+                <button ion-button block tappable (click)= "goToAddMeterDataPage()">
+                    Add Meter Data
+                </button>
+            </ion-col>
+        </ion-row>
+
+        <ion-item-divider color="light" no-lines>HVAC-Meter1</ion-item-divider>
+
+        <ion-item no-lines>           
+            <div >   
+                <div id="chartdiv3" ></div>         
+            </div>          
+        </ion-item>
+
+        <ion-item-divider color="light" no-lines>All Readings</ion-item-divider>
+
+        <ion-item text-wrap>
+            <ion-row center text-center>
+                <ion-col col-6 >
+                    <b>Dates</b>
+                </ion-col>
+    
+                <ion-col col-4>
+                    <b>Reading (kWh)</b>                   
+                </ion-col>
+    
+                <ion-col col-2>
+                                      
+                </ion-col>
+            </ion-row>
+        </ion-item>
+
+        <ion-item>
+            <ion-row center text-center>
+                <ion-col col-6 >
+                    Nov 01- Dec 01,2017
+                </ion-col>
+    
+                <ion-col col-4>
+                    45
+                </ion-col>
+    
+                <ion-col col-2>
+                    <ion-icon name="trash"></ion-icon>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+
+        <ion-item>
+
+            <ion-row center text-center>
+                <ion-col col-6 >
+                    Oct 01- Oct 31,2017
+                </ion-col>
+    
+                <ion-col col-4>
+                    30
+                </ion-col>
+    
+                <ion-col col-2>
+                    <ion-icon name="trash"></ion-icon>
+                </ion-col>
+
+            </ion-row>
+
+        </ion-item> 
+        
+        <ion-item>
+            <ion-row center text-center>
+                <ion-col col-6 >
+                    Sep 01- Sep 31,2017
+                </ion-col>
+    
+                <ion-col col-4>
+                    30
+                </ion-col>
+    
+                <ion-col col-2>
+                    <ion-icon name="trash"></ion-icon>
+                </ion-col>
+
+            </ion-row>
+        </ion-item>    
+
+    </ion-grid>
+    
+</ion-content>

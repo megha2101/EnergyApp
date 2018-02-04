@@ -1,0 +1,52 @@
+<ion-header no-border>
+    <ion-navbar transparent>
+      <ion-title>LOG IN</ion-title>
+    </ion-navbar>
+   
+  </ion-header>
+  <ion-content class="page-login"> 
+  
+    <p *ngIf="submitAttempt" ></p>
+  
+    <form [formGroup]="loginForm">
+  
+        <ion-item >
+          <ion-label stacked> Username</ion-label>
+          <ion-input formControlName="username" type="text" [class.invalid]="!loginForm.controls.username.valid  && (loginForm.controls.username.dirty || submitAttempt)">></ion-input>
+        </ion-item>
+
+        <ion-item no-lines *ngIf="!loginForm.controls.username.valid  && (loginForm.controls.username.dirty || submitAttempt)">
+            <p class="error-message">Please enter a valid username.</p>
+        </ion-item>
+
+        <ion-item >
+          <ion-label stacked> Password</ion-label>
+          <ion-input formControlName="password" type="password" class = "outlineFocus" style="outline-style: none;" [class.invalid]="!loginForm.controls.password.valid  && (loginForm.controls.password.dirty || submitAttempt)" ></ion-input>
+        </ion-item>
+
+        <ion-item no-lines *ngIf="!loginForm.controls.password.valid  && (loginForm.controls.password.dirty || submitAttempt)">
+            <p class="error-message">Please enter a valid password.</p>
+        </ion-item>
+        
+        <ion-item no-lines >
+          <ion-label stacked text-right style="color:#488aff;">Forgot Password?</ion-label>       
+        </ion-item>
+
+   </form>
+  
+  <ion-row> 
+    <ion-col>
+      <button ion-button block (click)="login()">
+        LOG IN
+      </button> 
+    </ion-col>       
+  </ion-row> 
+  
+  <ion-row >
+     <ion-col center text-center>
+       <p style="color: #757575;">Don't have account? <a (click)="goToSignUpPage()">SIGN UP</a></p>
+    </ion-col>
+  </ion-row>
+  
+  </ion-content> 
+  

@@ -1,0 +1,60 @@
+
+<ion-header>
+
+    <ion-navbar>
+       <ion-title>Add Meter Data</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+
+    <p *ngIf="submitAttempt" ></p>
+
+    <form [formGroup]="addMeterReadingForm">
+        
+        <ion-item >
+            <ion-label stacked>Start Date</ion-label>
+            <ion-datetime type="date"  placeholder="" max="2099-12-31" [(ngModel)]="myStartDate" formControlName="startDate"></ion-datetime>
+            <ion-icon name="calendar" item-end></ion-icon>
+        </ion-item>
+
+        <!-- <ion-item no-lines *ngIf="!addMeterReadingForm.controls.startDate.valid  && (addMeterReadingForm.controls.startDate.dirty || submitAttempt)">
+            <p class="error-message">Please enter a valid Date.</p>
+        </ion-item> -->
+        
+        <ion-item>
+            <ion-label stacked>End Date</ion-label>
+            <ion-datetime  type="date"  placeholder="" max="2099-12-31" [(ngModel)]="myEndDate" formControlName="endDate"></ion-datetime>            
+            <ion-icon name="calendar" item-end></ion-icon>
+        </ion-item>
+
+        <!-- <ion-item no-lines *ngIf="!addMeterReadingForm.controls.endDate.valid  && (addMeterReadingForm.controls.endDate.dirty || submitAttempt)">
+            <p class="error-message">Please enter a valid Date.</p>
+        </ion-item>
+         -->
+        <ion-item>
+            <ion-label stacked>Reading</ion-label>
+            <ion-input type="number" pattern="[0-9]*" placeholder="Enter Reading in unit kWh" formControlName="reading" [class.invalid]="!addMeterReadingForm.controls.reading.valid && (addMeterReadingForm.controls.reading.dirty || submitAttempt)"></ion-input>
+        </ion-item>
+
+        <ion-item no-lines *ngIf="!addMeterReadingForm.controls.reading.valid  && (addMeterReadingForm.controls.reading.dirty || submitAttempt)">
+            <p class="error-message">Please enter a valid Reading.</p>
+        </ion-item>
+
+        <ion-item no-lines>
+
+        </ion-item>
+ 
+        <ion-row>
+            <ion-col >
+                <button ion-button block (click)="save()" >
+                    Save
+                </button>
+            </ion-col>
+        </ion-row>  
+        
+    </form>
+
+</ion-content>

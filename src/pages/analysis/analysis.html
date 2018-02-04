@@ -1,0 +1,62 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Analysis</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="bgColor">
+
+  <ion-card> 
+      <ion-card-header>
+          <h1>Building Energy Score</h1>
+      </ion-card-header>
+      <ion-card-content >
+        <ion-row>
+          <ion-col >
+              <ion-list >
+                  <ion-item no-lines>
+                    <ion-avatar item-start >
+                      <img src="assets/imgs/energy.svg">
+                    </ion-avatar>
+                    <h1 class="scoreFontSize"><b>56</b></h1>
+                  </ion-item>
+              </ion-list> 
+          </ion-col>
+        </ion-row> 
+
+          <ion-row>
+              <ion-list text-wrap>
+                  <ion-item no-lines>
+                    <h3>56 out of 100 at the end of reporting period</h3>
+                    <p>highest score during reporting period: <b>60</b></p>
+                    <p>lowest score during reporting period: <b>40</b></p>
+                  </ion-item>
+                </ion-list>
+        </ion-row>
+                 
+      </ion-card-content>
+  </ion-card>
+
+  <ion-card> 
+      <ion-card-header class="pb">
+          <h1>Analysis Score</h1>
+          <p text-wrap>Your score as compared to other LEED Buildings.</p>
+      </ion-card-header>
+      <ion-card-content >
+          <div id="chartdiv"></div>                 
+      </ion-card-content>
+  </ion-card>
+
+  <ion-row>
+      <ion-col center text-center >
+          <button ion-button block (click)="save()" >
+              Save the Data 
+          </button>
+      </ion-col>
+  </ion-row> 
+
+</ion-content>
