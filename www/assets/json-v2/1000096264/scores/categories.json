@@ -1,0 +1,62 @@
+{
+	"count": 5,
+	"next": null,
+	"previous": null,
+	"results": [
+		{
+			"id": 1,
+			"project_type": "building",
+			"category": "energy",
+			"color": "#D0DD3D",
+			"label": "Energy",
+			"puck_name": "CURRENT ENERGY",
+			"factors": "Electricity,Gas,Smart meters,Load schedule",
+			"include_meter": true,
+			"img_path": "assets/images/icon_energy_2x.svg"
+		},
+		{
+			"id": 2,
+			"project_type": "building",
+			"category": "water",
+			"color": "#55CAF5",
+			"label": "Water",
+			"puck_name": "CURRENT WATER",
+			"factors": "Water consumption",
+			"include_meter": true,
+			"img_path": "assets/images/icon_water_2x.svg"
+		},
+		{
+			"id": 3,
+			"project_type": "building",
+			"category": "waste",
+			"color": "#84CCAF",
+			"label": "Waste",
+			"puck_name": "CURRENT WASTE",
+			"factors": "Waste generated,Waste diverted",
+			"include_meter": true,
+			"img_path": "assets/images/icon_waste_2x.svg"
+		},
+		{
+			"id": 4,
+			"project_type": "building",
+			"category": "transportation",
+			"color": "#A39F92",
+			"label": "Transportation",
+			"puck_name": "CURRENT TRANSPORTATION",
+			"factors": "Occupant travel",
+			"include_meter": false,
+			"img_path": "assets/images/icon_transportation_2x.svg"
+		},
+		{
+			"id": 5,
+			"project_type": "building",
+			"category": "humanexperience",
+			"color": "#F2AC41",
+			"label": "Human Experience",
+			"puck_name": "CURRENT HUMAN EXPERIENCE",
+			"factors": "CO2 levels,VOC levels,Occupant Satisfaction",
+			"include_meter": true,
+			"img_path": "assets/images/icon_human_2x.svg"
+		}
+	]
+}

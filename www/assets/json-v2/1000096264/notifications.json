@@ -1,0 +1,35 @@
+[
+	{
+		"origin": null,
+		"target": null,
+		"object": "1000097052",
+		"actor": "1000097052",
+		"to": [],
+		"verb": "notification",
+		"time": "2017-01-05T19:57:18.234827",
+		"foreign_id": "data_input_human",
+		"id": "298737ee-d381-11e6-8080-800179e3e5ea"
+	},
+	{
+		"origin": null,
+		"target": null,
+		"object": "1000097052",
+		"actor": "1000097052",
+		"to": [],
+		"verb": "notification",
+		"time": "2017-01-05T19:57:18.125895",
+		"foreign_id": "data_input_transportation",
+		"id": "297698c6-d381-11e6-8080-80014df6c9d7"
+	},
+	{
+		"origin": null,
+		"target": null,
+		"object": "1000097052",
+		"actor": "1000097052",
+		"to": [],
+		"verb": "notification",
+		"time": "2017-01-05T19:57:18.048775",
+		"foreign_id": "data_input_waste",
+		"id": "296ad446-d381-11e6-8080-8000009d7f81"
+	}
+]

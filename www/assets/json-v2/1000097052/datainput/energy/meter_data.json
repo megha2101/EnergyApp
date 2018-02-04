@@ -1,0 +1,55 @@
+{
+	"count": 28,
+	"next": null,
+	"previous": null,
+	"results": [
+		{
+			"id": 12029,
+			"partner_details": 1,
+			"partner_meter_id": 23133021,
+			"name": "HVAC-5th flr North",
+			"included": false,
+			"native_unit": "kWh",
+			"type": 29,
+			"updated_at": null,
+			"updated_by": null,
+			"status": "synced",
+			"area_choice": null,
+			"responsibility": null,
+			"data_coverage_area": null,
+			"max_coverage_area": null,
+			"fuel_type": {
+				"id": 29,
+				"type": "RFCE",
+				"subtype": "RFC East",
+				"kind": "electricity",
+				"resource": "Non-Renewable"
+			},
+			"area_unit": null
+		},
+		{
+			"id": 12028,
+			"partner_details": null,
+			"partner_meter_id": 0,
+			"name": "Power LV-5th flr North",
+			"included": true,
+			"native_unit": "kWh",
+			"type": 29,
+			"updated_at": null,
+			"updated_by": null,
+			"status": "synced",
+			"area_choice": null,
+			"responsibility": null,
+			"data_coverage_area": null,
+			"max_coverage_area": null,
+			"fuel_type": {
+				"id": 29,
+				"type": "RFCE",
+				"subtype": "RFC East",
+				"kind": "electricity",
+				"resource": "Non-Renewable"
+			},
+			"area_unit": null
+		}
+	]
+}

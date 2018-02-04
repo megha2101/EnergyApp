@@ -1,0 +1,139 @@
+{
+	"count": 3,
+	"next": null,
+	"previous": null,
+	"results": [
+		{
+			"id": 46,
+			"asset": {
+				"id": 175472,
+				"leed_id": 1000096264,
+				"name": "Arc City Demo",
+				"city": "Washington",
+				"country": "US",
+				"state": "DC",
+				"zip_code": "20037",
+				"gross_area": 142,
+				"updated_at": "2017-06-07T04:31:11.140450Z",
+				"occupancy": 1553165,
+				"certification": "",
+				"building_status": "activated_payment_done",
+				"rating_system": "LEED V4 BD+C: CT",
+				"owner_name": null,
+				"owner_email": "gsweeney@usgbc.org",
+				"base_score": null,
+				"energy": 18,
+				"water": 5,
+				"waste": 8,
+				"transport": 12,
+				"human_experience": 8,
+				"scores": {
+					"water": 5,
+					"energy": 18,
+					"waste": 8,
+					"human_experience": 8,
+					"transport": 12
+				}
+			},
+			"created_by": {
+				"first_name": "Casey",
+				"last_name": "Studhalter",
+				"username": "cstudhalter@usgbc.org",
+				"email": ""
+			},
+			"action": "PF905",
+			"year": "2016",
+			"data": "{\"rent_income_perc_num\":\"0.349\",\"gini_coefficient_num\":\"0.5116\",\"median_income_num\":\"36836\",\"unemployement_perc_num\":\"0.138\",\"air_quality_index_num\":\"57\",\"unhealty_days_num\":\"6\",\"violent_crime_num\":0.01,\"high_school_perc_num\":\"0.822\",\"bachelor_degree_perc_num\":\"0.252\"}",
+			"created_at": "2017-05-30T15:25:42.988553Z",
+			"updated_at": "2016-12-01T20:30:28.624479Z"
+		},
+		{
+			"id": 47,
+			"asset": {
+				"id": 175472,
+				"leed_id": 1000096264,
+				"name": "Arc City Demo",
+				"city": "Washington",
+				"country": "US",
+				"state": "DC",
+				"zip_code": "20037",
+				"gross_area": 142,
+				"updated_at": "2017-06-07T04:31:11.140450Z",
+				"occupancy": 1553165,
+				"certification": "",
+				"building_status": "activated_payment_done",
+				"rating_system": "LEED V4 BD+C: CT",
+				"owner_name": null,
+				"owner_email": "gsweeney@usgbc.org",
+				"base_score": null,
+				"energy": 18,
+				"water": 5,
+				"waste": 8,
+				"transport": 12,
+				"human_experience": 8,
+				"scores": {
+					"water": 5,
+					"energy": 18,
+					"waste": 8,
+					"human_experience": 8,
+					"transport": 12
+				}
+			},
+			"created_by": {
+				"first_name": "Gretchen",
+				"last_name": "",
+				"username": "gsweeney@usgbc.org",
+				"email": ""
+			},
+			"action": "PF905",
+			"year": "2015",
+			"data": "{'air_quality_index_num':'57','unhealty_days_num':'6','violent_crime_num':'0.01','high_school_perc_num':'0.822','bachelor_degree_perc_num':'0.252','rent_income_perc_num':'0.349','gini_coefficient_num':'0.5116','median_income_num':'36836','unemployement_perc_num':'0.138'}",
+			"created_at": "2017-03-24T14:38:20.889699Z",
+			"updated_at": "2016-12-01T20:30:33.064682Z"
+		},
+		{
+			"id": 73,
+			"asset": {
+				"id": 175472,
+				"leed_id": 1000096264,
+				"name": "Arc City Demo",
+				"city": "Washington",
+				"country": "US",
+				"state": "DC",
+				"zip_code": "20037",
+				"gross_area": 142,
+				"updated_at": "2017-06-07T04:31:11.140450Z",
+				"occupancy": 1553165,
+				"certification": "",
+				"building_status": "activated_payment_done",
+				"rating_system": "LEED V4 BD+C: CT",
+				"owner_name": null,
+				"owner_email": "gsweeney@usgbc.org",
+				"base_score": null,
+				"energy": 18,
+				"water": 5,
+				"waste": 8,
+				"transport": 12,
+				"human_experience": 8,
+				"scores": {
+					"water": 5,
+					"energy": 18,
+					"waste": 8,
+					"human_experience": 8,
+					"transport": 12
+				}
+			},
+			"created_by": {
+				"first_name": "Gretchen",
+				"last_name": "",
+				"username": "gsweeney@usgbc.org",
+				"email": ""
+			},
+			"action": "PF905",
+			"year": "2014",
+			"data": "{'bachelor_degree_perc_num':'0.252','rent_income_perc_num':'0.349','median_income_num':'36836','unemployement_perc_num':'0.138','air_quality_index_num':'57','unhealty_days_num':'6','violent_crime_num':'0.01','high_school_perc_num':'0.822','gini_coefficient_num':'0.5116'}",
+			"created_at": "2017-03-24T14:38:21.501522Z",
+			"updated_at": "2016-12-07T22:16:54.528542Z"
+		}
+	]
+}

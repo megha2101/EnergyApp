@@ -1,0 +1,55 @@
+{
+	"count": 2,
+	"next": null,
+	"previous": null,
+	"results": [
+		{
+			"id": 12024,
+			"partner_details": null,
+			"partner_meter_id": 0,
+			"name": "Pantry and Shower Water",
+			"included": true,
+			"native_unit": "gal",
+			"type": 47,
+			"updated_at": "2017-06-20T21:17:53.185431Z",
+			"updated_by": null,
+			"status": "synced",
+			"area_choice": null,
+			"responsibility": null,
+			"data_coverage_area": null,
+			"max_coverage_area": null,
+			"fuel_type": {
+				"id": 47,
+				"type": "Municipality supplied potable water",
+				"subtype": "",
+				"kind": "water",
+				"resource": "Non-Reclaimed"
+			},
+			"area_unit": null
+		},
+		{
+			"id": 12023,
+			"partner_details": null,
+			"partner_meter_id": 0,
+			"name": "abc water meter",
+			"included": true,
+			"native_unit": "gal",
+			"type": 47,
+			"updated_at": null,
+			"updated_by": null,
+			"status": "synced",
+			"area_choice": null,
+			"responsibility": null,
+			"data_coverage_area": null,
+			"max_coverage_area": null,
+			"fuel_type": {
+				"id": 47,
+				"type": "Municipality supplied potable water",
+				"subtype": "",
+				"kind": "water",
+				"resource": "Non-Reclaimed"
+			},
+			"area_unit": null
+		}
+	]
+}

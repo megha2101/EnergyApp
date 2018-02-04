@@ -1,0 +1,29 @@
+{
+	"responses": 100,
+	"satisfaction": [
+		1,
+		0,
+		0,
+		2,
+		4,
+		7,
+		12,
+		4,
+		27,
+		32,
+		11
+	],
+	"other": 95,
+	"location": "Null",
+	"complaints": {
+		"glare": 0,
+		"privacy": 0,
+		"dark": 1,
+		"hot": 0,
+		"smelly": 0,
+		"dirty": 0,
+		"cold": 3
+	},
+	"generated_at": "2017-06-07T03:39:26.919364",
+	"last_week": 0
+}

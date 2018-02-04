@@ -1,0 +1,95 @@
+{
+	"count": 2,
+	"next": null,
+	"previous": null,
+	"results": [
+		{
+			"id": 211,
+			"asset": {
+				"id": 175472,
+				"leed_id": 1000096264,
+				"name": "Arc City Demo",
+				"city": "Washington",
+				"country": "US",
+				"state": "DC",
+				"zip_code": "20037",
+				"gross_area": 142,
+				"updated_at": "2017-06-07T04:31:11.140450Z",
+				"occupancy": 1553165,
+				"certification": "",
+				"building_status": "activated_payment_done",
+				"rating_system": "LEED V4 BD+C: CT",
+				"owner_name": null,
+				"owner_email": "gsweeney@usgbc.org",
+				"base_score": null,
+				"energy": 18,
+				"water": 5,
+				"waste": 8,
+				"transport": 12,
+				"human_experience": 8,
+				"scores": {
+					"water": 5,
+					"energy": 18,
+					"waste": 8,
+					"human_experience": 8,
+					"transport": 12
+				}
+			},
+			"created_by": {
+				"first_name": "Gretchen",
+				"last_name": "",
+				"username": "gsweeney@usgbc.org",
+				"email": ""
+			},
+			"action": "PF906",
+			"year": "2016",
+			"data": "{'heat_degree_days_num':'1000','heat_degree_days_num_unit':'na','heat_degree_days_num_name':'Heating degree days'}",
+			"created_at": "2017-05-23T18:27:07.465481Z",
+			"updated_at": "2017-02-08T20:22:51.909405Z"
+		},
+		{
+			"id": 212,
+			"asset": {
+				"id": 175472,
+				"leed_id": 1000096264,
+				"name": "Arc City Demo",
+				"city": "Washington",
+				"country": "US",
+				"state": "DC",
+				"zip_code": "20037",
+				"gross_area": 142,
+				"updated_at": "2017-06-07T04:31:11.140450Z",
+				"occupancy": 1553165,
+				"certification": "",
+				"building_status": "activated_payment_done",
+				"rating_system": "LEED V4 BD+C: CT",
+				"owner_name": null,
+				"owner_email": "gsweeney@usgbc.org",
+				"base_score": null,
+				"energy": 18,
+				"water": 5,
+				"waste": 8,
+				"transport": 12,
+				"human_experience": 8,
+				"scores": {
+					"water": 5,
+					"energy": 18,
+					"waste": 8,
+					"human_experience": 8,
+					"transport": 12
+				}
+			},
+			"created_by": {
+				"first_name": "Gretchen",
+				"last_name": "",
+				"username": "gsweeney@usgbc.org",
+				"email": ""
+			},
+			"action": "PF906",
+			"year": "2010",
+			"data": "{'add_field_46_num':'256','add_field_46_num_unit':'Interstate miles','add_field_46_num_name':'Total freeway lane miles'}",
+			"created_at": "2017-02-08T20:25:21.283080Z",
+			"updated_at": "2017-02-08T20:25:21.283102Z"
+		}
+	]
+}

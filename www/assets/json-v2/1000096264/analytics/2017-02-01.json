@@ -1,0 +1,59 @@
+{
+	"id": 795439,
+	"maxima": {
+		"energy": 33,
+		"water": 15,
+		"human_experience": 20,
+		"waste": 8,
+		"transport": 14,
+		"base": 10
+	},
+	"building": {
+		"id": 175472,
+		"leed_id": 1000096264,
+		"name": "Arc City Demo",
+		"city": "Washington",
+		"country": "US",
+		"state": "DC",
+		"zip_code": "20037",
+		"gross_area": 142,
+		"updated_at": "2017-06-07T04:31:11.140450Z",
+		"occupancy": 1553165,
+		"certification": "",
+		"building_status": "activated_payment_done",
+		"rating_system": "LEED V4 BD+C: CT",
+		"owner_name": null,
+		"owner_email": "gsweeney@usgbc.org",
+		"base_score": null,
+		"energy": 18,
+		"water": 5,
+		"waste": 8,
+		"transport": 12,
+		"human_experience": 8,
+		"scores": {
+			"water": 5,
+			"energy": 18,
+			"waste": 8,
+			"human_experience": 8,
+			"transport": 12
+		}
+	},
+	"scores": {
+		"energy": 8,
+		"water": 7,
+		"base": null,
+		"human_experience": 5,
+		"waste": null,
+		"transport": 5
+	},
+	"version": "cities",
+	"created_at": "2017-02-02T16:25:19.375374Z",
+	"effective_at": "2017-02-02T00:00:00Z",
+	"certification_level": null,
+	"energy": 24.9971724287366,
+	"water": 48.9998347764984,
+	"waste": null,
+	"transport": 38.4584066194645,
+	"human_experience": 25.3383215659592,
+	"base": null
+}

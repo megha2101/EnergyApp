@@ -1,0 +1,50 @@
+{
+	"energy": {
+		"id": 1250798,
+		"category": "Energy",
+		"info_json": "{'Scope1 Raw GHG (mtCO2e/day)': None, 'Energy Reference Set Closeness': 'Excellent', 'Energy Plaque Score with 7% Lower Emissions': 30.0, 'Energy Plaque Score with 5% Lower Emissions': 30.0, 'Energy Score (out of 100)': 90.573363413209847, 'Temperature adjusted GHG': 0.29950052162108887, 'Energy Reference Set Closeness Score (out of 100)': 96, 'Months of Energy Data': 9, 'Energy Plaque Score with 20% Lower Emissions': 30.0, 'Energy Plaque Score with 30% More Density and 30% Lower Emissions': 30.0, 'Raw GHG (mtCO2e/day)': 0.30548682928677523, 'Percent emissions reduction for a plaque score of 32': 95, 'Energy Plaque Score with 50% Lower Emissions': 30.0, 'Energy Plaque Score with 30% More Density': 30.0, 'Percent emissions reduction for a plaque score of 31': 60, 'Energy Plaque Score with 2% Lower Emissions': 30.0, 'Adjusted Emissions per Occupant': 0.0010980511846097457, 'Months of Temperature Data': 10, 'Scope2 Raw GHG (mtCO2e/day)': 0.30548682928677523, 'Energy Plaque Score with 10% More Density and 10% Lower Emissions': 30.0, 'Energy Score Uncertainty': 1000, 'Energy Plaque Score': 30.0, 'Energy Plaque Score with 10% More Density': 30.0, 'Temperature and Operating Hours adjusted GHG': 0.25694397719868051, 'Energy Plaque Score with 10% Lower Emissions': 30.0, 'Adjusted Emissions per SF': 3.4830415778592991e-06}",
+		"created_at": "2017-06-06T13:35:59.656357Z",
+		"effective_at": "2017-06-06T00:00:00Z",
+		"building": 175515
+	},
+	"water": {
+		"id": 1250799,
+		"category": "Water",
+		"info_json": "{'Water Plaque Score with 10% More Density': 14.0, 'Months of Water Data': 9, 'Water Plaque Score with 7% Lower Emissions': 14.0, 'Water Plaque Score with 50% Lower Emissions': 14.0, 'Adjusted Gallons per Occupant': 0.44163673442340212, 'Water Reference Set Closeness Score (out of 100)': 52, 'Water Plaque Score with 5% Lower Emissions': 14.0, 'Water Score (out of 100)': 94.228407095801629, 'Operating Hours adjusted Water Use': 103.3429958550761, 'Water Plaque Score with 10% More Density and 10% Lower Emissions': 14.0, 'Percent emissions reduction for a plaque score of 15': 82, 'Water Plaque Score with 2% Lower Emissions': 14.0, 'Adjusted Gallons per SF': 0.0014008810607981036, 'Water Score Uncertainty': 1000, 'Water Reference Set Closeness': 'Good', 'Water Plaque Score with 10% Lower Emissions': 14.0, 'Water Plaque Score with 20% Lower Emissions': 14.0, 'Water Plaque Score with 30% More Density and 30% Lower Emissions': 14.0, 'Water Plaque Score': 14.0, 'Raw Water Use (gallons/day)': 120.45925925926026, 'Water Plaque Score with 30% More Density': 14.0}",
+		"created_at": "2017-06-06T13:36:09.497049Z",
+		"effective_at": "2017-06-06T00:00:00Z",
+		"building": 175515
+	},
+	"human": {
+		"id": 1250801,
+		"category": "Human",
+		"info_json": "{'Human Experience Plaque Score': 17.0, 'Human Experience Subscores (out of 100, weighted equally)': {'occupant_satisfaction': 73.517987094436535, 'co2': 98.601497322796575, 'voc': 77.85956403269816}, 'Human Experience Inputs': {'variance_response': 3.6058999999999997, 'mean_response': 7.71, 'occupant_satisfaction_fraction': 0.42735042735042733, 'co2': 574.7981335033918, 'voc': 187.0}, 'Human Experience Score (out of 100)': 83.326349483310423}",
+		"created_at": "2017-06-06T13:36:22.528838Z",
+		"effective_at": "2017-06-06T00:00:00Z",
+		"building": 175515
+	},
+	"basic": {
+		"id": 1250802,
+		"category": "Basic",
+		"info_json": "{'Operating Hours': 79.0, 'Name': u'Innovation Unlimited', 'Density (SF per occupant)': 315.2564102564103, 'ZIP code': u'20037', 'Occupancy': 234, 'Square Footage': 73770.0, 'LEED ID': 1000097052}",
+		"created_at": "2017-06-06T13:36:23.027466Z",
+		"effective_at": "2017-06-06T00:00:00Z",
+		"building": 175515
+	},
+	"waste": {
+		"id": 1250803,
+		"category": "Waste",
+		"info_json": "{'Waste Plaque Score (at equal generation and 75% diversion)': 7.0, 'Waste Plaque Score (at equal generation and 50% diversion)': 6.0, 'Waste Plaque Score (at 50% lower generation and same diversion rate)': 7.0, 'Undiverted Waste (lbs per occupant per day)': 0.12592860334110331, 'Waste Plaque Score (at 20% lower generation and same diversion rate)': 7.0, 'Waste Diversion Rate': 0.76470373281890414, 'Waste Plaque Score': 7.0, 'Waste Plaque Score (at equal generation and 100% diversion)': 8.0, 'Generated Waste (lbs per occupant per day)': 0.53519167484562213, 'Waste Score (out of 100)': 86.388085564778919}",
+		"created_at": "2017-06-06T13:36:24.880591Z",
+		"effective_at": "2017-06-06T00:00:00Z",
+		"building": 175515
+	},
+	"transit": {
+		"id": 1250800,
+		"category": "Transportation",
+		"info_json": "{'Percent emissions reduction for a plaque score of 14': 56, 'Transportation Score (out of 100)': 92.044316479432794, 'Transportation Participation Fraction': 0.42735042735042733, 'Transportation Plaque Score with 10% Lower Emissions': 13.0, 'Transportation Plaque Score with 20% Lower Emissions': 13.0, 'Transportation Plaque Score with 50% Lower Emissions': 13.0, 'Average Transit CO2e': 3.5429286666666666, 'Transportation Plaque Score': 13.0}",
+		"created_at": "2017-06-06T13:36:17.132673Z",
+		"effective_at": "2017-06-06T00:00:00Z",
+		"building": 175515
+	}
+}

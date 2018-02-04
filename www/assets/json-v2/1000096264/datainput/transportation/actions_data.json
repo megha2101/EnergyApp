@@ -1,0 +1,139 @@
+{
+	"count": 3,
+	"next": null,
+	"previous": null,
+	"results": [
+		{
+			"id": 68,
+			"asset": {
+				"id": 175472,
+				"leed_id": 1000096264,
+				"name": "Arc City Demo",
+				"city": "Washington",
+				"country": "US",
+				"state": "DC",
+				"zip_code": "20037",
+				"gross_area": 142,
+				"updated_at": "2017-06-07T04:31:11.140450Z",
+				"occupancy": 1553165,
+				"certification": "",
+				"building_status": "activated_payment_done",
+				"rating_system": "LEED V4 BD+C: CT",
+				"owner_name": null,
+				"owner_email": "gsweeney@usgbc.org",
+				"base_score": null,
+				"energy": 18,
+				"water": 5,
+				"waste": 8,
+				"transport": 12,
+				"human_experience": 8,
+				"scores": {
+					"water": 5,
+					"energy": 18,
+					"waste": 8,
+					"human_experience": 8,
+					"transport": 12
+				}
+			},
+			"created_by": {
+				"first_name": "Casey",
+				"last_name": "Studhalter",
+				"username": "cstudhalter@usgbc.org",
+				"email": ""
+			},
+			"action": "PF904",
+			"year": "2016",
+			"data": "{'vehicles_miles_num':'20'}",
+			"created_at": "2017-01-19T20:27:31.878228Z",
+			"updated_at": "2016-12-07T22:10:40.797526Z"
+		},
+		{
+			"id": 69,
+			"asset": {
+				"id": 175472,
+				"leed_id": 1000096264,
+				"name": "Arc City Demo",
+				"city": "Washington",
+				"country": "US",
+				"state": "DC",
+				"zip_code": "20037",
+				"gross_area": 142,
+				"updated_at": "2017-06-07T04:31:11.140450Z",
+				"occupancy": 1553165,
+				"certification": "",
+				"building_status": "activated_payment_done",
+				"rating_system": "LEED V4 BD+C: CT",
+				"owner_name": null,
+				"owner_email": "gsweeney@usgbc.org",
+				"base_score": null,
+				"energy": 18,
+				"water": 5,
+				"waste": 8,
+				"transport": 12,
+				"human_experience": 8,
+				"scores": {
+					"water": 5,
+					"energy": 18,
+					"waste": 8,
+					"human_experience": 8,
+					"transport": 12
+				}
+			},
+			"created_by": {
+				"first_name": "Casey",
+				"last_name": "Studhalter",
+				"username": "cstudhalter@usgbc.org",
+				"email": ""
+			},
+			"action": "PF904",
+			"year": "2015",
+			"data": "{'vehicles_miles_num':'20'}",
+			"created_at": "2017-02-15T16:20:27.212057Z",
+			"updated_at": "2016-12-07T22:10:43.021063Z"
+		},
+		{
+			"id": 70,
+			"asset": {
+				"id": 175472,
+				"leed_id": 1000096264,
+				"name": "Arc City Demo",
+				"city": "Washington",
+				"country": "US",
+				"state": "DC",
+				"zip_code": "20037",
+				"gross_area": 142,
+				"updated_at": "2017-06-07T04:31:11.140450Z",
+				"occupancy": 1553165,
+				"certification": "",
+				"building_status": "activated_payment_done",
+				"rating_system": "LEED V4 BD+C: CT",
+				"owner_name": null,
+				"owner_email": "gsweeney@usgbc.org",
+				"base_score": null,
+				"energy": 18,
+				"water": 5,
+				"waste": 8,
+				"transport": 12,
+				"human_experience": 8,
+				"scores": {
+					"water": 5,
+					"energy": 18,
+					"waste": 8,
+					"human_experience": 8,
+					"transport": 12
+				}
+			},
+			"created_by": {
+				"first_name": "Casey",
+				"last_name": "Studhalter",
+				"username": "cstudhalter@usgbc.org",
+				"email": ""
+			},
+			"action": "PF904",
+			"year": "2014",
+			"data": "{'vehicles_miles_num':'20'}",
+			"created_at": "2017-01-19T20:27:33.979100Z",
+			"updated_at": "2016-12-07T22:10:46.708758Z"
+		}
+	]
+}

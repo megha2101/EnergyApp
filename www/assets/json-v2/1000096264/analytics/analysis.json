@@ -1,0 +1,50 @@
+{
+	"energy": {
+		"id": 1259739,
+		"category": "Energy",
+		"info_json": "None",
+		"created_at": "2017-06-07T15:17:53.112664Z",
+		"effective_at": "2017-06-07T00:00:00Z",
+		"building": 175472
+	},
+	"water": {
+		"id": 1259740,
+		"category": "Water",
+		"info_json": "None",
+		"created_at": "2017-06-07T15:17:53.932117Z",
+		"effective_at": "2017-06-07T00:00:00Z",
+		"building": 175472
+	},
+	"human": {
+		"id": 1259742,
+		"category": "Human",
+		"info_json": "{'Human Experience Plaque Score': 0.0, 'Human Experience Subscores (out of 100, weighted equally)': {'occupant_satisfaction': 0.015432098764438962}, 'Human Experience Inputs': {'variance_response': 0.0, 'mean_response': 0.0, 'occupant_satisfaction_fraction': 0.0, 'co2': None, 'voc': None}, 'Human Experience Score (out of 100)': 0.0051440329214796536}",
+		"created_at": "2017-06-07T15:17:59.300576Z",
+		"effective_at": "2017-06-07T00:00:00Z",
+		"building": 175472
+	},
+	"basic": {
+		"id": 1259743,
+		"category": "Basic",
+		"info_json": "{'Operating Hours': None, 'Name': u'Arc City Demo', 'Density (SF per occupant)': 9.142621678958771e-05, 'ZIP code': u'20037', 'Occupancy': 1553165, 'Square Footage': 142.0, 'LEED ID': 1000096264}",
+		"created_at": "2017-06-07T15:17:59.810820Z",
+		"effective_at": "2017-06-07T00:00:00Z",
+		"building": 175472
+	},
+	"waste": {
+		"id": 1259744,
+		"category": "Waste",
+		"info_json": "None",
+		"created_at": "2017-06-07T15:18:00.971640Z",
+		"effective_at": "2017-06-07T00:00:00Z",
+		"building": 175472
+	},
+	"transit": {
+		"id": 1259741,
+		"category": "Transportation",
+		"info_json": "{'Transportation Plaque Score with 20% Lower Emissions': 14.0, 'Transportation Score (out of 100)': 100.0, 'Transportation Participation Fraction': 0.0, 'Transportation Plaque Score': 14.0, 'Transportation Plaque Score with 50% Lower Emissions': 14.0, 'Average Transit CO2e': 0.0, 'Transportation Plaque Score with 10% Lower Emissions': 14.0}",
+		"created_at": "2017-06-07T15:17:55.828762Z",
+		"effective_at": "2017-06-07T00:00:00Z",
+		"building": 175472
+	}
+}

@@ -1,0 +1,37 @@
+[
+	{
+		"username": "yasthana@usgbc.org",
+		"timestamp": "2017-05-24T14:19:33.161760Z",
+		"useremail": "",
+		"verb": "Eric has deleted meter ESB Southwest Quadrant",
+		"description": "pf901"
+	},
+	{
+		"username": "yasthana@usgbc.org",
+		"timestamp": "2017-05-17T05:44:24.759916Z",
+		"useremail": "",
+		"verb": "Alex Zhao Ming has deleted meter May 17",
+		"description": "pf901"
+	},
+	{
+		"username": "yasthana@usgbc.org",
+		"timestamp": "2017-05-16T06:05:24.339104Z",
+		"useremail": "",
+		"verb": "Alex Zhao Ming has added a new meter with name :May 17",
+		"description": "pf901"
+	},
+	{
+		"username": "yasthana@usgbc.org",
+		"timestamp": "2017-05-16T06:00:07.185006Z",
+		"useremail": "",
+		"verb": "Alex Zhao Ming has deleted meter solar 3",
+		"description": "pf901"
+	},
+	{
+		"username": "yasthana@usgbc.org",
+		"timestamp": "2017-05-16T05:59:25.629368Z",
+		"useremail": "",
+		"verb": "Alex Zhao Ming has deleted meter solar 3",
+		"description": "pf901"
+	}
+]

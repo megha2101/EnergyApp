@@ -1,0 +1,20 @@
+{
+	"id": 30,
+	"asset_count": 0,
+	"permission": "can_edit",
+	"partner_portfolio_id": null,
+	"partner_userid": null,
+	"source": "arc",
+	"name": "Test YA",
+	"manager": null,
+	"description": null,
+	"address": null,
+	"organization": "usgbc",
+	"organization_contact": "PROMANTUS INC",
+	"organization_email": "yogesh.asthana27@gmail.com",
+	"status": "active",
+	"pf_id": 90600030,
+	"created_at": "2017-05-18T15:48:54.808029Z",
+	"updated_at": "2017-05-18T15:48:54.808051Z",
+	"updated_by": 2413
+}

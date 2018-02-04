@@ -1,0 +1,13 @@
+{
+	"id": 29,
+	"profile": {
+		"first_name": "Gautami",
+		"last_name": "",
+		"username": "gpalanki@usgbc.org",
+		"email": ""
+	},
+	"destination": "gpalanki@usgbc.org",
+	"score_change_notification": true,
+	"daily_score_notification": false,
+	"stype": "email"
+}

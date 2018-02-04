@@ -1,0 +1,158 @@
+[
+	{
+		"id": 62,
+		"building": {
+			"id": 175472,
+			"leed_id": 1000096264,
+			"name": "Arc City Demo",
+			"city": "Washington",
+			"country": "US",
+			"state": "DC",
+			"zip_code": "20037",
+			"gross_area": 142,
+			"updated_at": "2017-06-07T04:31:11.140450Z",
+			"occupancy": 1553165,
+			"certification": "",
+			"building_status": "activated_payment_done",
+			"rating_system": "LEED V4 BD+C: CT",
+			"owner_name": null,
+			"owner_email": "gsweeney@usgbc.org",
+			"base_score": null,
+			"energy": 18,
+			"water": 5,
+			"waste": 8,
+			"transport": 12,
+			"human_experience": 8,
+			"scores": {
+				"water": 5,
+				"energy": 18,
+				"waste": 8,
+				"human_experience": 8,
+				"transport": 12
+			}
+		},
+		"apps": {
+			"id": 1,
+			"name": "Energy Star Portfolio Manager",
+			"logo_path": "../assets/images/apps/energy_star.png",
+			"description": "Pull data from your Energy Star Portfolio Manager account to use for performance scores"
+		}
+	},
+	{
+		"id": 63,
+		"building": {
+			"id": 175472,
+			"leed_id": 1000096264,
+			"name": "Arc City Demo",
+			"city": "Washington",
+			"country": "US",
+			"state": "DC",
+			"zip_code": "20037",
+			"gross_area": 142,
+			"updated_at": "2017-06-07T04:31:11.140450Z",
+			"occupancy": 1553165,
+			"certification": "",
+			"building_status": "activated_payment_done",
+			"rating_system": "LEED V4 BD+C: CT",
+			"owner_name": null,
+			"owner_email": "gsweeney@usgbc.org",
+			"base_score": null,
+			"energy": 18,
+			"water": 5,
+			"waste": 8,
+			"transport": 12,
+			"human_experience": 8,
+			"scores": {
+				"water": 5,
+				"energy": 18,
+				"waste": 8,
+				"human_experience": 8,
+				"transport": 12
+			}
+		},
+		"apps": {
+			"id": 2,
+			"name": "Dropbox",
+			"logo_path": "../assets/images/apps/dropbox.png",
+			"description": "Access and save files directly to your dropbox account"
+		}
+	},
+	{
+		"id": 64,
+		"building": {
+			"id": 175472,
+			"leed_id": 1000096264,
+			"name": "Arc City Demo",
+			"city": "Washington",
+			"country": "US",
+			"state": "DC",
+			"zip_code": "20037",
+			"gross_area": 142,
+			"updated_at": "2017-06-07T04:31:11.140450Z",
+			"occupancy": 1553165,
+			"certification": "",
+			"building_status": "activated_payment_done",
+			"rating_system": "LEED V4 BD+C: CT",
+			"owner_name": null,
+			"owner_email": "gsweeney@usgbc.org",
+			"base_score": null,
+			"energy": 18,
+			"water": 5,
+			"waste": 8,
+			"transport": 12,
+			"human_experience": 8,
+			"scores": {
+				"water": 5,
+				"energy": 18,
+				"waste": 8,
+				"human_experience": 8,
+				"transport": 12
+			}
+		},
+		"apps": {
+			"id": 3,
+			"name": "OneDrive",
+			"logo_path": "../assets/images/apps/onedrive.png",
+			"description": "Access and save files directly to your Office365 OneDrive account"
+		}
+	},
+	{
+		"id": 65,
+		"building": {
+			"id": 175472,
+			"leed_id": 1000096264,
+			"name": "Arc City Demo",
+			"city": "Washington",
+			"country": "US",
+			"state": "DC",
+			"zip_code": "20037",
+			"gross_area": 142,
+			"updated_at": "2017-06-07T04:31:11.140450Z",
+			"occupancy": 1553165,
+			"certification": "",
+			"building_status": "activated_payment_done",
+			"rating_system": "LEED V4 BD+C: CT",
+			"owner_name": null,
+			"owner_email": "gsweeney@usgbc.org",
+			"base_score": null,
+			"energy": 18,
+			"water": 5,
+			"waste": 8,
+			"transport": 12,
+			"human_experience": 8,
+			"scores": {
+				"water": 5,
+				"energy": 18,
+				"waste": 8,
+				"human_experience": 8,
+				"transport": 12
+			}
+		},
+		"apps": {
+			"id": 4,
+			"name": "Google Drive",
+			"logo_path": "../assets/images/apps/google.png",
+			"description": "Access and save files directly to your Google Drive account"
+		}
+	}
+]

@@ -1,0 +1,55 @@
+{
+	"count": 1,
+	"next": null,
+	"previous": null,
+	"results": [
+		{
+			"id": 324,
+			"building": {
+				"id": 175515,
+				"leed_id": 1000097052,
+				"name": "Creation Unlimited",
+				"city": "Washington",
+				"country": "US",
+				"state": "DC",
+				"zip_code": "20037",
+				"gross_area": 73770,
+				"updated_at": "2017-06-07T04:28:07.536233Z",
+				"occupancy": 234,
+				"certification": "",
+				"building_status": "Registered",
+				"rating_system": "LEED V4 O+M: EB WP",
+				"owner_name": null,
+				"owner_email": "dgami@usgbc.org",
+				"base_score": null,
+				"energy": 18,
+				"water": 5,
+				"base": null,
+				"human_experience": 8,
+				"waste": 8,
+				"transport": 12,
+				"scores": {
+					"energy": 18,
+					"water": 5,
+					"base": null,
+					"human_experience": 8,
+					"waste": 8,
+					"transport": 12
+				}
+			},
+			"asset_partner_id": 1000097052,
+			"asset_name": null,
+			"asset_country": null,
+			"asset_address": null,
+			"property_type": null,
+			"portfolio": 30,
+			"energy": 55,
+			"water": 31,
+			"waste": 100,
+			"transport": 89,
+			"human_experience": 39,
+			"carbon_scope1": 10,
+			"carbon_scope2": 8
+		}		
+	]
+}

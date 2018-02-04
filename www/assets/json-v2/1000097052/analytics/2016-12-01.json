@@ -1,0 +1,59 @@
+{
+	"id": 1279240,
+	"maxima": {
+		"energy": 33,
+		"water": 15,
+		"human_experience": 20,
+		"waste": 8,
+		"transport": 14,
+		"base": 10
+	},
+	"building": {
+		"id": 175515,
+		"leed_id": 1000097052,
+		"name": "Innovation Unlimited",
+		"city": "Washington",
+		"country": "US",
+		"state": "DC",
+		"zip_code": "20037",
+		"gross_area": 73770,
+		"updated_at": "2017-06-05T04:28:05.348929Z",
+		"occupancy": 234,
+		"certification": "",
+		"building_status": "activated_payment_done",
+		"rating_system": "LEED V4 O+M: EB WP",
+		"owner_name": null,
+		"owner_email": "dgami@usgbc.org",
+		"base_score": null,
+		"energy": 30,
+		"water": 14,
+		"waste": 7,
+		"transport": 13,
+		"human_experience": 17,
+		"scores": {
+			"water": 14,
+			"energy": 40,
+			"waste": 7,
+			"human_experience": 17,
+			"transport": 13
+		}
+	},
+	"scores": {
+		"energy": 30,
+		"water": 14,
+		"base": null,
+		"human_experience": 17,
+		"waste": 7,
+		"transport": 13
+	},
+	"version": "version3",
+	"created_at": "2017-04-12T17:42:41.309945Z",
+	"effective_at": "2016-12-01T00:00:00Z",
+	"certification_level": "gold",
+	"energy": 90.1308428382099,
+	"water": 94.1458915873012,
+	"waste": 85.6015964599153,
+	"transport": 91.7167989362429,
+	"human_experience": 83.6963547895392,
+	"base": null
+}

@@ -1,0 +1,11 @@
+{
+	"count": 89,
+	"created_at_max": "2017-06-06T13:40:50.176088Z",
+	"created_at_min": "2017-02-21T12:03:28.567325Z",
+	"energy_avg": 23,
+	"water_avg": 8,
+	"waste_avg": 5,
+	"transport_avg": 11,
+	"base_avg": 4,
+	"human_experience_avg": 13
+}
