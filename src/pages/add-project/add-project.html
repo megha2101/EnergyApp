@@ -22,38 +22,12 @@
           <ion-item no-lines *ngIf="!addProjectForm.controls.projectName.valid  && (addProjectForm.controls.projectName.dirty || submitAttempt)">
               <p class="error-message">Please specify username.</p>
           </ion-item>
-
-          <ion-item class="mtop">
-              <ion-label stacked>Area</ion-label>
-              <ion-input formControlName="area" type="Number" pattern="[0-9]*" [class.invalid]="!addProjectForm.controls.area.valid && (addProjectForm.controls.area.dirty || submitAttempt)"></ion-input>
-          </ion-item>
-
-          <!-- <ion-item no-lines> 
-              <ion-label class="fontSize" style="color:#999"> Enter total area in square miles</ion-label>
-          </ion-item> -->
-
-          <ion-item no-lines *ngIf="!addProjectForm.controls.area.valid  && (addProjectForm.controls.area.dirty || submitAttempt)">
-              <p class="error-message">Please specify area.</p>
-          </ion-item>
-
-          <ion-item class="mtop">
-              <ion-label stacked>Unit of Measure</ion-label>
-                  <ion-select [(ngModel)]="unitType" formControlName="unit" [class.invalid]="!addProjectForm.controls.unit.valid  && (addProjectForm.controls.unit.dirty || submitAttempt)">
-                        <ion-option value="selectUnit" disabled selected >Select Unit of Measure </ion-option>
-                        <ion-option value="kWh">kWh</ion-option>
-              </ion-select>
-          </ion-item>
-
-          <ion-item no-lines *ngIf="!addProjectForm.controls.unit.valid  && (addProjectForm.controls.unit.dirty || submitAttempt)">
-              <p class="error-message" text-wrap>Please select unit.</p>
-          </ion-item> 
+ 
 
           <ion-item class="mtop">
               <ion-label stacked>Address</ion-label>
               <ion-textarea  formControlName="address"  type="Text" name="description"></ion-textarea>
-          </ion-item>
-
-          
+          </ion-item>         
           
           <ion-item class="mtop">
               <ion-label stacked>City</ion-label>
@@ -90,7 +64,7 @@
           
           <ion-item class="mtop">
               <ion-label stacked>Zipcode</ion-label>
-              <ion-input formControlName="zipcode" type="Number"></ion-input>
+              <ion-input formControlName="zipcode" type="number" pattern="[0-9]*"></ion-input>
           </ion-item>
 
           <ion-item no-lines></ion-item>

@@ -25,13 +25,11 @@ export class AddProjectPage {
     public SharedService: SharedServiceProvider, public storage: Storage, public viewCtrl: ViewController) {
     this.addProjectForm = formBuilder.group({
       projectName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      area: ['', Validators.compose([Validators.maxLength(10), Validators.pattern('[0-9 ]*'), Validators.required])],
-      unit: ['selectUnit', Validators.compose([Validators.required])],
       address: [''],
       city: [''],
       countryName: ['selectCountry', Validators.compose([Validators.required])],
       state: ['stateSelect', Validators.compose([Validators.required])],
-      zipcode: [''],      
+      zipcode: ['', Validators.pattern('[0-9 ]*')],      
     });
   }
 
@@ -41,27 +39,27 @@ export class AddProjectPage {
     $(".countryErrorMessage").hide();
   }
 
-  stateFn(stateVal){
-    if(stateVal.value != 'stateSelect'){
-      $(".invalid").removeClass();
-    }
-  }
+  // stateFn(stateVal){
+  //   if(stateVal.value != 'stateSelect'){
+  //     $(".invalid").removeClass();
+  //   }
+  // }
 
-  countryFn(countryVal){
-    if(countryVal != 'selectCountry'){
-      $("ion-select").removeClass("invalid");
-      $(".countryErrorMessage").hide();
-    }else{
-      $("ion-select:last").addClass("invalid");
-      $(".countryErrorMessage").show();
-    }
-  }
+  // countryFn(countryVal){
+  //   if(countryVal != 'selectCountry'){
+  //     $("ion-select").removeClass("invalid");
+  //     $(".countryErrorMessage").hide();
+  //   }else{
+  //     $("ion-select:last").addClass("invalid");
+  //     $(".countryErrorMessage").show();
+  //   }
+  // }
 
 
   setAllItems(){
-    this.storage.set(this.newProject, {"name": this.addProjectForm.get('projectName').value , "gross_area": this.addProjectForm.get('area').value,
+    this.storage.set(this.newProject, {"name": this.addProjectForm.get('projectName').value ,
      "city": "washington", "country": "United States","state": "DC"}).then(()=>{ 
-      console.log('Stored item!');
+      console.log('Stored item!'+ this.newProject);
       this.getAllItems();
       error => console.error('Error storing item', error)
     });
@@ -74,7 +72,7 @@ export class AddProjectPage {
           this.SharedService.myNewProject = data;
           this.SharedService.sharedAllProjects.push(this.SharedService.myNewProject);
           this.SharedService.sharedAllProjectsNew.push(this.SharedService.myNewProject);
-          this.navCtrl.pop();
+          this.navCtrl.push(ProjectListPage);
         }else{
           console.log('Error in getting new item');
         }
@@ -86,13 +84,6 @@ export class AddProjectPage {
 
   addNewProject(){
       this.submitAttempt = true;
-      // this.SharedService.stateValue = this.addProjectForm.get('state').value;
-      // this.SharedService.countryValue = this.addProjectForm.get('countryName').value;
-      
-      
-      // if(this.SharedService.stateValue == "stateSelect" || this.SharedService.countryValue == "countrySelect"){
-      //   $(".invalid").addClass();
-      // }
       if(!this.addProjectForm.valid){      
       }
       else {        

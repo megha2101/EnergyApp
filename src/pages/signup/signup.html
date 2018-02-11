@@ -32,7 +32,7 @@
   
                   <ion-item class="mtop">
                       <ion-label stacked >Email</ion-label>
-                      <ion-input formControlName="emailNew" type="text" tappable [class.invalid]="!signUpForm.controls.emailNew.valid  && (signUpForm.controls.emailNew.dirty || submitAttempt)"></ion-input>
+                      <ion-input formControlName="emailNew" type="email" tappable [class.invalid]="!signUpForm.controls.emailNew.valid  && (signUpForm.controls.emailNew.dirty || submitAttempt)"></ion-input>
                   </ion-item>
         
                   <ion-item no-lines *ngIf="!signUpForm.controls.emailNew.valid  && (signUpForm.controls.emailNew.dirty || submitAttempt)">
@@ -41,7 +41,7 @@
 
                   <ion-item class="mtop">
                       <ion-label stacked >Email<span stacked class="fontSize"> (confirm)</span></ion-label>
-                      <ion-input formControlName="confirmEmail" type="text" tappable [class.invalid]="!signUpForm.controls.confirmEmail.valid  && (signUpForm.controls.confirmEmail.dirty || submitAttempt)"></ion-input>
+                      <ion-input formControlName="confirmEmail" type="email" tappable [class.invalid]="!signUpForm.controls.confirmEmail.valid  && (signUpForm.controls.confirmEmail.dirty || submitAttempt)"></ion-input>
                   </ion-item>
         
                   <ion-item no-lines *ngIf="!signUpForm.controls.confirmEmail.valid  && (signUpForm.controls.confirmEmail.dirty || submitAttempt)">

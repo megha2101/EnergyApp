@@ -16,14 +16,13 @@ export class LoginPage {
 
   loginForm: FormGroup;
   submitAttempt: boolean = false;
+  emailRegx: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
-
       this.loginForm = formBuilder.group({
-          username: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+          loginEmail: ['', Validators.compose([Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})'), Validators.required])],
           password: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])]
       });
-
   }
 
   login(){
@@ -33,7 +32,7 @@ export class LoginPage {
       }
       else {
         //if (!params) params = {};
-        this.navCtrl.push(ProjectListPage);
+        this.navCtrl.push(AddProjectPage);
       } 
       
   }

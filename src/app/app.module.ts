@@ -31,6 +31,7 @@ import { BuildingProjectServiceProvider } from '../providers/building-project-se
 //Components
 import { FabIconComponent } from '../components/fab-icon/fab-icon';
 import { SearchServiceProvider } from '../providers/search-service/search-service';
+import { SourcesListPage } from '../pages/sources-list/sources-list';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { SearchServiceProvider } from '../providers/search-service/search-servic
     SourcePage,
     AddMeterDataPage,
     SignupPage,
-    AddSourcePage
+    AddSourcePage,
+    SourcesListPage
   ],
   imports: [
     BrowserModule,
@@ -81,7 +83,8 @@ import { SearchServiceProvider } from '../providers/search-service/search-servic
     SourcePage,
     AddMeterDataPage,
     SignupPage,
-    AddSourcePage
+    AddSourcePage,
+    SourcesListPage
   ],
   providers: [
     StatusBar,

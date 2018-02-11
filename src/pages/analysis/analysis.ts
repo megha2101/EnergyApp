@@ -13,77 +13,73 @@ import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
   templateUrl: 'analysis.html',
 })
 export class AnalysisPage {
-  private chart: AmChart;
+  private scoreAnalysisChart: AmChart;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public sharedService: SharedServiceProvider,
     public storage: Storage, private AmCharts: AmChartsService)
   {
   }
 
-  ngOnInit(){    
+  ngAfterViewInit(){    
     this.getBasicInformation();
-    var chart = this.AmCharts.makeChart("chartdiv", {
-      "type": "gauge",
-      "hideCredits":true,
-      "theme": "none",
-      "axes": [{
-        "axisAlpha": 0,
-        "tickAlpha": 0,
-        "labelsEnabled": false,
-        "startValue": 0,
-        "endValue": 100,
-        "startAngle": 0,
-        "endAngle": 270,
-        "bands": [  {
-          "color": "#eee",
-          "startValue": 0,
-          "endValue": 100,
-          "radius": "80%",
-          "innerRadius": "65%",
-          "text": 45
-        }, {
-          "color": "#d1de3c",
-          "startValue": 0,
-          "endValue": 70,
-          "radius": "80%",
-          "innerRadius": "65%",
-          "balloonText": "70"
-        }, {
-          "color": "#eee",
-          "startValue": 0,
-          "endValue": 100,
-          "radius": "60%",
-          "innerRadius": "45%"
-        }, {
-          "color": "#e6ec93",
-          "startValue": 0,
-          "endValue": 56,
-          "radius": "60%",
-          "innerRadius": "45%",
-          "balloonText": "56"
-        }]
-      }],
-      "allLabels": [{
-        "text": "LEED Building Score",
-        "x": "49%",
-        "y": "15%",
-        "size": 10,
-        "bold": true,
-        "color": "#414042",
-        "align": "right"
-      }, {
-        "text": "Your Building Score",
-        "x": "49%",
-        "y": "24%",
-        "size": 10,
-        "bold": true,
-        "color": "#414042",
-        "align": "right"
-      }],
+    var scoreAnalysisChart = this.AmCharts.makeChart( "scoreAnalysis", {
+      "type": "serial",
+      "theme": "light",
+       "hideCredits":true,
+       "autoMargins": false,
+       "marginLeft": 50,
+       "marginRight": 8,
+       "marginTop": 10,
+       "marginBottom": 30,
+      "dataProvider": [ {
+          "BuildingName": "Your Building",
+          "Score": 59
+        },{
+          "BuildingName": "Local Average",
+          "Score": 68,
+          "dashLengthLine": 5,
+          "dashLengthColumn": 5,
+          "alpha": 0.2,
+            }, {
+          "BuildingName": "Global Average",
+          "Score": 62,       
+          "dashLengthColumn": 5,
+          "alpha": 0.2,
+        }],
+      "valueAxes": [ {
+        "gridColor": "#FFFFFF",
+        "gridAlpha": 0.2,
+        "dashLength": 0,
+        "title": "Scores"
+      } ],
+      "gridAboveGraphs": true,
+      "startDuration": 1,
+      "graphs": [ {
+      "alphaField": "alpha",
+         "lineColor": "#D0DD3D",
+        "balloonText": "[[category]] Score: <b>[[value]]</b>",
+         "fillAlphas": 1,
+        "type": "column",
+        "valueField": "Score",
+       "dashLengthField": "dashLengthColumn"
+      } ],
+      "chartCursor": {
+        "categoryBalloonEnabled": false,
+        "cursorAlpha": 0,
+        "zoomable": false
+      },
+      "categoryField": "BuildingName",
+      "categoryAxis": {
+        "gridPosition": "start",
+        "gridAlpha": 0,
+        "tickPosition": "start",
+        "tickLength": 0,
+        "autoWrap": true
+      },
       "export": {
         "enabled": true
-      }
-    });
+      }   
+    } );
   }
 
   getBasicInformation(){    

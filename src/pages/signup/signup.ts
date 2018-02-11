@@ -20,8 +20,8 @@ export class SignupPage {
         this.signUpForm = formBuilder.group({
             firstName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
             lastName: ['', Validators.compose([Validators.maxLength(30),Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-            emailNew: ['', Validators.compose([ Validators.required])],
-            confirmEmail: ['', Validators.compose([Validators.required])],
+            emailNew: ['', Validators.compose([ Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})'),Validators.required])],
+            confirmEmail: ['', Validators.compose([Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})'), Validators.required])],
             password: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
             confirmPassword: ['', Validators.compose([Validators.maxLength(30),Validators.pattern('[a-zA-Z ]*'), Validators.required])],
             //termsAndConditions:['', Validators.compose([Validators.required])],
