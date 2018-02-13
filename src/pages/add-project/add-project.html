@@ -20,8 +20,74 @@
           </ion-item>
 
           <ion-item no-lines *ngIf="!addProjectForm.controls.projectName.valid  && (addProjectForm.controls.projectName.dirty || submitAttempt)">
-              <p class="error-message">Please specify username.</p>
+              <p class="error-message">This field is required.</p>
           </ion-item>
+
+          <ion-item class="mtop">
+              <ion-label stacked>Unit Type </ion-label>
+              <ion-select [(ngModel)]="unitType" formControlName="unitType" text-wrap>
+                <ion-option value="IP">IP</ion-option>
+                <ion-option value="SI"  text-wrap>SI</ion-option>
+              </ion-select>
+          </ion-item>
+
+          <ion-item class="mtop">
+              <ion-label stacked>Project Type</ion-label>
+              <ion-select [(ngModel)]="projectType" formControlName="projectType" text-wrap>
+                  <ion-option value="projectTypeSelect">Select a Project Type</ion-option>
+                  <ion-option value="Buildings">Buildings</ion-option>
+                  <ion-option value="Communities">Communities</ion-option>
+                  <ion-option value="Cities">Cities</ion-option>
+              </ion-select>
+          </ion-item>
+
+          <ion-item class="mtop">
+              <ion-label stacked>Rating System<span stacked class="fontSize"> (optional)</span></ion-label>
+              <ion-select [(ngModel)]="ratingSystem" formControlName="ratingSystem">
+                <ion-option value="ratingSystemSelect">Select Rating System</ion-option>
+                <ion-option value="n64">LEED</ion-option>
+              </ion-select>
+          </ion-item>
+
+          <ion-item class="mtop" text-wrap>
+              <ion-label stacked>Owner Type</ion-label>
+              <ion-select [(ngModel)]="ownerType" formControlName="ownerType" text-wrap style="max-width:none !important">
+                <ion-option value="ownerTypeSelect">Select Owner Type</ion-option>
+                <ion-option value="Corporate: Privately Held">Corporate: Privately Held</ion-option>
+                <ion-option value="Community Development Corporation or Non-profit developer"  >Community Development Corporation or Non-profit developer</ion-option>
+              </ion-select>
+            </ion-item>
+          
+            <ion-item class="mtop">
+                <ion-label stacked text-wrap>Owner Organization<span class="fontSize"> (<a>Click here</a> to add new organization if not existing.)</span></ion-label>
+                <ion-input formControlName="ownerOrg" type="text"></ion-input>
+            </ion-item>
+          
+            <ion-item class="mtop">
+                <ion-label stacked>Owner Email</ion-label>
+                <ion-input formControlName="ownerEmail" type="Email"></ion-input>
+            </ion-item>
+
+            <ion-item class="mtop">
+                <ion-label stacked>Owner Country/Region</ion-label>
+                <ion-select [(ngModel)]="ownerCountry" formControlName="ownerCountry">
+                    <ion-option value="United States">United States</ion-option>
+                </ion-select>
+            </ion-item>
+
+            <ion-item class="mtop">
+                <ion-label stacked>Area</ion-label>
+                <ion-input formControlName="area" type="Number"></ion-input>
+            </ion-item>
+
+            <ion-item no-lines> 
+                <ion-label class="fontSize" style="color:#999"> Enter total built area in square feet (Max: 20499999 square feet)</ion-label>
+            </ion-item>
+            
+            <ion-item no-lines style="margin-top: -16px">
+                <ion-label stacked >This project is private</ion-label>
+                <ion-checkbox></ion-checkbox>
+            </ion-item>
  
 
           <ion-item class="mtop">
@@ -37,6 +103,18 @@
           <ion-item no-lines *ngIf="!addProjectForm.controls.city.valid  && (addProjectForm.controls.city.dirty || submitAttempt)">
                 <p class="error-message" text-wrap>Please specify city.</p>
             </ion-item> 
+
+            <ion-item class="mtop">
+                <ion-label stacked>Country/Region</ion-label>            
+                <ion-select [(ngModel)]="Country" formControlName="countryName" [class.invalid]="!addProjectForm.controls.countryName.valid  && (addProjectForm.controls.countryName.dirty || submitAttempt)">
+                    <ion-option value="selectCountry" disabled selected>Select Country</ion-option>
+                    <ion-option value="United States">United States</ion-option>
+                </ion-select>
+            </ion-item>
+    
+            <ion-item no-lines *ngIf="!addProjectForm.controls.countryName.valid  && (addProjectForm.controls.countryName.dirty || submitAttempt)">
+                    <p class="error-message" text-wrap>Please select country.</p>
+                </ion-item>
   
         <ion-item class="mtop">
             <ion-label stacked>State</ion-label>
@@ -49,22 +127,31 @@
         <ion-item no-lines *ngIf="!addProjectForm.controls.state.valid  && (addProjectForm.controls.state.dirty || submitAttempt)">
             <p class="error-message" text-wrap>Please select state.</p>
         </ion-item>
-
-        <ion-item class="mtop">
-            <ion-label stacked>Country</ion-label>            
-            <ion-select [(ngModel)]="Country" formControlName="countryName" [class.invalid]="!addProjectForm.controls.countryName.valid  && (addProjectForm.controls.countryName.dirty || submitAttempt)">
-                <ion-option value="selectCountry" disabled selected>Select Country</ion-option>
-                <ion-option value="United States">United States</ion-option>
-            </ion-select>
-        </ion-item>
-
-        <ion-item no-lines *ngIf="!addProjectForm.controls.countryName.valid  && (addProjectForm.controls.countryName.dirty || submitAttempt)">
-                <p class="error-message" text-wrap>Please select country.</p>
-            </ion-item>
           
           <ion-item class="mtop">
-              <ion-label stacked>Zipcode</ion-label>
+              <ion-label stacked>Zip Code</ion-label>
               <ion-input formControlName="zipcode" type="number" pattern="[0-9]*"></ion-input>
+          </ion-item>
+
+          <ion-item no-lines>
+              <ion-label >Geo location</ion-label>
+              <ion-icon name="pin" item-end></ion-icon>      
+          </ion-item>
+
+          <ion-item >
+              <ion-label stacked >Lat<span stacked class="fontSize"> (optional)</span></ion-label>
+              <ion-input formControlName="lat" type="Number" ></ion-input>
+          </ion-item>
+
+          <ion-item >
+              <ion-label stacked >Long<span stacked class="fontSize"> (optional)</span></ion-label>
+              <ion-input formControlName="long" type="Number" ></ion-input>
+          </ion-item>
+
+          <ion-item no-lines style="margin-top: 15px;">
+              <ion-label stacked style="color:#999;" text-wrap>I agree to the terms of our <a>service agreement</a>. A high-level summary of the service agreement is available <a>here</a>.
+              </ion-label>
+              <ion-checkbox></ion-checkbox>
           </ion-item>
 
           <ion-item no-lines></ion-item>

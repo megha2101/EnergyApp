@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { SharedServiceProvider } from '../../providers/shared-service/shared-service';
@@ -22,14 +22,24 @@ export class AddProjectPage {
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, 
-    public SharedService: SharedServiceProvider, public storage: Storage, public viewCtrl: ViewController) {
+    public SharedService: SharedServiceProvider, public storage: Storage, public viewCtrl: ViewController, public alertCtrl: AlertController) {
     this.addProjectForm = formBuilder.group({
-      projectName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      address: [''],
-      city: [''],
-      countryName: ['selectCountry', Validators.compose([Validators.required])],
-      state: ['stateSelect', Validators.compose([Validators.required])],
-      zipcode: ['', Validators.pattern('[0-9 ]*')],      
+        projectName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        unitType: ['IP'],
+        projectType: ['projectTypeSelect'],
+        ratingSystem:['ratingSystemSelect'],
+        ownerType: ['ownerTypeSelect'],
+        ownerCountry:['United States'],
+        area:[''],
+        ownerOrg:[''],
+        ownerEmail:['', Validators.compose([Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})')])],
+        address: [''],
+        city: [''],
+        countryName: ['selectCountry', Validators.compose([Validators.required])],
+        state: ['stateSelect', Validators.compose([Validators.required])],
+        zipcode: ['', Validators.pattern('[0-9 ]*')],
+        lat:[''],
+        long:['']      
     });
   }
 
@@ -55,6 +65,14 @@ export class AddProjectPage {
   //   }
   // }
 
+  showInfo(){
+      let alert = this.alertCtrl.create({
+        title: 'New Friend!',
+        subTitle: 'IP units = inches and pounds SI units = metres and kilograms',
+        buttons: ['OK']
+      });
+      alert.present();
+  }
 
   setAllItems(){
     this.storage.set(this.newProject, {"name": this.addProjectForm.get('projectName').value ,

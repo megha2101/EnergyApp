@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser'
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
@@ -93,6 +94,7 @@ import { SourcesListPage } from '../pages/sources-list/sources-list';
     SharedServiceProvider,
     BuildingProjectServiceProvider,
     SearchServiceProvider,
+    InAppBrowser
   ]
 })
 export class AppModule {}

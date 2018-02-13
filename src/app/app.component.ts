@@ -15,15 +15,17 @@ import { AnalysisPage } from '../pages/analysis/analysis';
 import { ProjectAnalysisPage } from '../pages/project-analysis/project-analysis';
 import { SignupPage } from '../pages/signup/signup';
 import { SourcePage } from '../pages/source/source';
+import { AddSourcePage } from '../pages/add-source/add-source';
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp { 
   rootPage:any = DashboardPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
+      //To remove the issue of statusbar in ionic app
       statusBar.overlaysWebView(false);
       splashScreen.hide();
       

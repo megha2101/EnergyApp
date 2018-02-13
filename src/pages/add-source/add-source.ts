@@ -17,7 +17,8 @@ export class AddSourcePage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
     this.addMeterForm = formBuilder.group({
       meterName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      meterUnit:['kWh']
+      meterUnit:['kWh'],
+      fuelSource:['Purchased from Grid']
     });
 }
 
