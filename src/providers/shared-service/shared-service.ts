@@ -4,12 +4,16 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class SharedServiceProvider {
 
-  sharedAllProjects: any = [];
-  myNewProject: string;
-  stateValue: string;
-  countryValue:string;
-  basicInformation: string;
-  sharedAllProjectsNew: any = [];
+  sharedAllProjects    : any     = [];
+  myNewProject         : string;
+  stateValue           : string;
+  countryValue         : string;
+  basicInformation     : string;
+  sharedAllProjectsNew : any     = [];
+  newAddedProjects     : any     =[];
+
+  //Storing data from api
+  apiProjectList      : any     = {}; //json
 
   constructor(public http: HttpClient) {
     

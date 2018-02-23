@@ -13,10 +13,11 @@
     
   <ion-list tappable (click)="goToProjectDetailsPage($event)">
       <!-- -->
-     <ion-item *ngFor="let project of this.SharedService.sharedAllProjects"  id={{project.leed_id}} >
+     <ion-item *ngFor="let project of this.SharedService.sharedAllProjects">
       <ion-avatar item-start class="smallScorepuckBlank">
         <h2>{{ sum_score(project)}}</h2>
       </ion-avatar>
+      <h2>{{project.leed_id}}</h2>
       <h3 text-wrap>{{project.name}}</h3>
       <p text-wrap>{{project.city}}, {{project.state}}, {{project.country}}</p>
       <!-- <span text-wrap style="font-size:13px" item-end>{{project.building_status}}</span>      -->

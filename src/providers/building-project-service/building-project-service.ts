@@ -9,8 +9,8 @@ export class BuildingProjectServiceProvider {
       
     }
 
-    getBuildingData(){
-       return this.http.get("assets/json-v2/myAllProject.json").map(res => res.json()); 
+    getBuildingData(configService, config_header){
+       return this.http.get(configService.basic_api_url + '/assets/', config_header).map(res => res.json()); 
     }
 
 }

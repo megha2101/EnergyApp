@@ -21,7 +21,7 @@ import { AddSourcePage } from '../pages/add-source/add-source';
   templateUrl: 'app.html'
 })
 export class MyApp { 
-  rootPage:any = DashboardPage;
+  rootPage:any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

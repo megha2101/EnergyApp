@@ -33,6 +33,8 @@ import { BuildingProjectServiceProvider } from '../providers/building-project-se
 import { FabIconComponent } from '../components/fab-icon/fab-icon';
 import { SearchServiceProvider } from '../providers/search-service/search-service';
 import { SourcesListPage } from '../pages/sources-list/sources-list';
+import { LoginServiceProvider } from '../providers/login-service/login-service';
+import { ConfigServiceProvider } from '../providers/config-service/config-service';
 
 
 @NgModule({
@@ -94,7 +96,9 @@ import { SourcesListPage } from '../pages/sources-list/sources-list';
     SharedServiceProvider,
     BuildingProjectServiceProvider,
     SearchServiceProvider,
-    InAppBrowser
+    InAppBrowser,
+    LoginServiceProvider,
+    ConfigServiceProvider
   ]
 })
 export class AppModule {}

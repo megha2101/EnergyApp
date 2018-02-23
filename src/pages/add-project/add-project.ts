@@ -24,7 +24,7 @@ export class AddProjectPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, 
     public SharedService: SharedServiceProvider, public storage: Storage, public viewCtrl: ViewController, public alertCtrl: AlertController) {
     this.addProjectForm = formBuilder.group({
-        projectName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        projectName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*')])],
         unitType: ['IP'],
         projectType: ['projectTypeSelect'],
         ratingSystem:['ratingSystemSelect'],
@@ -35,8 +35,8 @@ export class AddProjectPage {
         ownerEmail:['', Validators.compose([Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})')])],
         address: [''],
         city: [''],
-        countryName: ['selectCountry', Validators.compose([Validators.required])],
-        state: ['stateSelect', Validators.compose([Validators.required])],
+        countryName: ['selectCountry'],
+        state: ['stateSelect'],
         zipcode: ['', Validators.pattern('[0-9 ]*')],
         lat:[''],
         long:['']      
@@ -47,31 +47,6 @@ export class AddProjectPage {
 
   ionViewDidLoad() {
     $(".countryErrorMessage").hide();
-  }
-
-  // stateFn(stateVal){
-  //   if(stateVal.value != 'stateSelect'){
-  //     $(".invalid").removeClass();
-  //   }
-  // }
-
-  // countryFn(countryVal){
-  //   if(countryVal != 'selectCountry'){
-  //     $("ion-select").removeClass("invalid");
-  //     $(".countryErrorMessage").hide();
-  //   }else{
-  //     $("ion-select:last").addClass("invalid");
-  //     $(".countryErrorMessage").show();
-  //   }
-  // }
-
-  showInfo(){
-      let alert = this.alertCtrl.create({
-        title: 'New Friend!',
-        subTitle: 'IP units = inches and pounds SI units = metres and kilograms',
-        buttons: ['OK']
-      });
-      alert.present();
   }
 
   setAllItems(){
@@ -88,8 +63,9 @@ export class AddProjectPage {
       this.storage.get(this.newProject).then((data) =>{
         if(data){
           this.SharedService.myNewProject = data;
-          this.SharedService.sharedAllProjects.push(this.SharedService.myNewProject);
-          this.SharedService.sharedAllProjectsNew.push(this.SharedService.myNewProject);
+          //this.SharedService.sharedAllProjects.push(this.SharedService.myNewProject);
+          //this.SharedService.sharedAllProjectsNew.push(this.SharedService.myNewProject);
+          this.SharedService.newAddedProjects.push(this.SharedService.myNewProject);
           this.navCtrl.push(ProjectListPage);
         }else{
           console.log('Error in getting new item');
