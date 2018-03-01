@@ -9,29 +9,30 @@
 
 <ion-content class="bgColor">
 
-  <ion-item no-lines>
-      <ion-avatar item-start class="smallScorepuckBlank">
-          <h2>56</h2>
-      </ion-avatar>
-      <h3 text-wrap>Innovation Unlimited</h3>
-      <p text-wrap>Washington, DC, US</p>
-  </ion-item>
+    <ion-item no-lines >
+        <ion-avatar item-start class="smallScorepuckBlank">
+            <h2>{{this.sharedService.selBuildObjectScore}}</h2>
+        </ion-avatar>
+        <h3>{{this.sharedService.selBuildObject.leed_id}}</h3>
+        <h3 text-wrap>{{this.sharedService.selBuildObject.name}}</h3>
+        <p text-wrap>{{this.sharedService.selBuildObject.city}}, {{this.sharedService.selBuildObject.state}}, {{this.sharedService.selBuildObject.country}}</p>
+    </ion-item>
 
-  <ion-row>
-      <ion-col>
-          <button ion-button block (click)="goToAddSourcePage()">
-              Add Meter
-          </button>
-      </ion-col>
-  </ion-row>
-
-  <ion-card tappable (click)="goToSourcePage()">
-      <ion-card-header class="pb">
-          <h2>HVAC- Meter</h2>
-      </ion-card-header>
-      <ion-card-content>
-          <div id="meter1ChartDiv" ></div>                 
-      </ion-card-content>
-  </ion-card>
+    <ion-row>
+        <ion-col>
+            <button ion-button block (click)="goToAddSourcePage()">
+                Add Meter
+            </button>
+        </ion-col>
+    </ion-row>
+    <!-- //*ngFor="let meters of this.sharedService.mymetersArray" {{meters.name}}-->
+    <ion-card tappable  (click)="goToSourcePage()" *ngFor="let meters of this.sharedService.mymetersArray, let last = last">
+        <ion-card-header class="pb">
+            <h2> {{meters.name}}</h2>
+        </ion-card-header>
+        <ion-card-content  >
+            <div  id="{{meters.id}}" class="meterCharts">{{last ? callFunction(meters) : ''}}</div>                 
+        </ion-card-content>
+    </ion-card>
 
 </ion-content>>

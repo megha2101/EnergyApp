@@ -11,7 +11,7 @@ import { LoginServiceProvider } from '../../providers/login-service/login-servic
 import { SharedServiceProvider } from '../../providers/shared-service/shared-service';
 import { ConfigServiceProvider } from '../../providers/config-service/config-service';
 import { BuildingProjectServiceProvider } from '../../providers/building-project-service/building-project-service';
-
+import { NgClass } from '@angular/common';
 
 @IonicPage()
 @Component({
@@ -26,6 +26,8 @@ export class LoginPage {
   loginData: any;
   credentials:    any = {};
   config_header: any;
+  loginText: any = "Log In";
+  disableLoginFlag: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder,public storage: Storage,
   private iab: InAppBrowser, public LoginService: LoginServiceProvider, public sharedService: SharedServiceProvider,
@@ -44,6 +46,8 @@ export class LoginPage {
   }
 
   login(){
+    this.loginText = "LOGGING IN";
+    this.disableLoginFlag = true;
       this.config_header = {
           headers: {
               "Content-Type": "application/json",
@@ -53,12 +57,12 @@ export class LoginPage {
       this.credentials={
         // "username": this.loginForm.get('loginEmail').value,
         // "password": this.loginForm.get('password').value
-        "username": "tbisht@icloud.com",
+        "username": "testuser@gmail.com", //testuser@gmail.com //tbisht@icloud.com
         "password": "initpass"
       };
       this.LoginService.getLogin(this.credentials, this.config_header).subscribe((data)=>{ 
-          this.configService.authToken = data.authorization_token; 
-          var config_header_new = 
+          this.configService.authToken = data.authorization_token;         
+          this.sharedService.config_header_new = 
               {
                   headers: 
                   {
@@ -67,18 +71,24 @@ export class LoginPage {
                       "Authorization": "Bearer " + this.configService.authToken
                   }
               }; 
-          this.buildingService.getBuildingData(this.configService, config_header_new ).subscribe((projectList)=>{
+          this.buildingService.getBuildingData1(this.configService, this.sharedService.config_header_new).subscribe((projectList)=>{
               this.sharedService.apiProjectList = projectList;
               if (projectList.count>0){
-                this.navCtrl.push(ProjectListPage); 
+                  this.navCtrl.push(ProjectListPage);
+                  this.loginText = "Log In";
+                  this.disableLoginFlag = false; 
               }else{
-                this.navCtrl.push(AddProjectPage); 
+                  this.navCtrl.push(AddProjectPage); 
+                  this.loginText = "Log In";
+                  this.disableLoginFlag = false;
               }
             },(err) => {
-              console.log("error in getting projects api");
-          });  
+                  console.log("error in getting projects api");
+              });  
       },(err) => {
-          console.log("error in authentication api");
+              this.loginText = "Log In";
+              this.disableLoginFlag = false;
+              console.log("error in authentication api");
       });     
   }
 

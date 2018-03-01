@@ -18,11 +18,14 @@ export class ConfigServiceProvider {
     }
 
     getVariables(env){
-        if(env = "DEV"){
+        if(env == "DEV"){
           this.basic_api_url =  'https://api.usgbc.org/dev/leed';
           this.subscription_key = '450fc0393ae747638659258f5ed26485';                     
+        }else if(env == "STG"){
+          this.basic_api_url =  'https://api.usgbc.org/stg/leed';
+          this.subscription_key = '8e0baacec376430ba0f81a5d960ccbb0';  
         }else{
-            console.log(env);
+          console.log("no environment selected");
         }
 
     }

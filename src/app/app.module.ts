@@ -28,6 +28,7 @@ import { SignupPage } from '../pages/signup/signup';
 //Providers
 import { SharedServiceProvider } from '../providers/shared-service/shared-service';
 import { BuildingProjectServiceProvider } from '../providers/building-project-service/building-project-service';
+import { ScoreServiceProvider } from '../providers/score-service/score-service';
 
 //Components
 import { FabIconComponent } from '../components/fab-icon/fab-icon';
@@ -35,6 +36,12 @@ import { SearchServiceProvider } from '../providers/search-service/search-servic
 import { SourcesListPage } from '../pages/sources-list/sources-list';
 import { LoginServiceProvider } from '../providers/login-service/login-service';
 import { ConfigServiceProvider } from '../providers/config-service/config-service';
+import { AverageScoreServiceProvider } from '../providers/average-score-service/average-score-service';
+import { AnalysisServiceProvider } from '../providers/analysis-service/analysis-service';
+import { AsyncServiceProvider } from '../providers/async-service/async-service';
+import { DataInputServiceProvider } from '../providers/data-input-service/data-input-service';
+import { MeterDataServiceProvider } from '../providers/meter-data-service/meter-data-service';
+
 
 
 @NgModule({
@@ -98,7 +105,13 @@ import { ConfigServiceProvider } from '../providers/config-service/config-servic
     SearchServiceProvider,
     InAppBrowser,
     LoginServiceProvider,
-    ConfigServiceProvider
+    ConfigServiceProvider,
+    ScoreServiceProvider,
+    AverageScoreServiceProvider,
+    AnalysisServiceProvider,
+    AsyncServiceProvider,
+    DataInputServiceProvider,
+    MeterDataServiceProvider,
   ]
 })
 export class AppModule {}

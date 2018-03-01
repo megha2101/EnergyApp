@@ -9,13 +9,14 @@
 
 <ion-content class="bgcolor">
 
-    <ion-item no-lines>
-        <ion-avatar item-start class="smallScorepuckBlank">
-            <h2>56</h2>
-        </ion-avatar>
-        <h3 text-wrap>Innovation Unlimited</h3>
-        <p text-wrap>Washington, DC, US</p>
-    </ion-item>
+  <ion-item no-lines >
+    <ion-avatar item-start class="smallScorepuckBlank">
+        <h2>{{this.sharedService.selBuildObjectScore}}</h2>
+    </ion-avatar>
+    <h3>{{this.sharedService.selBuildObject.leed_id}}</h3>
+    <h3 text-wrap>{{this.sharedService.selBuildObject.name}}</h3>
+    <p text-wrap>{{this.sharedService.selBuildObject.city}}, {{this.sharedService.selBuildObject.state}}, {{this.sharedService.selBuildObject.country}}</p>
+  </ion-item>
 
     <ion-item-divider color="light" no-lines>Analysis</ion-item-divider>
 

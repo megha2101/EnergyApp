@@ -12,7 +12,7 @@
   
         <ion-item >
           <ion-label stacked> Email</ion-label>
-          <ion-input formControlName="loginEmail" type="email" [class.invalid]="!loginForm.controls.loginEmail.valid  && (loginForm.controls.loginEmail.dirty || submitAttempt)">></ion-input>
+          <ion-input formControlName="loginEmail" type="email" [ngClass]="disableLoginFlag?'not-active' :''" [class.invalid]="!loginForm.controls.loginEmail.valid  && (loginForm.controls.loginEmail.dirty || submitAttempt)">></ion-input>
         </ion-item>
 
         <ion-item no-lines *ngIf="!loginForm.controls.loginEmail.valid  && (loginForm.controls.loginEmail.dirty || submitAttempt)">
@@ -21,7 +21,7 @@
 
         <ion-item >
           <ion-label stacked> Password</ion-label>
-          <ion-input formControlName="password" type="password" class = "outlineFocus" style="outline-style: none;" [class.invalid]="!loginForm.controls.password.valid  && (loginForm.controls.password.dirty || submitAttempt)" ></ion-input>
+          <ion-input formControlName="password" type="password" class = "outlineFocus" [ngClass]="disableLoginFlag?'not-active' :''" style="outline-style: none;" [class.invalid]="!loginForm.controls.password.valid  && (loginForm.controls.password.dirty || submitAttempt)" ></ion-input>
         </ion-item>
 
         <ion-item no-lines *ngIf="!loginForm.controls.password.valid  && (loginForm.controls.password.dirty || submitAttempt)">
@@ -36,8 +36,8 @@
   
   <ion-row> 
     <ion-col>
-      <button ion-button block (click)="login()">
-        LOG IN
+      <button ion-button block (click)="login()" [ngClass]="disableLoginFlag?'not-active' :''">
+        {{loginText}}
       </button> 
     </ion-col>       
   </ion-row> 

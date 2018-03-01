@@ -6,6 +6,9 @@ import { ProjectAnalysisPage } from '../project-analysis/project-analysis';
 import { SourcePage } from '../source/source';
 import { AddSourcePage } from '../add-source/add-source';
 import { SourcesListPage } from '../sources-list/sources-list';
+import { SharedServiceProvider } from '../../providers/shared-service/shared-service';
+import { AverageScoreServiceProvider } from '../../providers/average-score-service/average-score-service';
+import { ConfigServiceProvider } from '../../providers/config-service/config-service';
 
 @IonicPage()
 @Component({
@@ -15,69 +18,29 @@ import { SourcesListPage } from '../sources-list/sources-list';
 export class ProjectDetailsPage {
 
   private chart: AmChart;
+  buildingId: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private AmCharts: AmChartsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private AmCharts: AmChartsService,
+  public sharedService: SharedServiceProvider, public averageScoreService: AverageScoreServiceProvider, 
+  public configService: ConfigServiceProvider) {
   }
 
-  ngAfterViewInit(){   
-    var chart = this.AmCharts.makeChart( "averageAnalysisGraph", {
-      "type": "serial",
-      "theme": "light",
-       "hideCredits":true,
-       "autoMargins": false,
-       "marginLeft": 50,
-       "marginRight": 8,
-       "marginTop": 10,
-       "marginBottom": 30,
-      "dataProvider": [ {
-          "BuildingName": "Your Building",
-          "Score": 59
-        },{
-          "BuildingName": "Local Average",
-          "Score": 68,
-          "dashLengthLine": 5,
-          "dashLengthColumn": 5,
-          "alpha": 0.2,
-            }, {
-          "BuildingName": "Global Average",
-          "Score": 62,       
-          "dashLengthColumn": 5,
-          "alpha": 0.2,
-        }],
-      "valueAxes": [ {
-        "gridColor": "#FFFFFF",
-        "gridAlpha": 0.2,
-        "dashLength": 0,
-        "title": "Scores"
-      } ],
-      "gridAboveGraphs": true,
-      "startDuration": 1,
-      "graphs": [ {
-      "alphaField": "alpha",
-         "lineColor": "#D0DD3D",
-        "balloonText": "[[category]] Score: <b>[[value]]</b>",
-         "fillAlphas": 1,
-        "type": "column",
-        "valueField": "Score",
-       "dashLengthField": "dashLengthColumn"
-      } ],
-      "chartCursor": {
-        "categoryBalloonEnabled": false,
-        "cursorAlpha": 0,
-        "zoomable": false
-      },
-      "categoryField": "BuildingName",
-      "categoryAxis": {
-        "gridPosition": "start",
-        "gridAlpha": 0,
-        "tickPosition": "start",
-        "tickLength": 0,
-        "autoWrap": true
-      },
-      "export": {
-        "enabled": true
-      }   
-    } );
+  ngOnInit(){
+    this.sharedService.selBuildObject = this.navParams.get('projectObject');
+    this.sharedService.selBuildObjectScore = this.sharedService.check_value_null(this.sharedService.selBuildObject.scores.energy)
+  }
+
+  ngAfterViewInit(){ 
+
+  this.averageScoreService.getAverageScore(this.configService, this.sharedService.config_header_new).subscribe((results) =>{
+      for(var i = 0; i<results.length; i++){
+        this.sharedService.ScoreValue[i] = results[i];
+        
+      }
+      this.sharedService.drawComparableChart();     
+  });
+
+    
   }
 
   goToSourceListPage(){

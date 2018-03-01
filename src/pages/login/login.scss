@@ -2,7 +2,14 @@ page-login {
 
     .error-message{
         color:#ea6153;
-        }
+    }
+
+    .not-active{
+        cursor: default;
+        pointer-events: none;
+        text-decoration: none;
+        opacity: 0.6;
+    }
         
 
 }

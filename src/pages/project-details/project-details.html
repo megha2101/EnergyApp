@@ -11,10 +11,11 @@
 
     <ion-item no-lines >
         <ion-avatar item-start class="smallScorepuckBlank">
-            <h2>56</h2>
+            <h2>{{this.sharedService.selBuildObjectScore}}</h2>
         </ion-avatar>
-        <h3 text-wrap>Innovation Unlimited</h3>
-        <p text-wrap>Washington, DC, US</p>
+        <h3>{{this.sharedService.selBuildObject.leed_id}}</h3>
+        <h3 text-wrap>{{this.sharedService.selBuildObject.name}}</h3>
+        <p text-wrap>{{this.sharedService.selBuildObject.city}}, {{this.sharedService.selBuildObject.state}}, {{this.sharedService.selBuildObject.country}}</p>
     </ion-item>
 
     <ion-item-divider color="light" no-lines>Building Energy Score</ion-item-divider>
@@ -23,12 +24,12 @@
         <ion-avatar item-start >
           <img src="assets/imgs/energy.svg">
         </ion-avatar>
-        <h1 class="scoreFontSize"><b>59</b></h1>
+      <h1 class="scoreFontSize"><b>{{this.sharedService.selBuildObjectScore}}</b></h1> 
     </ion-item>
         
     <ion-item no-lines>
-        <h3>59 out of 100 at the end of reporting period.</h3>
-    </ion-item>
+        <h3>{{this.sharedService.selBuildObjectScore}} out of 33 at the end of reporting period.</h3>
+    </ion-item> 
 
     <ion-item no-lines>
         <h2>Analysis Graph</h2>

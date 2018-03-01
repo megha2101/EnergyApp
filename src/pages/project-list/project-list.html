@@ -11,30 +11,26 @@
 
     <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="searchItems($event)"></ion-searchbar>  
     
-  <ion-list tappable (click)="goToProjectDetailsPage($event)">
+  <ion-list >
       <!-- -->
-     <ion-item *ngFor="let project of this.SharedService.sharedAllProjects">
+     <ion-item tappable *ngFor="let project of this.SharedService.sharedAllProjects"  (click)="goToProjectDetailsPage($event, project)">
       <ion-avatar item-start class="smallScorepuckBlank">
-        <h2>{{ sum_score(project)}}</h2>
+        <h2>{{this.SharedService.check_value_null(project.scores.energy)}}</h2>
       </ion-avatar>
       <h2>{{project.leed_id}}</h2>
       <h3 text-wrap>{{project.name}}</h3>
       <p text-wrap>{{project.city}}, {{project.state}}, {{project.country}}</p>
-      <!-- <span text-wrap style="font-size:13px" item-end>{{project.building_status}}</span>      -->
+      <span text-wrap style="font-size:13px" item-end>{{this.SharedService.updateProjectStatus(project.building_status)}}</span> 
       <ion-icon name="arrow-forward" item-end></ion-icon>
     </ion-item> 
  
   </ion-list>
 
-   <ion-list id = "default_list" class="default_text" *ngIf="this.SharedService.sharedAllProjects==0"> 
-
-      <ion-item  center text-center no-lines >
-          <h2 text-wrap><b>Add a new project and check your building score!</b></h2>      
-      </ion-item>
-
-   </ion-list>    
- 
    <fab-icon id = "fabButton"></fab-icon>
+
+   <ion-infinite-scroll (ionInfinite)="projectListScroll($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
  
 </ion-content>
 

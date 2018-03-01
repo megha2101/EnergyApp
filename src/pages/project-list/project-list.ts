@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading } from 'ionic-angular';
 import * as $ from 'jquery';
+import {  LoginPage } from '../login/login';
 
 //Providers
 import { SharedServiceProvider } from '../../providers/shared-service/shared-service';
@@ -8,6 +9,7 @@ import { BuildingProjectServiceProvider } from '../../providers/building-project
 import { SearchServiceProvider } from '../../providers/search-service/search-service';
 import { ProjectDetailsPage } from '../project-details/project-details';
 import { ConfigServiceProvider } from '../../providers/config-service/config-service';
+import { empty } from 'rxjs/Observer';
 
 
 @IonicPage()
@@ -19,9 +21,12 @@ export class ProjectListPage {
 
   myAllProjects: any = [];
   allProjects: any = [];
+  pageno: any = 1;
+  nextValueFlag: boolean = true;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, public BuildingProjectService: BuildingProjectServiceProvider, public SharedService: SharedServiceProvider,
-  public SearchService: SearchServiceProvider, public configService: ConfigServiceProvider, public sharedService: SharedServiceProvider) {
+  
+  constructor(public navCtrl: NavController, public navParams: NavParams, public buildingService: BuildingProjectServiceProvider, 
+  public SharedService: SharedServiceProvider, public SearchService: SearchServiceProvider, public configService: ConfigServiceProvider) {
   }
   config_header = 
                 {
@@ -41,45 +46,72 @@ export class ProjectListPage {
    this.SharedService.sharedAllProjects = this.SearchService.filterItems(ev, this.SharedService.sharedAllProjectsNew);
   }
 
-  sum_score(project){
-    return this.SharedService.check_value_null(parseInt(project.water))+this.SharedService.check_value_null(parseInt(project.energy))
-    +this.SharedService.check_value_null(parseInt(project.human_experience))+this.SharedService.check_value_null(parseInt(project.waste))
-    +this.SharedService.check_value_null(parseInt(project.transport))+this.SharedService.check_value_null(parseInt(project.base_score));
+  projectListScroll(infiniteScroll) { 
+      setTimeout(() => {
+          if (this.nextValueFlag == false){
+              infiniteScroll.complete();
+              return;
+        }else{
+            let nextPageUrl = this.pageno++;
+            console.log("next page:"+nextPageUrl);
+            this.buildingService.getBuildingData(this.configService, this.SharedService.config_header_new, this.pageno).subscribe((projectList)=>{  
+              if(projectList.next == null){
+                  this.nextValueFlag = false;
+              }        
+              this.myAllProjects = projectList.results;
+              this.allProjects = [];            
+                for(var i=0; i< this.myAllProjects.length; i++){             
+                      this.allProjects.push(this.myAllProjects[i]);
+                      this.SharedService.sharedAllProjects.push(this.myAllProjects[i]);
+                      this.SharedService.sharedAllProjectsNew.push(this.myAllProjects[i]);                
+                } 
+            },
+            err => {
+                console.log(err);
+            },
+            () => console.log('Next Page Loading completed')
+            );                    
+        }
+        infiniteScroll.complete();
+    }, 5000);
+          
   }
 
-  
-
-  getProjectsList(){
+  getProjectsList(){       
       this.SharedService.sharedAllProjects = [];
       this.SharedService.sharedAllProjectsNew = []; 
-     if(this.sharedService.apiProjectList.count>0){  
-          this.myAllProjects = this.sharedService.apiProjectList;
+      this.buildingService.getBuildingData(this.configService, this.SharedService.config_header_new, this.pageno).subscribe((projectList)=>{  
+          if(projectList.next == null){
+            this.nextValueFlag = false;
+          }  
+          this.myAllProjects = projectList.results;
           this.allProjects = [];            
-            for(var i=0; i< this.myAllProjects.results.length; i++){
-                if(this.myAllProjects.results[i].project_type == "building"){
-                  this.allProjects.push(this.myAllProjects.results[i]);
-                  this.SharedService.sharedAllProjects.push(this.myAllProjects.results[i]);
-                  this.SharedService.sharedAllProjectsNew.push(this.myAllProjects.results[i]);
-                }   
+            for(var i=0; i< this.myAllProjects.length; i++){              
+                this.allProjects.push(this.myAllProjects[i]);
+                this.SharedService.sharedAllProjects.push(this.myAllProjects[i]);
+                this.SharedService.sharedAllProjectsNew.push(this.myAllProjects[i]);                  
             } 
             if(this.SharedService.newAddedProjects.length>0){
                 for(var j=0; j< this.SharedService.newAddedProjects.length; j++){
-                    this.SharedService.sharedAllProjects.push(this.SharedService.newAddedProjects[j]);//To add new Projects
-                    this.SharedService.sharedAllProjectsNew.push(this.SharedService.newAddedProjects[j]);//To add new Projects
+                    this.SharedService.sharedAllProjects.unshift(this.SharedService.newAddedProjects[j]);//To add new Projects
+                    this.SharedService.sharedAllProjectsNew.unshift(this.SharedService.newAddedProjects[j]);//To add new Projects
 
                 }
             }
-            if (this.SharedService.sharedAllProjects.length>0){ 
-              $("#default_list").hide();
-          }else{
-              $("#default_list").show();
-          }
-      };  
-  } 
+      },
+      err => {
+          console.log(err);
+      },
+      () => console.log('Next Page Loading completed')
+    );
+    }
+      
 
-  goToProjectDetailsPage(event){
+  
+
+  goToProjectDetailsPage(event, project){
         this.navCtrl.push(ProjectDetailsPage, {
-          id : event.target.offsetParent.id,  
+         projectObject: project,           
         });
     }
 
