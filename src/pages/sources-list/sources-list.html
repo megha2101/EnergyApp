@@ -31,7 +31,7 @@
             <h2> {{meters.name}}</h2>
         </ion-card-header>
         <ion-card-content  >
-            <div  id="{{meters.id}}" class="meterCharts">{{last ? callFunction1(meters)  : callFunction(meters)}}</div>                 
+            <div  id="{{meters.id}}" class="meterCharts">{{last ? callFunction() :''}}</div>                 
         </ion-card-content>
     </ion-card>
 

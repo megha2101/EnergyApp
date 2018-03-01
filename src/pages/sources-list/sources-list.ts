@@ -24,22 +24,20 @@ export class SourcesListPage {
   }
 
   ngAfterViewInit() {
+    this.sharedService.mymetersArray = [];
     this.dataInputService.getNumberOfMeters(this.configService, this.sharedService.selBuildObject.leed_id, this.sharedService.config_header_new).then((data)=>{
-      for(var i = 0; i< this.sharedService.mymeters.length; i++)
-     this.sharedService.drawMeterChart( this.sharedService.mymeters[0].id,  this.sharedService.mymeters[0].readings, '#D0DD3D', "smoothedLine",  this.sharedService.mymeters[0].native_unit );
+    //   for(var i = 0; i< this.sharedService.mymeters.length; i++)
+    //  this.sharedService.drawMeterChart( this.sharedService.mymeters[i].id,  this.sharedService.mymeters[i].readings, '#D0DD3D', 'smoothedLine',  this.sharedService.mymeters[i].native_unit);
     });
    
   }
 
-  callFunction(metersData){
-    this.sharedService.drawMeterChart( metersData.id,  metersData.readings, '#D0DD3D', "smoothedLine",  metersData.native_unit );
+  callFunction(){
+    for(var i = 0; i< this.sharedService.mymeters.length; i++)
+    this.sharedService.drawMeterChart( this.sharedService.mymeters[i].id,  this.sharedService.mymeters[i].readings, '#D0DD3D', 'smoothedLine',  this.sharedService.mymeters[i].native_unit );
     return;
   }
 
-  callFunction1(metersData){
-    this.sharedService.drawMeterChart( metersData.id,  metersData.readings, '#D0DD3D', "smoothedLine",  metersData.native_unit );
-    return;
-  }
 
   
   goToAddSourcePage(){
