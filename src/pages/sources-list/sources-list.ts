@@ -1,4 +1,4 @@
-import { Component, AfterViewChecked } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AddSourcePage } from '../add-source/add-source';
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
@@ -32,12 +32,13 @@ export class SourcesListPage {
   }
 
   callFunction(metersData){
-    console.log("metersData" + metersData);
-    this.dataInputService.getNumberOfMeters(this.configService, this.sharedService.selBuildObject.leed_id, this.sharedService.config_header_new).then((data)=>{
-      for(var i = 0; i< this.sharedService.mymeters.length; i++)
-     this.sharedService.drawMeterChart( this.sharedService.mymeters[0].id,  this.sharedService.mymeters[0].readings, '#D0DD3D', "smoothedLine",  this.sharedService.mymeters[0].native_unit );
-    });
-    console.log("metersData1" + metersData.name);
+    this.sharedService.drawMeterChart( metersData.id,  metersData.readings, '#D0DD3D', "smoothedLine",  metersData.native_unit );
+    return;
+  }
+
+  callFunction1(metersData){
+    this.sharedService.drawMeterChart( metersData.id,  metersData.readings, '#D0DD3D', "smoothedLine",  metersData.native_unit );
+    return;
   }
 
   
