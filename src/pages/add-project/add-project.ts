@@ -17,9 +17,6 @@ export class AddProjectPage {
   addProjectForm: FormGroup;
   submitAttempt: boolean = false;
   //Country: String = "selectCountry";
-  //State: String = "stateSelect";
-
-  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, 
     public SharedService: SharedServiceProvider, public storage: Storage, public viewCtrl: ViewController, public alertCtrl: AlertController) {
