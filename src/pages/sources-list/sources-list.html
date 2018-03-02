@@ -1,14 +1,9 @@
 <ion-header>
-
-  <ion-navbar>
-      <ion-title>Meters List</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <ion-title>Meters List</ion-title>
+    </ion-navbar>
 </ion-header>
-
-
 <ion-content class="bgColor">
-
     <ion-item no-lines >
         <ion-avatar item-start class="smallScorepuckBlank">
             <h2>{{this.sharedService.selBuildObjectScore}}</h2>
@@ -17,7 +12,6 @@
         <h3 text-wrap>{{this.sharedService.selBuildObject.name}}</h3>
         <p text-wrap>{{this.sharedService.selBuildObject.city}}, {{this.sharedService.selBuildObject.state}}, {{this.sharedService.selBuildObject.country}}</p>
     </ion-item>
-
     <ion-row>
         <ion-col>
             <button ion-button block (click)="goToAddSourcePage()">
@@ -25,14 +19,15 @@
             </button>
         </ion-col>
     </ion-row>
-    <!-- //*ngFor="let meters of this.sharedService.mymetersArray" {{meters.name}}-->
-    <ion-card tappable  (click)="goToSourcePage()" *ngFor="let meters of this.sharedService.mymetersArray, let last = last">
+    <ion-card tappable   *ngFor="let meters of this.sharedService.mymetersArray, let last = last" (click)="goToSourcePage($event, meters)">
         <ion-card-header class="pb">
             <h2> {{meters.name}}</h2>
         </ion-card-header>
         <ion-card-content  >
-            <div  id="{{meters.id}}" class="meterCharts">{{last ? callFunction() :''}}</div>                 
+            <div  id="{{meters.id}}" class="meterCharts">{{last ? startDrawChart(meters) :''}}</div>                 
         </ion-card-content>
     </ion-card>
-
-</ion-content>>
+    <ion-infinite-scroll (ionInfinite)="this.meterListScroll($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

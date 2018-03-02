@@ -12,43 +12,39 @@ import { ConfigServiceProvider } from '../../providers/config-service/config-ser
 
 @IonicPage()
 @Component({
-  selector: 'page-project-details',
-  templateUrl: 'project-details.html',
+    selector: 'page-project-details',
+    templateUrl: 'project-details.html',
 })
 export class ProjectDetailsPage {
 
-  private chart: AmChart;
-  buildingId: any;
+    private chart: AmChart;
+    buildingId: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private AmCharts: AmChartsService,
-  public sharedService: SharedServiceProvider, public averageScoreService: AverageScoreServiceProvider, 
-  public configService: ConfigServiceProvider) {
-  }
+    constructor(public navCtrl: NavController, public navParams: NavParams, private AmCharts: AmChartsService,
+    public sharedService: SharedServiceProvider, public averageScoreService: AverageScoreServiceProvider, 
+    public configService: ConfigServiceProvider) {
+    }
 
-  ngOnInit(){
-    this.sharedService.selBuildObject = this.navParams.get('projectObject');
-    this.sharedService.selBuildObjectScore = this.sharedService.check_value_null(this.sharedService.selBuildObject.scores.energy)
-  }
+    ngOnInit(){
+        this.sharedService.selBuildObject = this.navParams.get('projectObject');
+        this.sharedService.selBuildObjectScore = this.sharedService.check_value_null(this.sharedService.selBuildObject.scores.energy);
+    }
 
-  ngAfterViewInit(){ 
+    ngAfterViewInit(){ 
+        this.averageScoreService.getAverageScore(this.configService, this.sharedService.config_header_new).subscribe((results) =>{
+            for(var i = 0; i<results.length; i++){
+                this.sharedService.ScoreValue[i] = results[i];        
+            }
+            this.sharedService.drawComparableChart();     
+        });    
+    }
 
-  this.averageScoreService.getAverageScore(this.configService, this.sharedService.config_header_new).subscribe((results) =>{
-      for(var i = 0; i<results.length; i++){
-        this.sharedService.ScoreValue[i] = results[i];
-        
-      }
-      this.sharedService.drawComparableChart();     
-  });
+    goToSourceListPage(){
+        this.navCtrl.push(SourcesListPage);
+    }
 
-    
-  }
-
-  goToSourceListPage(){
-    this.navCtrl.push(SourcesListPage);
-  }
-
-  goToProjectAnalysisPage(){
-    this.navCtrl.push(ProjectAnalysisPage);
-  }
+    goToProjectAnalysisPage(){
+        this.navCtrl.push(ProjectAnalysisPage);
+    }
 
 }

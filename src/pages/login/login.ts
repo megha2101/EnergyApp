@@ -55,10 +55,10 @@ export class LoginPage {
           }
       };
       this.credentials={
-        // "username": this.loginForm.get('loginEmail').value,
-        // "password": this.loginForm.get('password').value
-        "username": "testuser@gmail.com", //testuser@gmail.com //tbisht@icloud.com
-        "password": "initpass"
+        "username": this.loginForm.get('loginEmail').value,
+        "password": this.loginForm.get('password').value
+        // "username": "testuser@gmail.com", //testuser@gmail.com //tbisht@icloud.com
+        // "password": "initpass"
       };
       this.LoginService.getLogin(this.credentials, this.config_header).subscribe((data)=>{ 
           this.configService.authToken = data.authorization_token;         

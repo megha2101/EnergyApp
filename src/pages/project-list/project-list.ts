@@ -19,73 +19,72 @@ import { empty } from 'rxjs/Observer';
 })
 export class ProjectListPage {
 
-  myAllProjects: any = [];
-  allProjects: any = [];
-  pageno: any = 1;
-  nextValueFlag: boolean = true;
-  
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public buildingService: BuildingProjectServiceProvider, 
-  public SharedService: SharedServiceProvider, public SearchService: SearchServiceProvider, public configService: ConfigServiceProvider) {
-  }
-  config_header = 
-                {
-                    headers: 
-                    {
-                        "Content-Type": "application/json",
-                        "Ocp-Apim-Subscription-Key": this.configService.subscription_key,
-                        "Authorization": "Bearer " + this.configService.authToken
-                    }
-                }; 
+    myAllProjects: any = [];
+    allProjects: any = [];
+    pageno: any = 1;
+    nextValueFlag: boolean = true;
+    
+    
+    constructor(public navCtrl: NavController, public navParams: NavParams, public buildingService: BuildingProjectServiceProvider, 
+    public SharedService: SharedServiceProvider, public SearchService: SearchServiceProvider, public configService: ConfigServiceProvider) {
+    }
+    config_header = 
+    {
+        headers: 
+        {
+            "Content-Type": "application/json",
+            "Ocp-Apim-Subscription-Key": this.configService.subscription_key,
+            "Authorization": "Bearer " + this.configService.authToken
+        }
+    }; 
 
-  ngOnInit(){    
-     this.getProjectsList();
-  }
+    ngOnInit(){    
+        this.getProjectsList();
+    }
 
-  searchItems(ev: any){ 
-   this.SharedService.sharedAllProjects = this.SearchService.filterItems(ev, this.SharedService.sharedAllProjectsNew);
-  }
+    searchItems(ev: any){ 
+        this.SharedService.sharedAllProjects = this.SearchService.filterItems(ev, this.SharedService.sharedAllProjectsNew);
+    }
 
-  projectListScroll(infiniteScroll) { 
-      setTimeout(() => {
-          if (this.nextValueFlag == false){
-              infiniteScroll.complete();
-              return;
+    projectListScroll(infiniteScroll){ 
+        if (this.nextValueFlag == false){
+            infiniteScroll.complete();
+            return;
         }else{
             let nextPageUrl = this.pageno++;
             console.log("next page:"+nextPageUrl);
             this.buildingService.getBuildingData(this.configService, this.SharedService.config_header_new, this.pageno).subscribe((projectList)=>{  
-              if(projectList.next == null){
-                  this.nextValueFlag = false;
-              }        
-              this.myAllProjects = projectList.results;
-              this.allProjects = [];            
-                for(var i=0; i< this.myAllProjects.length; i++){             
+                if(projectList.next == null){
+                    this.nextValueFlag = false;
+                }        
+                this.myAllProjects = projectList.results;
+                this.allProjects = [];            
+                  for(var i=0; i< this.myAllProjects.length; i++){             
                       this.allProjects.push(this.myAllProjects[i]);
                       this.SharedService.sharedAllProjects.push(this.myAllProjects[i]);
                       this.SharedService.sharedAllProjectsNew.push(this.myAllProjects[i]);                
-                } 
+                  } 
             },
             err => {
                 console.log(err);
             },
-            () => console.log('Next Page Loading completed')
+            () => {
+              infiniteScroll.complete();
+              console.log('Next Page Loading completed')
+            }
             );                    
         }
-        infiniteScroll.complete();
-    }, 5000);
-          
-  }
+    }
 
-  getProjectsList(){       
-      this.SharedService.sharedAllProjects = [];
-      this.SharedService.sharedAllProjectsNew = []; 
-      this.buildingService.getBuildingData(this.configService, this.SharedService.config_header_new, this.pageno).subscribe((projectList)=>{  
-          if(projectList.next == null){
-            this.nextValueFlag = false;
-          }  
-          this.myAllProjects = projectList.results;
-          this.allProjects = [];            
+    getProjectsList(){       
+        this.SharedService.sharedAllProjects = [];
+        this.SharedService.sharedAllProjectsNew = []; 
+        this.buildingService.getBuildingData(this.configService, this.SharedService.config_header_new, this.pageno).subscribe((projectList)=>{  
+            if(projectList.next == null){
+              this.nextValueFlag = false;
+            }  
+            this.myAllProjects = projectList.results;
+            this.allProjects = [];            
             for(var i=0; i< this.myAllProjects.length; i++){              
                 this.allProjects.push(this.myAllProjects[i]);
                 this.SharedService.sharedAllProjects.push(this.myAllProjects[i]);
@@ -98,20 +97,17 @@ export class ProjectListPage {
 
                 }
             }
-      },
-      err => {
-          console.log(err);
-      },
-      () => console.log('Next Page Loading completed')
-    );
+        },
+        err => {
+            console.log(err);
+        },
+        () => console.log('Next Page Loading completed')
+        );
     }
       
-
-  
-
-  goToProjectDetailsPage(event, project){
+    goToProjectDetailsPage(event, project){
         this.navCtrl.push(ProjectDetailsPage, {
-         projectObject: project,           
+        projectObject: project,           
         });
     }
 

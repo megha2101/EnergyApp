@@ -11,10 +11,11 @@
     <ion-grid>
         <ion-item no-lines >
             <ion-avatar item-start class="smallScorepuckBlank">
-                <h2>56</h2>
+                <h2>{{this.sharedService.selBuildObjectScore}}</h2>
             </ion-avatar>
-                <h3 text-wrap>Innovation Unlimited</h3>
-                <p text-wrap>Washington, DC, US</p>
+            <h3>{{this.sharedService.selBuildObject.leed_id}}</h3>
+            <h3 text-wrap>{{this.sharedService.selBuildObject.name}}</h3>
+            <p text-wrap>{{this.sharedService.selBuildObject.city}}, {{this.sharedService.selBuildObject.state}}, {{this.sharedService.selBuildObject.country}}</p>
         </ion-item>
         
         <ion-row>
@@ -25,11 +26,11 @@
             </ion-col>
         </ion-row>
 
-        <ion-item-divider color="light" no-lines>HVAC-Meter1</ion-item-divider>
+        <ion-item-divider color="light" no-lines>{{this.sharedService.selMeterObj.name}}</ion-item-divider>
 
         <ion-item no-lines>           
             <div >   
-                <div id="chartdiv3" ></div>         
+                <div id="meter" class="meterChart"></div>         
             </div>          
         </ion-item>
 

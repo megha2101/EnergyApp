@@ -46,6 +46,14 @@ export class SharedServiceProvider {
   projectType           : any    = "building";
   mymeters              : any    = {};
   mymetersArray         : any    = [];
+  selMeterObj           : any;
+  checkMeterName        : boolean = false;
+  energy_data           : any    = [];
+  total_meters          : any    = "";
+  meters_on_screen      : any;
+  page_size             : any    = 2;
+  page_count            : any    = 1;
+  loading_more_meters   : boolean = true;
 
   //Storing data from api
   apiProjectList        : any     = {}; //json
@@ -99,11 +107,26 @@ export class SharedServiceProvider {
     }
   }
 
-  drawMeterChart = function(chart_id, dataProvider, lineColor, type, unit){
+  drawEmptyChart = function(chart_id, lineColor, unit)
+  {
+      var start_date, date;
+      start_date = new Date(new Date().getFullYear() + '-01-01');
+      var dataProvider_temp = [];
+      
+      for(var i = 0; i <= 11; i++)
+      {
+          dataProvider_temp.push(
+          {
+              start_date: moment(new Date()).subtract(i, 'month').format("YYYY-MM-DD"),
+              end_date:  moment(new Date()).subtract(i + 1, 'month').subtract(1, 'day').format("YYYY-MM-DD"),
+              reading: ""
+          });
+      }
+      this.drawChart(chart_id, dataProvider_temp, lineColor, 'empty', unit); 
+  }
 
-    {   
-      
-      
+  drawChart = function(chart_id, dataProvider, lineColor, type, unit){
+    {         
       if(chart_id == 'survey_chart' || chart_id == 'dissatisfation_chart')
       {
           var custom_units = '%';
@@ -124,6 +147,7 @@ export class SharedServiceProvider {
           var chart = this.AmCharts.makeChart(chart_id,
           {
               "type": "serial",
+              "hideCredits":true,
               "marginRight": 40,
               "marginLeft": 40,
               "autoMarginOffset": 20,
@@ -182,7 +206,116 @@ export class SharedServiceProvider {
   }
 }
 
-  //   var meter1Chart = this.AmCharts.makeChart( "meter1ChartDiv", {
+  
+  drawComparableChart = function (){
+    var chart = this.AmCharts.makeChart( "averageAnalysisGraph", {
+      "type": "serial",
+      "theme": "light",
+       "hideCredits":true,
+       "autoMargins": false,
+       "marginLeft": 50,
+       "marginRight": 8,
+       "marginTop": 10,
+       "marginBottom": 30,
+      "dataProvider": [{
+          "BuildingName": "Your Building",
+          "Score": this.selBuildObjectScore
+        },{
+          "BuildingName": "Local Average",
+          "Score": this.ScoreValue[1].energy_avg,
+          "dashLengthLine": 5,
+          "dashLengthColumn": 5,
+          "alpha": 0.2,
+            }, {
+          "BuildingName": "Global Average",
+          "Score": this.ScoreValue[0].energy_avg,//glovalScoreValue,       
+          "dashLengthColumn": 5,
+          "alpha": 0.2,
+        }],
+      "valueAxes": [ {
+        "gridColor": "#FFFFFF",
+        "gridAlpha": 0.2,
+        "dashLength": 0,
+        "title": "Scores"
+      } ],
+      "gridAboveGraphs": true,
+      "startDuration": 1,
+      "graphs": [ {
+      "alphaField": "alpha",
+         "lineColor": "#D0DD3D",
+        "balloonText": "[[category]] Score: <b>[[value]]</b>",
+         "fillAlphas": 1,
+        "type": "column",
+        "valueField": "Score",
+       "dashLengthField": "dashLengthColumn"
+      } ],
+      "chartCursor": {
+        "categoryBalloonEnabled": false,
+        "cursorAlpha": 0,
+        "zoomable": false
+      },
+      "categoryField": "BuildingName",
+      "categoryAxis": {
+        "gridPosition": "start",
+        "gridAlpha": 0,
+        "tickPosition": "start",
+        "tickLength": 0,
+        "autoWrap": true
+      },
+      "export": {
+        "enabled": true
+      }   
+    } );
+  }
+
+  drawAnalysisChart = function(category, dataProvider, color){   
+    var labelDuration = 'Months';
+    var balloonText =  category.charAt(0).toUpperCase() + category.slice(1) + " Score on [[category]]: [[value]]";
+        var chart = this.AmCharts.makeChart("analysis",
+        {
+            "hideCredits":true,
+            "marginRight": 25,
+            "marginLeft": 20,
+            "autoMarginOffset": 10,
+            "type": "serial",
+            "theme": "light",
+            "dataProvider": dataProvider,
+            "valueAxes": [
+            {
+                "position": "left",
+                "title": "Scores",
+                "gridThickness": 0,
+                "axisAlpha": 0.5,
+            }],
+            "startDuration": 0.5,
+            "graphs": [
+            {
+                "balloonText": balloonText,
+                "bullet": "round",
+                "title": category,
+                "valueField": "value",
+                "lineColor": color,
+                "fillAlphas": 0,
+            }],
+            "categoryField": "label",
+            "categoryAxis":
+            {
+                "gridPosition": "start",
+                "axisAlpha": 0.5,
+                "fillAlpha": 0.05,
+                "fillColor": "#000000",
+                "gridAlpha": 0,
+                "position": "bottom",
+                "dateFormats":[{period:'fff',format:'JJ:NN:SS'},{period:'ss',format:'JJ:NN:SS'},{period:'mm',format:'JJ:NN'},{period:'hh',format:'JJ:NN'},{period:'DD',format:'MMM DD'},{period:'WW',format:'MMM DD'},{period:'MM',format:'MMM YYYY'},{period:'YYYY',format:'YYYY'}],
+                "title": labelDuration,
+            }
+        });
+
+}
+
+}
+
+//   var meter1Chart = this.AmCharts.makeChart( "meter1ChartDiv", {
   //     "type": "serial",
   //     "hideCredits":true,
   //     "theme": "light",
@@ -290,110 +423,3 @@ export class SharedServiceProvider {
   // }
 
 
-  drawComparableChart = function (){
-    var chart = this.AmCharts.makeChart( "averageAnalysisGraph", {
-      "type": "serial",
-      "theme": "light",
-       "hideCredits":true,
-       "autoMargins": false,
-       "marginLeft": 50,
-       "marginRight": 8,
-       "marginTop": 10,
-       "marginBottom": 30,
-      "dataProvider": [{
-          "BuildingName": "Your Building",
-          "Score": this.selBuildObjectScore
-        },{
-          "BuildingName": "Local Average",
-          "Score": this.ScoreValue[1].energy_avg,
-          "dashLengthLine": 5,
-          "dashLengthColumn": 5,
-          "alpha": 0.2,
-            }, {
-          "BuildingName": "Global Average",
-          "Score": this.ScoreValue[0].energy_avg,//glovalScoreValue,       
-          "dashLengthColumn": 5,
-          "alpha": 0.2,
-        }],
-      "valueAxes": [ {
-        "gridColor": "#FFFFFF",
-        "gridAlpha": 0.2,
-        "dashLength": 0,
-        "title": "Scores"
-      } ],
-      "gridAboveGraphs": true,
-      "startDuration": 1,
-      "graphs": [ {
-      "alphaField": "alpha",
-         "lineColor": "#D0DD3D",
-        "balloonText": "[[category]] Score: <b>[[value]]</b>",
-         "fillAlphas": 1,
-        "type": "column",
-        "valueField": "Score",
-       "dashLengthField": "dashLengthColumn"
-      } ],
-      "chartCursor": {
-        "categoryBalloonEnabled": false,
-        "cursorAlpha": 0,
-        "zoomable": false
-      },
-      "categoryField": "BuildingName",
-      "categoryAxis": {
-        "gridPosition": "start",
-        "gridAlpha": 0,
-        "tickPosition": "start",
-        "tickLength": 0,
-        "autoWrap": true
-      },
-      "export": {
-        "enabled": true
-      }   
-    } );
-  }
-
-  drawAnalysisChart = function(category, dataProvider, color){   
-    var labelDuration = 'Months';
-    var balloonText =  category.charAt(0).toUpperCase() + category.slice(1) + " Score on [[category]]: [[value]]";
-          var chart = this.AmCharts.makeChart("analysis",
-          {
-              "hideCredits":true,
-              "marginRight": 25,
-              "marginLeft": 20,
-              "autoMarginOffset": 10,
-              "type": "serial",
-              "theme": "light",
-              "dataProvider": dataProvider,
-              "valueAxes": [
-              {
-                  "position": "left",
-                  "title": "Scores",
-                  "gridThickness": 0,
-                  "axisAlpha": 0.5,
-              }],
-              "startDuration": 0.5,
-              "graphs": [
-              {
-                  "balloonText": balloonText,
-                  "bullet": "round",
-                  "title": category,
-                  "valueField": "value",
-                  "lineColor": color,
-                  "fillAlphas": 0,
-              }],
-              "categoryField": "label",
-              "categoryAxis":
-              {
-                  "gridPosition": "start",
-                  "axisAlpha": 0.5,
-                  "fillAlpha": 0.05,
-                  "fillColor": "#000000",
-                  "gridAlpha": 0,
-                  "position": "bottom",
-                  "dateFormats":[{period:'fff',format:'JJ:NN:SS'},{period:'ss',format:'JJ:NN:SS'},{period:'mm',format:'JJ:NN'},{period:'hh',format:'JJ:NN'},{period:'DD',format:'MMM DD'},{period:'WW',format:'MMM DD'},{period:'MM',format:'MMM YYYY'},{period:'YYYY',format:'YYYY'}],
-                  "title": labelDuration,
-              }
-          });
-
-}
-
-}

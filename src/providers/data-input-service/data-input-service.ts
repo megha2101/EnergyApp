@@ -5,8 +5,8 @@ import { MeterDataServiceProvider } from '../../providers/meter-data-service/met
 import { AsyncServiceProvider } from '../../providers/async-service/async-service';
 import * as moment from 'moment';
 import { SharedServiceProvider } from '../shared-service/shared-service';
-
-
+import * as $ from 'jquery';
+import { CompilerConfig } from '@angular/compiler/src/config';
 
 @Injectable()
 export class DataInputServiceProvider {
@@ -18,16 +18,14 @@ export class DataInputServiceProvider {
     meterReadings: any = [];
     response: any= [];
     mymeters : any= [];
-    loadingMoreMeters: any = true;
     chartOptions1: any;
     newOption: any;
-    page_size: any = 2;
-    page_count: any = 1;
     
     constructor(public http: Http, public MeterDataService: MeterDataServiceProvider, private asyncService: AsyncServiceProvider,
     public sharedService: SharedServiceProvider) {
     
     }
+  
     getNumberOfMeters(configService, projectId, config_header){
 
       // if(this.dataInputMeters){
@@ -35,19 +33,19 @@ export class DataInputServiceProvider {
       // }
       
         return new Promise((resolve, reject) => {
-            this.MeterDataService.getMeterData(configService, projectId, this.page_size, config_header).subscribe((data)=> {
+            this.MeterDataService.getMeterData(configService, projectId, this.sharedService.page_size, config_header, this.sharedService.page_count).subscribe((data)=> {
                   this.dataInputMeters = data;
                   this.energyUrls= [];   
                   this.meterData = [];  
                   if(data.next == null)
                   {
-                      //this.page_count = null;
+                      this.sharedService.page_count = null;
+                      this.sharedService.loading_more_meters = false;
                   }  
                   for(var i=0; i< this.dataInputMeters.results.length; i++){  
                       this.dataInputMeters.results[i]['readings'] = [];   
                       this.meterData.push(this.dataInputMeters.results[i]); 
-                      this.energyUrls.push(configService.basic_api_url + '/assets/LEED:'+ projectId +'/meters/ID:' + this.dataInputMeters.results[i].id + '/consumption/?page_size=12');
-              
+                      this.energyUrls.push(configService.basic_api_url + '/assets/LEED:'+ projectId +'/meters/ID:' + this.dataInputMeters.results[i].id + '/consumption/?page_size=12');              
                   }  
                   this.asyncService.asyncServFunc(this.energyUrls, config_header).subscribe((data1)=> {
                       this.meterReadings = data1;
@@ -86,17 +84,18 @@ export class DataInputServiceProvider {
                           }
 
                       this.sharedService.mymeters = this.dataInputMeters.results;
+                      //this.sharedService.fuel_types = $rootScope.appData.fuel_type;
+                      //this.sharedService.loading_more_meters = false;
                       for(var i = 0; i< this.sharedService.mymeters.length; i++){
                           this.sharedService.mymetersArray.push(this.sharedService.mymeters[i]);
-                      }
-                      //$scope.$emit('ngRepeatFinish');
-                      this.loadingMoreMeters = false;    
+                      } 
                         resolve(this.dataInputMeters);
                       }, (error) => {
-                          reject(error);   
-                          
-                      
-                  });        
+                          reject(error);                         
+                  });  
+                  
+                  this.sharedService.meters_on_screen = this.meterData.length;
+                  this.sharedService.total_meters = this.dataInputMeters.count
             });
         });
     }

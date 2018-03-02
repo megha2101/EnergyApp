@@ -27,7 +27,6 @@ export class AddMeterDataPage {
   ionViewDidLoad() {
     
   }
-
   save(){
     this.submitAttempt = true;
         if(!this.addMeterReadingForm.valid){      

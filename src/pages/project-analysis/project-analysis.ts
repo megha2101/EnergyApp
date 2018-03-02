@@ -19,28 +19,22 @@ export class ProjectAnalysisPage {
   private chart: AmChart;
   hasUserSelectedDate: any;
   selectedDate: any;
-  analysisData: any = {"year_data":[], "info":{}};
-  year_data: any;
+  analysisData: any = {};
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public sharedService: SharedServiceProvider,
-    public storage: Storage, private AmCharts: AmChartsService, public analysisService: AnalysisServiceProvider,
+  public storage: Storage, private AmCharts: AmChartsService, public analysisService: AnalysisServiceProvider,
   public configService: ConfigServiceProvider)
   {
   }
 
-  ngAfterViewInit(){ 
-    
-    let dataloaded = this.analysisService.getEnergyAnanlysisData("energy", this.sharedService.selBuildObject.leed_id, 
-    this.hasUserSelectedDate, this.selectedDate, this.configService, this.sharedService.config_header_new);
-    Promise.all([
-        dataloaded
-    ]).then((result) => {
-        let analysisData = result[0]; 
-             
-        //this.sharedService.drawAnalysisChart('energy', analysisData.year_data[0].values,"#D0DD3D");        
-    });
+  ngOnInit(){     
+    this.analysisService.getEnergyAnanlysisData("energy", this.sharedService.selBuildObject.leed_id,this.hasUserSelectedDate,
+    this.selectedDate, this.configService, this.sharedService.config_header_new).then((result) => {  
+        this.analysisData = result;
+        this.sharedService.drawAnalysisChart('energy',this.analysisData.year_data[0].values,"#D0DD3D");        
+    }); 
   }
-
 
   save(){
     this.navCtrl.push(LoginPage);
