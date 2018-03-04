@@ -70,9 +70,8 @@ export class AddProjectPage {
       });
     } 
 
-  
-    
 
+    //test
   addNewProject(){
       this.submitAttempt = true;
       if(!this.addProjectForm.valid){      
