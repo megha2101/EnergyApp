@@ -9,7 +9,7 @@ import { SharedServiceProvider } from '../../providers/shared-service/shared-ser
 export class AnalysisServiceProvider {
   //analysis service
   energyAnalysisInfo: any;
-
+//jn
   analysis_data: { 'year_data': any, 'info': any; };
   use_date: any = [];
   use_date_chart: any = [];
