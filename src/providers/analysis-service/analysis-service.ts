@@ -22,7 +22,7 @@ export class AnalysisServiceProvider {
   previousYearMonth: any;
   na_scope: any;
   projectId: any;
-//bdhfb
+//bdhfbvghv
   projectCategoryMax: any = [];
   projectEnergyScore: any = [];
   projectTotalScore: any = [];
