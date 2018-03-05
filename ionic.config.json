@@ -1,6 +1,6 @@
 {
   "name": "energy_app",
-  "app_id": "6898d3f5",
+  "app_id": "4dd2f456",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
