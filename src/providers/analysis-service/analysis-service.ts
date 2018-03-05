@@ -7,7 +7,7 @@ import { SharedServiceProvider } from '../../providers/shared-service/shared-ser
 
 @Injectable()
 export class AnalysisServiceProvider {
-
+  //analysis service
   energyAnalysisInfo: any;
 
   analysis_data: { 'year_data': any, 'info': any; };
@@ -293,7 +293,7 @@ export class AnalysisServiceProvider {
                   });
           
                   sum = 0;
-                  for(var i=0;i<this.sharedService.projectBaseLastYear[0].values.length;i++)
+                  for(var i=0; i<this.sharedService.projectBaseLastYear[0].values.length;i++)
                   {
                       sum += this.sharedService.projectBaseLastYear[0].values[i].value;
                   }
