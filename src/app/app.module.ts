@@ -8,6 +8,7 @@ import { HttpModule } from '@angular/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
+import { FileOpener } from '@ionic-native/file-opener';
 
 //pages
 import { MyApp } from './app.component';
@@ -24,11 +25,13 @@ import { SourcePage } from '../pages/source/source';
 import { AddMeterDataPage } from '../pages/add-meter-data/add-meter-data';
 import { AddSourcePage } from '../pages/add-source/add-source';
 import { SignupPage } from '../pages/signup/signup';
+import { NewOrganizationPage } from '../pages/new-organization/new-organization';
 
 //Providers
 import { SharedServiceProvider } from '../providers/shared-service/shared-service';
 import { BuildingProjectServiceProvider } from '../providers/building-project-service/building-project-service';
 import { ScoreServiceProvider } from '../providers/score-service/score-service';
+import { DatePipe } from '@angular/common';
 
 //Components
 import { FabIconComponent } from '../components/fab-icon/fab-icon';
@@ -41,6 +44,12 @@ import { AnalysisServiceProvider } from '../providers/analysis-service/analysis-
 import { AsyncServiceProvider } from '../providers/async-service/async-service';
 import { DataInputServiceProvider } from '../providers/data-input-service/data-input-service';
 import { MeterDataServiceProvider } from '../providers/meter-data-service/meter-data-service';
+import { GeoServiceProvider } from '../providers/geo-service/geo-service';
+import { RegistrationServiceProvider } from '../providers/registration-service/registration-service';
+import { ImpMethodsProvider } from '../providers/imp-methods/imp-methods';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { ValidationServiceProvider } from '../providers/validation-service/validation-service';
+import { ScoreRecomputeServiceProvider } from '../providers/score-recompute-service/score-recompute-service';
 
 
 
@@ -61,7 +70,8 @@ import { MeterDataServiceProvider } from '../providers/meter-data-service/meter-
     AddMeterDataPage,
     SignupPage,
     AddSourcePage,
-    SourcesListPage
+    SourcesListPage,
+    NewOrganizationPage
   ],
   imports: [
     BrowserModule,
@@ -94,7 +104,8 @@ import { MeterDataServiceProvider } from '../providers/meter-data-service/meter-
     AddMeterDataPage,
     SignupPage,
     AddSourcePage,
-    SourcesListPage
+    SourcesListPage,
+    NewOrganizationPage
   ],
   providers: [
     StatusBar,
@@ -112,6 +123,14 @@ import { MeterDataServiceProvider } from '../providers/meter-data-service/meter-
     AsyncServiceProvider,
     DataInputServiceProvider,
     MeterDataServiceProvider,
+    FileOpener,
+    GeoServiceProvider,
+    RegistrationServiceProvider,
+    ImpMethodsProvider,
+    AuthServiceProvider,
+    ValidationServiceProvider,
+    ScoreRecomputeServiceProvider,
+    DatePipe
   ]
 })
 export class AppModule {}

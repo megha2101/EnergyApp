@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Http } from '@angular/http';
 import { AddSourcePage } from '../add-source/add-source';
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 import { SourcePage } from '../source/source';
@@ -20,10 +21,12 @@ export class SourcesListPage {
     private meter1Chart   : AmChart;
     pageno                : any = 1;
     nextFlag              : boolean = true;
+    custom_basic_config_header : any = {};
+    meterLoaderFlag       : boolean = true;
    
     constructor(public navCtrl: NavController, public navParams: NavParams, private AmCharts: AmChartsService,
-    public sharedService: SharedServiceProvider, public dataInputService: DataInputServiceProvider,
-    public configService: ConfigServiceProvider) {
+    public sharedService: SharedServiceProvider, public dataInputService: DataInputServiceProvider, public http: Http,
+    public configService: ConfigServiceProvider, public alertCtrl: AlertController) {
     }
 
     ngOnInit() {
@@ -33,6 +36,44 @@ export class SourcesListPage {
         this.sharedService.mymetersArray = [];
         this.dataInputService.getNumberOfMeters(this.configService, this.sharedService.selBuildObject.leed_id, this.sharedService.config_header_new).then((data)=>{
         });  
+    }
+    deleteMeter(meter, sharedService){
+        this.meterLoaderFlag = false;
+        this.custom_basic_config_header = 
+            {
+                data: {},
+                headers: 
+                {
+                    "Content-Type": "application/json",
+                    "Ocp-Apim-Subscription-Key": this.configService.subscription_key,
+                    "Authorization": "Bearer " + this.configService.authToken
+                }
+            };
+      
+      this.http.delete(this.configService.basic_api_url + '/assets/LEED:'+ this.sharedService.selBuildObject.leed_id +'/meters/ID:'+meter.id + '/?recompute_score=1',  this.custom_basic_config_header).subscribe((data)=>
+      {
+          //this.sharedService.meterToDelete = undefined;
+          //this.sharedService.meterToDeleteElem = undefined;
+          //elem.meterDeleteLoader = undefined;
+          for(var i=0;i<this.sharedService.dataInputMeters.results.length;i++)
+          {
+              if(this.sharedService.dataInputMeters.results[i].id == meter.id)
+              {
+                this.sharedService.mymetersArray = [];
+                this.sharedService.mymeters = {};
+                this.sharedService.dataInputMeters.results.splice(i, 1);
+                this.sharedService.meters_on_screen = this.sharedService.dataInputMeters.results.length;
+                this.sharedService.total_meters = parseInt(this.sharedService.total_meters) - 1;
+                this.sharedService.mymeters =this.sharedService.dataInputMeters.results;
+                this.meterLoaderFlag = true;
+                for(var i = 0; i< this.sharedService.mymeters.length; i++){
+                    this.sharedService.mymetersArray.push(this.sharedService.mymeters[i]);
+                }  
+                return;
+              }
+          }
+      }); 
+
     }
 
     startDrawChart(meters){
@@ -55,13 +96,12 @@ export class SourcesListPage {
           this.sharedService.page_count += 1;
           this.dataInputService.getNumberOfMeters(this.configService, this.sharedService.selBuildObject.leed_id, this.sharedService.config_header_new).then((data)=>{ 
               infiniteScroll.complete();
-              console.log('Meter Page Loading completed')         
+              console.log('Meter Page Loading completed');       
           });  
             
       }        
       
-    }
-  
+    }  
     goToAddSourcePage(){
       this.navCtrl.push(AddSourcePage);    
     }
@@ -73,3 +113,4 @@ export class SourcesListPage {
     }
 
 }
+

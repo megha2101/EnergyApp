@@ -11,7 +11,6 @@ import { CompilerConfig } from '@angular/compiler/src/config';
 @Injectable()
 export class DataInputServiceProvider {
 
-    dataInputMeters: any;
     meterData: any = [];
     energyUrls:any=[];
     items: any = [];
@@ -28,13 +27,13 @@ export class DataInputServiceProvider {
   
     getNumberOfMeters(configService, projectId, config_header){
 
-      // if(this.dataInputMeters){
-      //   return Promise.resolve(this.dataInputMeters);
+      // if(this.sharedService.dataInputMeters){
+      //   return Promise.resolve(this.sharedService.dataInputMeters);
       // }
       
         return new Promise((resolve, reject) => {
             this.MeterDataService.getMeterData(configService, projectId, this.sharedService.page_size, config_header, this.sharedService.page_count).subscribe((data)=> {
-                  this.dataInputMeters = data;
+                 this.sharedService.dataInputMeters = data;
                   this.energyUrls= [];   
                   this.meterData = [];  
                   if(data.next == null)
@@ -42,15 +41,15 @@ export class DataInputServiceProvider {
                       this.sharedService.page_count = null;
                       this.sharedService.loading_more_meters = false;
                   }  
-                  for(var i=0; i< this.dataInputMeters.results.length; i++){  
-                      this.dataInputMeters.results[i]['readings'] = [];   
-                      this.meterData.push(this.dataInputMeters.results[i]); 
-                      this.energyUrls.push(configService.basic_api_url + '/assets/LEED:'+ projectId +'/meters/ID:' + this.dataInputMeters.results[i].id + '/consumption/?page_size=12');              
+                  for(var i=0; i<this.sharedService.dataInputMeters.results.length; i++){  
+                     this.sharedService.dataInputMeters.results[i]['readings'] = [];   
+                      this.meterData.push(this.sharedService.dataInputMeters.results[i]); 
+                      this.energyUrls.push(configService.basic_api_url + '/assets/LEED:'+ projectId +'/meters/ID:' +this.sharedService.dataInputMeters.results[i].id + '/consumption/?page_size=12');              
                   }  
                   this.asyncService.asyncServFunc(this.energyUrls, config_header).subscribe((data1)=> {
                       this.meterReadings = data1;
-                      for(var i = 0; i < this.dataInputMeters["results"].length; i++) {
-                          var meter_id = this.dataInputMeters["results"][i].id;
+                      for(var i = 0; i <this.sharedService.dataInputMeters["results"].length; i++) {
+                          var meter_id =this.sharedService.dataInputMeters["results"][i].id;
                           for(var j = 0; j < this.meterReadings.length; j++){
                               var meter_id_response = this.energyUrls[j].split('/ID:')[this.energyUrls[j].split('/ID:').length - 1].split('/')[0];
                               if(meter_id_response == meter_id)
@@ -60,42 +59,42 @@ export class DataInputServiceProvider {
                                           this.meterReadings[j].results[x].start_date = moment(this.meterReadings[j]['results'][x].start_date.split('T')[0]).format("MMM DD, YYYY");  
                                           this.meterReadings[j].results[x].end_date = moment(this.meterReadings[j]['results'][x].end_date.split('T')[0]).subtract(1, 'day').format("MMM DD, YYYY"); 
                                       }
-                                      this.dataInputMeters["results"][i]['readings'] = this.meterReadings[j].results;
+                                     this.sharedService.dataInputMeters["results"][i]['readings'] = this.meterReadings[j].results;
                                   }
                           }
-                          if(this.dataInputMeters["results"][i].fuel_type.kind.toLowerCase() == 'electricity')
+                          if(this.sharedService.dataInputMeters["results"][i].fuel_type.kind.toLowerCase() == 'electricity')
                           {
-                              if(this.dataInputMeters["results"][i].fuel_type.id != 46)
+                              if(this.sharedService.dataInputMeters["results"][i].fuel_type.id != 46)
                               {
-                                  this.dataInputMeters["results"][i].fuel_type.type = 'Purchased from Grid'
+                                 this.sharedService.dataInputMeters["results"][i].fuel_type.type = 'Purchased from Grid'
                               }
                           }
                                 
-                          var partner_id = isNaN(this.dataInputMeters["results"].partner_meter_id) ? 0 : parseInt(this.dataInputMeters["results"].partner_meter_id)
+                          var partner_id = isNaN(this.sharedService.dataInputMeters["results"].partner_meter_id) ? 0 : parseInt(this.sharedService.dataInputMeters["results"].partner_meter_id)
                           
                           if(partner_id > 0)
                           {
-                            this.dataInputMeters["results"][i]['energystar'] = true;
+                           this.sharedService.dataInputMeters["results"][i]['energystar'] = true;
                           }
                           else
                           {
-                            this.dataInputMeters["results"][i]['energystar'] = false;
+                           this.sharedService.dataInputMeters["results"][i]['energystar'] = false;
                           }
                           }
 
-                      this.sharedService.mymeters = this.dataInputMeters.results;
+                      this.sharedService.mymeters =this.sharedService.dataInputMeters.results;
                       //this.sharedService.fuel_types = $rootScope.appData.fuel_type;
                       //this.sharedService.loading_more_meters = false;
                       for(var i = 0; i< this.sharedService.mymeters.length; i++){
                           this.sharedService.mymetersArray.push(this.sharedService.mymeters[i]);
                       } 
-                        resolve(this.dataInputMeters);
+                        resolve(this.sharedService.dataInputMeters);
                       }, (error) => {
                           reject(error);                         
                   });  
                   
                   this.sharedService.meters_on_screen = this.meterData.length;
-                  this.sharedService.total_meters = this.dataInputMeters.count
+                  this.sharedService.total_meters =this.sharedService.dataInputMeters.count
             });
         });
     }

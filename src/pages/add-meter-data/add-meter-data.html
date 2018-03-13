@@ -12,11 +12,11 @@
 
     <p *ngIf="submitAttempt" ></p>
 
-    <form [formGroup]="addMeterReadingForm">
+    <form [formGroup]="addMeterReadingForm" >
         
         <ion-item >
             <ion-label stacked>Start Date</ion-label>
-            <ion-datetime type="date"  placeholder="" max="2099-12-31" [(ngModel)]="myStartDate" formControlName="startDate"></ion-datetime>
+            <ion-datetime type="date"  placeholder="" max="2099-12-31" [(ngModel)]="myStartDate" formControlName="startDate" (ionChange)="validateReadings(myStartDate, this)"></ion-datetime>
             <ion-icon name="calendar" item-end></ion-icon>
         </ion-item>
 
@@ -26,7 +26,7 @@
         
         <ion-item>
             <ion-label stacked>End Date</ion-label>
-            <ion-datetime  type="date"  placeholder="" max="2099-12-31" [(ngModel)]="myEndDate" formControlName="endDate"></ion-datetime>            
+            <ion-datetime  type="date"  placeholder="" max="2099-12-31" [(ngModel)]="myEndDate" formControlName="endDate" (ionChange)="validateReadings(myStartDate, this)"></ion-datetime>            
             <ion-icon name="calendar" item-end></ion-icon>
         </ion-item>
 
@@ -36,20 +36,18 @@
          -->
         <ion-item>
             <ion-label stacked>Reading</ion-label>
-            <ion-input type="number" pattern="[0-9]*" placeholder="Enter Reading in unit kWh" formControlName="reading" [class.invalid]="!addMeterReadingForm.controls.reading.valid && (addMeterReadingForm.controls.reading.dirty || submitAttempt)"></ion-input>
+            <ion-input type="number" pattern="[0-9]*" placeholder="Enter Reading in unit kWh" [(ngModel)]="myReading" formControlName="reading" [class.invalid]="!addMeterReadingForm.controls.reading.valid && (addMeterReadingForm.controls.reading.dirty || submitAttempt)"></ion-input>
         </ion-item>
 
         <ion-item no-lines *ngIf="!addMeterReadingForm.controls.reading.valid  && (addMeterReadingForm.controls.reading.dirty || submitAttempt)">
             <p class="error-message">Please enter a valid Reading.</p>
         </ion-item>
 
-        <ion-item no-lines>
-
-        </ion-item>
+        <ion-item no-lines *ngIf="showError" text-wrap>{{allReasons}}</ion-item>
  
         <ion-row>
             <ion-col >
-                <button ion-button block (click)="save()" >
+                <button ion-button block (click)="saveMeterData()" >
                     Save
                 </button>
             </ion-col>

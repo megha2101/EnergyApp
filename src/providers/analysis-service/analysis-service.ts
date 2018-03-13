@@ -54,17 +54,12 @@ export class AnalysisServiceProvider {
    
   getEnergyAnanlysisData(report_type, projectId, hasUserSelectedDate, selectedDate, configService, config_header){
 
-      if(this.analysis_data){
-          return Promise.resolve(this.analysis_data);
-      }
+      // if(this.analysis_data){
+      //     return Promise.resolve(this.analysis_data);
+      // }
       return new Promise((resolve, reject) => {
           var noOfMonths = 12;
           var todaysDate = new Date();                            
-
-          // if(hasUserSelectedDate){
-          //     todaysDate = new Date(selectedDate);
-          //     todaysDate.setDate(todaysDate.getDate() + 1); //for showing correct date to frontend
-          // }
 
           if(this.sharedService.demoFlag){
               todaysDate = new Date("6/6/2017"); 
@@ -88,7 +83,7 @@ export class AnalysisServiceProvider {
           this.http.get(analysis_path, config_header).map(res => res.json()).subscribe((data)=> {
               if(data.energy != null && data.energy.info_json != "None")
               {
-                this.sharedService.energyAnalysisInfo = JSON.parse(data.energy.info_json.replace(/'/g , '"').replace("None", '"None"').replace('""None""', '"None"')); 
+                this.sharedService.energyAnalysisInfo = data.energy.info_json['Attributes for this project']; 
               }
               else
               {

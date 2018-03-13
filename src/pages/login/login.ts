@@ -44,7 +44,7 @@ export class LoginPage {
   openWebPage(){
       const browser = this.iab.create('https://www.usgbc.org/registration/create-user','_self');
   }
-
+  
   login(){
     this.loginText = "LOGGING IN";
     this.disableLoginFlag = true;
@@ -55,13 +55,14 @@ export class LoginPage {
           }
       };
       this.credentials={
-        "username": this.loginForm.get('loginEmail').value,
-        "password": this.loginForm.get('password').value
-        // "username": "testuser@gmail.com", //testuser@gmail.com //tbisht@icloud.com
-        // "password": "initpass"
+        // "username": this.loginForm.get('loginEmail').value,
+        // "password": this.loginForm.get('password').value
+        "username": "tbisht@icloud.com", //testuser@gmail.com //tbisht@icloud.com
+        "password": "initpass"
       };
       this.LoginService.getLogin(this.credentials, this.config_header).subscribe((data)=>{ 
-          this.configService.authToken = data.authorization_token;         
+          this.configService.authToken = data.authorization_token;   
+          this.sharedService.userDetails = data.user;      
           this.sharedService.config_header_new = 
               {
                   headers: 
@@ -90,6 +91,10 @@ export class LoginPage {
               this.disableLoginFlag = false;
               console.log("error in authentication api");
       });     
+  }
+
+  forgotPassword(){
+    const browser = this.iab.create('https://www.usgbc.org/user/password','_self');
   }
 
   goToSignUpPage(){

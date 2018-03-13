@@ -19,14 +19,24 @@
             </button>
         </ion-col>
     </ion-row>
-    <ion-card tappable   *ngFor="let meters of this.sharedService.mymetersArray, let last = last" (click)="goToSourcePage($event, meters)">
-        <ion-card-header class="pb">
-            <h2> {{meters.name}}</h2>
-        </ion-card-header>
-        <ion-card-content  >
-            <div  id="{{meters.id}}" class="meterCharts">{{last ? startDrawChart(meters) :''}}</div>                 
-        </ion-card-content>
-    </ion-card>
+    <!-- [ngClass]="meterLoaderFlag?'deleteHide' :'dataInputLoaderSpinner'" -->
+    <ion-list>
+        <ion-item-sliding *ngFor="let meters of this.sharedService.mymetersArray, let last = last"  >
+            <ion-item no-lines>
+                <ion-card tappable (click)="goToSourcePage($event, meters)">
+                    <ion-card-header class="pb" >
+                    <h2>{{meters.name}}</h2>                      
+                    </ion-card-header>
+                    <ion-card-content>
+                        <div  id="{{meters.id}}" class="meterCharts">{{last ? startDrawChart(meters) :''}}</div>                 
+                    </ion-card-content>
+                </ion-card> 
+            </ion-item>            
+            <ion-item-options>
+                <button ion-button class="red" (click)="deleteMeter(meters)"><ion-icon class="red" name="trash"></ion-icon>Delete</button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>    
     <ion-infinite-scroll (ionInfinite)="this.meterListScroll($event)">
       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
     </ion-infinite-scroll>

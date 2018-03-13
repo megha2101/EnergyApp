@@ -7,6 +7,7 @@ import { SharedServiceProvider } from '../../providers/shared-service/shared-ser
 import { AmChartsService, AmChart } from "@amcharts/amcharts3-angular";
 import { AnalysisServiceProvider } from '../../providers/analysis-service/analysis-service';
 import { ConfigServiceProvider } from '../../providers/config-service/config-service';
+import { ScoreRecomputeServiceProvider } from '../../providers/score-recompute-service/score-recompute-service';
 
 
 @IonicPage()
@@ -24,7 +25,7 @@ export class ProjectAnalysisPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public sharedService: SharedServiceProvider,
   public storage: Storage, private AmCharts: AmChartsService, public analysisService: AnalysisServiceProvider,
-  public configService: ConfigServiceProvider)
+  public configService: ConfigServiceProvider, public scoreRecomputeService: ScoreRecomputeServiceProvider)
   {
   }
 
@@ -34,7 +35,23 @@ export class ProjectAnalysisPage {
         this.analysisData = result;
         this.sharedService.drawAnalysisChart('energy',this.analysisData.year_data[0].values,"#D0DD3D");        
     }); 
+
+    if(this.sharedService.energyAnalysisInfo == undefined)
+    {   
+        this.scoreRecomputeService.scoreRecompute();            
+        this.analysisService.getEnergyAnanlysisData("energy", this.sharedService.selBuildObject.leed_id,this.hasUserSelectedDate,
+        this.selectedDate, this.configService, this.sharedService.config_header_new);
+    }
   }
+
+ adjusted_emissions_per_sf(){
+    var unit = this.sharedService.getUnitTypeForJson();
+    if (this.sharedService.energyAnalysisInfo != undefined){
+    if (this.sharedService.energyAnalysisInfo != undefined){
+       return this.sharedService.energyAnalysisInfo["Adjusted Emissions per SF (mtco2e/"+unit+")"];
+    }
+    };
+ }
 
   save(){
     this.navCtrl.push(LoginPage);
@@ -42,74 +59,3 @@ export class ProjectAnalysisPage {
 
 }
 
-// drawAnalysisChart = function(category, dataProvider, color){
-//   var chart = this.AmCharts.makeChart("analysis", {
-//     "type": "serial",
-//     "theme": "light",
-//     "hideCredits":true,
-//     "marginRight": 25,
-//     "marginLeft": 20,
-//     "autoMarginOffset": 10,
-//     "mouseWheelZoomEnabled":false,
-//     "dataDateFormat": "YYYY-MM-DD",
-//     "valueAxes": [{
-//         "id": "v1",
-//         "axisAlpha": 0,
-//         "position": "left",
-//         "ignoreAxisWidth":false,
-//         "title": "Scores"
-//     }],
-//     "balloon": {
-//         "borderThickness": 1,
-//         "shadowAlpha": 0,
-//     },
-//     "graphs": [{
-//         "id": "g1",
-//         "lineColor": "#D0DD3D",
-//         "balloon":{
-//           "drop":true,
-//           "adjustBorderColor":false,
-//           "color":"#ffffff"
-//         },
-//         "bullet": "round",
-//         "bulletBorderAlpha": 1,
-//         "bulletColor": "#D0DD3D",
-//         "bulletSize": 5,
-//         "hideBulletsCount": 50,
-//         "lineThickness": 2,
-//         "title": "red line",
-//         "useLineColorForBulletBorder": true,
-//         "valueField": "value",
-//         "balloonText": "<span style='font-size:18px;'>[[value]]</span>"
-//     }],
-//     "chartCursor": {
-//         "pan": true,
-//         "valueLineEnabled": true,
-//         "valueLineBalloonEnabled": true,
-//         "cursorAlpha":1,
-//         "cursorColor":"#D0DD3D",
-//         "limitToGraph":"g1",
-//         "valueLineAlpha":0.2,
-//         "valueZoomable":true
-//     },
-//     "categoryField": "date",
-//     "categoryAxis": {
-//       "markPeriodChange":false,
-//       "parseDates": true,
-//       "dashLength": 1,
-//       //"parseDates": true,
-//       "dateFormats":[{period:'fff',format:'JJ:NN:SS'},{period:'ss',format:'JJ:NN:SS'},{period:'mm',format:'JJ:NN'},{period:'hh',format:'JJ:NN'},{period:'DD',format:'MMM DD'},{period:'WW',format:'MMM DD'},{period:'MM',format:'MMM YYYY'},{period:'YYYY',format:'YYYY'}],
-//       "boldPeriodBeginning": true,
-//       "equalSpacing": true,
-//       "startOnAxis": true,
-//       "minorGridEnabled": true,
-//       "title": "Months"
-//     },
-//     "export": {
-//         "enabled": true
-//     },
-//     "dataProvider": dataProvider.map(function (point){
-//                     console.log("point is: " +point);
-//                      return [point.value]; 
-//                  })
-// });

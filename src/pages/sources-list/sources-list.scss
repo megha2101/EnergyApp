@@ -11,5 +11,38 @@ page-sources-list {
         height: 200px;
 
       }
+      .red{
+       color: red;
+       background-color: white;
+      }
+      
+
+    .deleteHide {
+      z-index: 9;
+      top: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      position: absolute;
+      border-radius: 3px;
+      background-color: rgba(255,255,255,0.8);
+  }
+
+  .dataInputLoaderSpinner {
+    float: right;
+    margin-top: 11px;
+    /* margin-right: 10px; */
+    border-radius: 23px;
+    border-width: 12px;
+    width: 9px;
+    height: 9px;
+    z-index: 2000;
+    border: solid 2px transparent;
+    border-top-color: darkgray;
+    border-left-color: darkgray;
+    -moz-animation: spin 400ms linear infinite;
+    animation: spin 400ms linear infinite;
+}
 
 }

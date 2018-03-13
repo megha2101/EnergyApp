@@ -1,0 +1,198 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Project</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content >
+
+    <!-- <p *ngIf="submitAttempt" ></p> -->
+
+    <form [formGroup]="userForm" id="project-details-form" (ngsubmit)="submitDetails(userForm.$valid)" novalidate>
+          <!-- Project Name -->
+          <div class="form-group" [ngClass]="{ 'has-error' : (userForm.name.$invalid && !userForm.name.$pristine) || (isFormSubmitted && userForm.name.$invalid)}">
+              <label for="name">{{project_name}} Name</label>
+              <input maxlength="40" type="text" id="project_name" name="name" [(ngModel)]="formdata.name" class="form-control" [required]="true" [pattern]="formValidation.name" (blur)="enableFdatePicker()">
+
+              <span class="help-block required-field" *ngIf="(isFormSubmitted && userForm.name.$invalid) || (userForm.name.$invalid && userForm.name.$dirty)">This field is required.</span>
+
+              <span class="help-block pattern-validation" *ngIf='userForm.name.$error.pattern'>{{formValidation.nameMsg}}</span>
+          </div>
+          <!-- Project Name -->
+        
+          <!-- <ion-item class="mtop" >
+              <ion-label stacked>Project Name</ion-label>
+              <ion-input formControlName="projectName" type="text" [class.invalid]="!addProjectForm.controls.projectName.valid && (addProjectForm.controls.projectName.dirty || submitAttempt)"></ion-input>
+          </ion-item>
+
+          <ion-item no-lines *ngIf="!addProjectForm.controls.projectName.valid  && (addProjectForm.controls.projectName.dirty || submitAttempt)">
+              <p class="error-message">This field is required.</p>
+          </ion-item>
+
+          <ion-item class="mtop">
+              <ion-label stacked>Unit Type </ion-label>
+              <ion-select [(ngModel)]="selectedUnitType" formControlName="unitType" text-wrap>
+                  <ion-option  *ngFor="let unit of unitType" value= {{unit.value}}>
+                      {{unit.name}}
+                  </ion-option >
+              </ion-select>
+          </ion-item>
+
+          <ion-item class="mtop">
+              <ion-label stacked>Project Type</ion-label>
+              <ion-select [(ngModel)]="selectedProjType" formControlName="projectType" text-wrap>
+                  <ion-option  *ngFor="let type of projectType" value= {{type.value}}>
+                      {{type.name}}
+                  </ion-option >
+              </ion-select>
+          </ion-item>
+
+          <ion-item class="mtop">
+              <ion-label stacked>Rating System<span stacked class="fontSize"> (optional)</span></ion-label>
+              <ion-select [(ngModel)]="selectedRatingSys" formControlName="ratingSystem">
+                  <ion-option  *ngFor="let rs of ratingSystem" value= {{rs.value}}>
+                      {{rs.name}}
+                  </ion-option >
+              </ion-select>
+          </ion-item>
+
+          <ion-item class="mtop" text-wrap>
+              <ion-label stacked>Owner Type</ion-label>
+              <ion-select [(ngModel)]="selectedOwnerType" formControlName="ownerType" text-wrap style="max-width:none !important">
+                <ion-option value="selectOwnerType">Select Owner Type</ion-option>
+                <ion-option  *ngFor="let ownertype of ownerType" value= {{ownertype}}>
+                    {{ownertype}}
+                </ion-option >
+              </ion-select>
+            </ion-item>
+          
+            <ion-item class="mtop">
+                <ion-label stacked text-wrap >Owner Organization <span class="fontSize"><a ion-item stacked style="color:#488aff;" (click)="goToAddNewOrganizationPage()">(Click here </a>to add new organization if not existing.)</span></ion-label>         
+                <ion-input formControlName="ownerOrg" type="text" [(ngModel)]="org_query" (input)="$event.target.value.length > 0 && searchOrganization(org_query)"></ion-input>                   
+            </ion-item>
+            <ion-item no-lines *ngIf="searchingOrganization && all_organizations.length > 0" class="searchDropdownOrganization" style="position: relative;">
+                <div  *ngFor="let org of all_organizations" (click)="selectOrganization(org)" style="position: initial;">                              
+                    {{org}}
+                </div>                                             
+            </ion-item>
+            <ion-item>
+                <button  ion-button  small tappable (click)="goToAddNewOrganizationPage()">Click here</button>
+            </ion-item>
+            
+             
+          
+            <ion-item class="mtop">
+                <ion-label stacked>Owner Email</ion-label>
+                <ion-input [(ngModel)]="owner_email" formControlName="ownerEmail" type="Email"></ion-input>
+            </ion-item>
+
+            <ion-item class="mtop">
+                <ion-label stacked>Owner Country/Region</ion-label>
+                <ion-select id="manageEntityCountry" [(ngModel)]="formdata.manageEntityCountry" formControlName="ownerCountry">
+                    <ion-option  *ngFor="let country of countries" value= {{country.code}}>
+                        {{country.name}}
+                    </ion-option >
+                </ion-select>
+            </ion-item>
+
+            <ion-item class="mtop">
+                <ion-label stacked>Area</ion-label>
+                <ion-input [(ngModel)]="formdata.gross_area" formControlName="area" type="Number"></ion-input>
+            </ion-item>
+
+            <ion-item no-lines> 
+                <ion-label class="fontSize" style="color:#999"> Enter total built area in square feet (Max: 20499999 square feet)</ion-label>
+            </ion-item>
+            
+            <ion-item no-lines style="margin-top: -16px">
+                <ion-label stacked >This project is private</ion-label>
+                <ion-checkbox></ion-checkbox>
+            </ion-item>
+ 
+
+          <ion-item class="mtop">
+              <ion-label stacked>Address</ion-label>
+              <ion-textarea ng-model="formdata.street" formControlName="address"  type="Text" name="description"></ion-textarea>
+          </ion-item>         
+          
+          <ion-item class="mtop">
+              <ion-label stacked>City</ion-label>
+              <ion-input ng-model="formdata.city" id="city" name="city" formControlName="city" type="Text" [class.invalid]="!addProjectForm.controls.city.valid  && (addProjectForm.controls.city.dirty || submitAttempt)"></ion-input>
+          </ion-item>
+
+          <ion-item no-lines *ngIf="!addProjectForm.controls.city.valid  && (addProjectForm.controls.city.dirty || submitAttempt)">
+                <p class="error-message" text-wrap>Please specify city.</p>
+            </ion-item> 
+<!-- (ngModelChange)="updateCountry($event)" -->
+            <!-- <ion-item class="mtop">
+                <ion-label stacked>Country/Region</ion-label>            
+                <ion-select [(ngModel)]="formdata.country" formControlName="countryName"  [class.invalid]="!addProjectForm.controls.countryName.valid  && (addProjectForm.controls.countryName.dirty || submitAttempt)">
+                    <ion-option  *ngFor="let country of countries" value= {{country.code}}>
+                        {{country.name}}
+                    </ion-option >
+                </ion-select>
+            </ion-item>
+    
+            <ion-item no-lines *ngIf="!addProjectForm.controls.countryName.valid  && (addProjectForm.controls.countryName.dirty || submitAttempt)">
+                    <p class="error-message" text-wrap>Please select country.</p>
+                </ion-item>
+  
+        <ion-item class="mtop">
+            <ion-label stacked>State</ion-label>
+            <ion-select [(ngModel)]="formdata.state" formControlName="state" [class.invalid]="!addProjectForm.controls.state.valid  && (addProjectForm.controls.state.dirty || submitAttempt)">
+                <ion-option  *ngFor="let state of states" value= {{state.code}}>
+                    {{state.name}}
+                </ion-option >
+            </ion-select>
+        </ion-item>
+
+        <ion-item no-lines *ngIf="!addProjectForm.controls.state.valid  && (addProjectForm.controls.state.dirty || submitAttempt)">
+            <p class="error-message" text-wrap>Please select state.</p>
+        </ion-item> -->
+          <!-- (keyup)="removeZipError()" (ionBlur)="validateZipCode()" -->
+          <!-- <ion-item class="mtop">
+              <ion-label stacked>Zip Code</ion-label>
+              <ion-input id="zip_code" name="zip_code" [(ngModel)]="formdata.zip_code" formControlName="zipcode" type="number" ></ion-input>
+          </ion-item> -->
+
+          <!-- <ion-item no-lines>
+              <ion-label >Geo location</ion-label>
+              <ion-icon name="pin" item-end></ion-icon>      
+          </ion-item>
+
+          <ion-item >
+              <ion-label stacked >Lat<span stacked class="fontSize"> (optional)</span></ion-label>
+              <ion-input formControlName="lat" type="Number" ></ion-input>
+          </ion-item>
+
+          <ion-item >
+              <ion-label stacked >Long<span stacked class="fontSize"> (optional)</span></ion-label>
+              <ion-input formControlName="long" type="Number" ></ion-input>
+          </ion-item> -->
+
+          <!-- <ion-item no-lines style="margin-top: 15px;">
+              <ion-label stacked style="color:#999;" text-wrap>I agree to the terms of our service agreement.</ion-label>
+              <ion-checkbox></ion-checkbox>
+          </ion-item> -->
+          -->
+          <!-- <a href='../../../assets/pdf/registration_agreement.pdf' target='_blank' ></a> -->
+          <ion-item no-lines>            
+              <div class="hide">
+                <iframe id="agreement_iframe"  [src]='agreementURL()' frameborder="0"></iframe>
+              </div> 
+          </ion-item>
+          
+          <ion-row>
+              <ion-col center text-center >
+                  <button ion-button block (click)="createProject()" >
+                      {{project_detail_nxt_btn}}
+                  </button>
+              </ion-col>
+          </ion-row>
+  </form>
+
+
+</ion-content>

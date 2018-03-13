@@ -7,5 +7,56 @@ page-add-project {
     .fontSize{
       font-size:12px;
     }
+   
+  .searchDropdownOrganization, .searchDropdownOrganization_nav {
+    position: fixed;
+    /* top: 42px; */
+    /* left: 0px; */
+    z-index: 3;
+    /* width: inherit; */
+    background-color: white;
+    border-bottom: 1px solid lightgrey;
+    padding: 10px;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    border-radius: 0px 0px 3px 3px;
+    font-size: 14px;
+  }
+
+  .not-active{
+    cursor: default;
+    pointer-events: none;
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+  /* parsley starts */
+  input.parsley-error {
+    border-color: #dd5826;
+    box-shadow: inset 0 1px 1px rgba(221,88,38,.075);
+  }
+
+  .ionicCustomizeSelectAlert.select-alert.alert-wrapper {
+    max-width: 100% !important;
+  }
+
+  select.parsley-error {
+    border-color: #dd5826;
+    box-shadow: inset 0 1px 1px rgba(221,88,38,.075);
+  }
+
+  .parsley-errors-list li {
+    list-style: none;
+    color: #dd5826;
+  }
+
+  .parsley-errors-list {
+    font-size: 12px;
+    padding-left: 0;
+    margin-bottom: 5px;
+  }
+/* parsley ends */
+
+  
 
 }

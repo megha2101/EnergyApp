@@ -6,6 +6,7 @@ import { ProjectDetailsPage } from '../project-details/project-details';
 import { SharedServiceProvider } from '../../providers/shared-service/shared-service';
 import { MeterDataServiceProvider } from '../../providers/meter-data-service/meter-data-service';
 import { ConfigServiceProvider } from '../../providers/config-service/config-service';
+import { SourcesListPage } from '../sources-list/sources-list';
 
 @IonicPage()
 @Component({
@@ -30,12 +31,12 @@ export class AddSourcePage {
   addedMeters: any = [];
   postData: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder,
-  public sharedService: SharedServiceProvider, public meterService: MeterDataServiceProvider, public configService: ConfigServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder,public sharedService: SharedServiceProvider,
+  public meterService: MeterDataServiceProvider, public configService: ConfigServiceProvider) {
     this.addMeterForm = formBuilder.group({
-      meterName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      meterUnit:['kWh'],
-      fuelSource:['Purchased from Grid']
+        meterName: ['', Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+        meterUnit:['kWh'],
+        fuelSource:['Purchased from Grid']
     });
 }
 
@@ -43,15 +44,6 @@ export class AddSourcePage {
   addNewMeter(){        
     this.meterName       = this.addMeterForm.get('meterName').value;
     this.selected_unit   = this.addMeterForm.get('meterUnit').value;
-    if(this.meterName == '' || this.meterName == undefined)
-    {
-       this.sharedService.checkMeterName = true;
-        return;
-    }
-    else
-    {
-      this.sharedService.checkMeterName = false;
-    }
     this.add_meter_ajax = true;
     this.showManualList = true;
     this.postData = 
@@ -62,11 +54,8 @@ export class AddSourcePage {
     };
 
     this.meterService.createMeter(this.configService, this.sharedService.config_header_new, this.sharedService.selBuildObject.leed_id, this.postData).subscribe((data) =>{
-      
-        console.log("add meter data " +data)
         data['readings'] = [];
         this.selected_meter_id = data.id;
-
         data['energystar'] = false;
         
         if(this.selected_meter_type == 'WATER')
@@ -81,28 +70,25 @@ export class AddSourcePage {
                     data.fuel_type.type = 'Purchased from Grid'
                 }
             }            
-            this.sharedService.energy_data.push(data);
+            this.sharedService.dataInputMeters.results.unshift(data);
             this.sharedService.total_meters = parseInt(this.sharedService.total_meters) + 1;
         }
         
         this.addedMeters.push(data);
-        this.add_meter_ajax = false;
+        //this.add_meter_ajax = false;
         //this.sharedService.syncNotifications(data.fuel_type.kind);        
         this.sharedService.meters_on_screen = parseInt(this.sharedService.meters_on_screen) + 1;
         this.meterName = '';
-
-        //$("#manual_meter_setup").modal('toggle');
-    
-
     },
     err => {
-        this.add_meter_ajax = false;
-        //$("#manual_meter_setup").modal('toggle');
+        //this.add_meter_ajax = false;
     },
-    () => console.log('')
-    );
-    
-      
+    () => {
+      console.log('pop the page'),
+      this.navCtrl.pop();
+    }
+
+    );     
 
 }
 
@@ -113,8 +99,6 @@ addMeter(){
   else {
     console.log('Stored item!');
     this.addNewMeter();
-    this.navCtrl.pop();
-    
   } 
 }
 

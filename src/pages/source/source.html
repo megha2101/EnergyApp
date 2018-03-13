@@ -38,71 +38,42 @@
 
         <ion-item text-wrap>
             <ion-row center text-center class="readingsFS"> 
-                <ion-col col-6 >
-                    <b>Dates</b>
+                <ion-col col-4 >
+                    <b>Start</b>
                 </ion-col>
     
                 <ion-col col-4>
-                    <b>Reading (kWh)</b>                   
+                    <b>End</b>                   
                 </ion-col>
     
-                <ion-col col-2>
-                                      
+                <ion-col col-4>
+                    <b>Reading (kWh)</b>                
                 </ion-col>
             </ion-row>
         </ion-item>
 
-        <ion-item>
-            <ion-row center text-center class="readingsFS">
-                <ion-col col-6 >
-                    Nov 01- Dec 01,2017
-                </ion-col>
-    
-                <ion-col col-4>
-                    45
-                </ion-col>
-    
-                <ion-col col-2>
-                    <ion-icon name="trash"></ion-icon>
-                </ion-col>
-            </ion-row>
-        </ion-item>
-
-        <ion-item>
-
-            <ion-row center text-center class="readingsFS">
-                <ion-col col-6 >
-                    Oct 01- Oct 31,2017
-                </ion-col>
-    
-                <ion-col col-4>
-                    30
-                </ion-col>
-    
-                <ion-col col-2>
-                    <ion-icon name="trash"></ion-icon>
-                </ion-col>
-
-            </ion-row>
-
-        </ion-item> 
-        
-        <ion-item>
-            <ion-row center text-center class="readingsFS">
-                <ion-col col-6 >
-                    Sep 01- Sep 31,2017
-                </ion-col>
-    
-                <ion-col col-4>
-                    30
-                </ion-col>
-    
-                <ion-col col-2>
-                    <ion-icon name="trash"></ion-icon>
-                </ion-col>
-
-            </ion-row>
-        </ion-item>    
+        <ion-list>
+            <ion-item-sliding *ngFor = "let meter of this.sharedService.selMeterObj.readings">
+                <ion-item >
+                    <ion-row center text-center class="readingsFS">
+                        <ion-col col-4 >
+                            {{meter.start_date}}
+                        </ion-col>
+            
+                        <ion-col col-4 >
+                            {{meter.end_date}}
+                        </ion-col>
+            
+                        <ion-col col-4>
+                            {{meter.reading}}
+                        </ion-col>
+                    </ion-row>
+                </ion-item> 
+                <ion-item-options>
+                    <button ion-button class="red" (click)="deleteMeterData(meter)"><ion-icon class="red" name="trash"></ion-icon>Delete</button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>         
 
     </ion-grid>
     

@@ -84,4 +84,5 @@
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.2" />
     <engine name="android" spec="~7.0.0" />
     <engine name="ios" spec="~4.5.4" />
+    <plugin name="com.wmjalak.cordova.fileopener" spec="~1.0.0" />
 </widget>

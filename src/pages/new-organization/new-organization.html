@@ -1,0 +1,175 @@
+
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Add Owner Organization</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content >
+    <p *ngIf="submitAttempt" ></p>
+
+    <form [formGroup]="addNewOrganizationForm">
+        <!-- organization name -->
+        <ion-item class="mtop" >
+            <ion-label stacked>Organization Name</ion-label>
+            <ion-input [(ngModel)]="orgName" formControlName="newOwnerOrg" type="text" [class.invalid]="!addNewOrganizationForm.get('newOwnerOrg').valid && (addNewOrganizationForm.get('newOwnerOrg').dirty || submitAttempt)" ></ion-input>
+        </ion-item>
+        <ion-item no-lines *ngIf="!addNewOrganizationForm.get('newOwnerOrg').valid  && (addNewOrganizationForm.get('newOwnerOrg').dirty || submitAttempt)">
+            <p class="error-message" *ngIf="addNewOrganizationForm.get('newOwnerOrg').errors.pattern">
+                {{this.sharedService.formValidation.nameMsg}}
+            </p>
+            <p class="error-message" *ngIf="addNewOrganizationForm.get('newOwnerOrg').errors.required">
+                This field is required.
+            </p>
+        </ion-item>
+
+        <!-- Owner's Representative -->
+        <ion-item class="mtop" >
+            <ion-label stacked>Owner's Representative(Employee or Officer of Owner):</ion-label>
+            <ion-input [(ngModel)]="orgContactName" formControlName="newOwnerRepresentative" type="text" [class.invalid]="!addNewOrganizationForm.get('newOwnerRepresentative').valid && (addNewOrganizationForm.get('newOwnerRepresentative').dirty || submitAttempt)"></ion-input>
+        </ion-item>
+        <ion-item no-lines *ngIf="!addNewOrganizationForm.get('newOwnerRepresentative').valid  && (addNewOrganizationForm.get('newOwnerRepresentative').dirty || submitAttempt)">
+            <p class="error-message" *ngIf="addNewOrganizationForm.get('newOwnerRepresentative').errors.required">
+                This field is required.
+            </p>
+        </ion-item>
+
+        <!-- Owner Email -->
+        <ion-item class="mtop" >
+            <ion-label stacked>Owner Contact Email</ion-label>
+            <ion-input [(ngModel)]="orgContactEmail" formControlName="newOwnerContactEmail" type="text" [class.invalid]="!addNewOrganizationForm.get('newOwnerContactEmail').valid && (addNewOrganizationForm.get('newOwnerContactEmail').dirty || submitAttempt)"></ion-input>
+        </ion-item>
+
+        <ion-item no-lines *ngIf="!addNewOrganizationForm.get('newOwnerContactEmail').valid  && (addNewOrganizationForm.get('newOwnerContactEmail').dirty || submitAttempt)">
+            <p class="error-message" *ngIf="addNewOrganizationForm.get('newOwnerContactEmail').errors.pattern">
+                Please enter valid email.
+            </p>
+            <p class="error-message" *ngIf="addNewOrganizationForm.get('newOwnerContactEmail').errors.required">
+                This field is required.
+            </p>
+        </ion-item>
+        
+        <!-- Website -->
+   
+        <ion-item class="mtop" >
+            <ion-label stacked>Website</ion-label>
+            <ion-input [(ngModel)]="orgWebsite" formControlName="newOwnerWebsite" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item no-lines *ngIf="!addNewOrganizationForm.get('newOwnerWebsite').valid  && (addNewOrganizationForm.get('newOwnerWebsite').dirty || submitAttempt)">
+            <p lass="error-message" *ngIf="addNewOrganizationForm.get('newOwnerWebsite').errors.pattern">
+                Please enter valid web url.
+            </p>
+        </ion-item>
+
+        <!-- Industry Category -->
+        <ion-item class="mtop">
+            <ion-label stacked>Industry Category</ion-label>
+            <ion-select [(ngModel)]="orgCategory" formControlName="indCategory" text-wrap (ionChange)="updateSubCategory(orgCategory)">
+                    <ion-option value="2" seleceted>Product Manufacturers</ion-option>
+                    <ion-option value="3">Utility / Energy Service Companies</ion-option>
+                    <ion-option value="4">Real Estate Providers</ion-option>
+                    <ion-option value="5">Professional Societies and Trade Associations</ion-option>
+                    <ion-option value="6">Nonprofit and Environmental Organizations</ion-option>
+                    <ion-option value="7">State and Local Governments</ion-option>
+                    <ion-option value="8">Federal Government</ion-option>
+                    <ion-option value="9">Professional Firms</ion-option>
+                    <ion-option value="10">Contractors and Builders</ion-option>
+                    <ion-option value="12">Educational Institutions</ion-option>
+                    <ion-option value="13">Corporate and Retail</ion-option>
+                    <ion-option value="501">Financial Institutions</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item class="mtop">
+            <ion-label stacked>Industry Sub-Category</ion-label>  
+            <ion-select [(ngModel)]="orgSubCategory" formControlName="indSubCategory" text-wrap (ionChange)="validateInSubCategory(orgSubCategory)"
+            [ngClass]="indSubCategoryErrorMsg?'invalid' :''">
+                    <ion-option selected  disabled value="selectSubCategory">Select Industry Sub-Category</ion-option>
+                    <ion-option *ngIf="orgCategory == '2'" value="27">PM:Product Manufacturer</ion-option>
+                    <ion-option *ngIf="orgCategory == '2'" value="28">PM:Building Controls</ion-option>
+                    <ion-option *ngIf="orgCategory == '2'" value="61">PM:Distributors</ion-option>
+                    
+                    <ion-option *ngIf="orgCategory == '3'" value="30">Energy Service Companies</ion-option>
+                    <ion-option *ngIf="orgCategory == '3'" value="31">Utilities</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '4'" value="108">RE:Comm-Brokage and Mgm</ion-option>
+                    <ion-option *ngIf="orgCategory == '4'" value="109">RE:Commerical REITs</ion-option>
+                    <ion-option *ngIf="orgCategory == '4'" value="110">RE: Residential Brokerage  and  Management</ion-option>
+                    <ion-option *ngIf="orgCategory == '4'" value="111">RE:Residential Property Investor</ion-option>
+                    <ion-option *ngIf="orgCategory == '4'" value="112">RE: Institutional Investor</ion-option>
+                    <ion-option *ngIf="orgCategory == '4'" value="113">RE:Private Held Owner</ion-option>
+                    <ion-option *ngIf="orgCategory == '4'" value="114">RE:Service Contractor</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '5'" value="5">Prof Soc/Trade Assn</ion-option>
+                    <ion-option *ngIf="orgCategory == '5'" value="104">TradeGrp and Labor-union</ion-option>
+                    <ion-option *ngIf="orgCategory == '5'" value="105">Advocacy Organization</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '6'" value="100">Charitable.org and Foundation</ion-option>
+                    <ion-option *ngIf="orgCategory == '6'" value="101">Socia and Membership org</ion-option>
+                    <ion-option *ngIf="orgCategory == '6'" value="102">Religious</ion-option>
+                    <ion-option *ngIf="orgCategory == '6'" value="103">Other Non-Profit</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '7'" value="62">SLG: State Government</ion-option>
+                    <ion-option *ngIf="orgCategory == '7'" value="63">SLG: Local Government</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '8'" value="8">Federal Government</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '9'" value="32">PF:Accountants</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="33">PF:Architects</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="34">PF:Architects/Engineers</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="35">PF:Attorneys</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="36">PF:Building/LEED Consultant</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="56">PF:Engineers</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="57">PF:Interior Designer</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="58">PF:Landscape Architect</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="59">PF:Planners</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="60">PF:Commissioning Pr</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="74">PF:Residential Designer</ion-option>
+                    <ion-option *ngIf="orgCategory == '9'" value="107">PF:Other</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '10'" value="75">CB:Commercial</ion-option>
+                    <ion-option *ngIf="orgCategory == '10'" value="76">CB:Residential</ion-option>
+                    <ion-option *ngIf="orgCategory == '10'" value="77">CB:Mixed</ion-option>
+                    <ion-option *ngIf="orgCategory == '10'" value="78">CB:Others</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '12'" value="91">Indp/Nonprofit.Education</ion-option>
+                    <ion-option *ngIf="orgCategory == '12'" value="92">E and S-sch:Public</ion-option>
+                    <ion-option *ngIf="orgCategory == '12'" value="93">E and S-sch:Public Charter</ion-option>
+                    <ion-option *ngIf="orgCategory == '12'" value="94">E and S-sch:Indpendent</ion-option>
+                    <ion-option *ngIf="orgCategory == '12'" value="95">C and Uni:2yrs-Instiution</ion-option>
+                    <ion-option *ngIf="orgCategory == '12'" value="96">C and Uni:4yrs-Inst(public)</ion-option>
+                    <ion-option *ngIf="orgCategory == '12'" value="97">C and Uni:4yrs-Inst(private)</ion-option>
+                    <ion-option *ngIf="orgCategory == '12'" value="98">C and Uni:4yrs-grad(public)</ion-option>
+                    <ion-option *ngIf="orgCategory == '12'" value="99">C and Uni:4yrs-grad(private)</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '13'" value="11">Insurance Companies</ion-option>
+                    <ion-option *ngIf="orgCategory == '13'" value="81">Health,Pharma and Biotec</ion-option>
+                    <ion-option *ngIf="orgCategory == '13'" value="83">Retail: Restaurants, Bars and Food Services</ion-option>
+                    <ion-option *ngIf="orgCategory == '13'" value="84">Retail: Grocery, Convenience Store</ion-option>
+                    <ion-option *ngIf="orgCategory == '13'" value="85">Retail: Other</ion-option>
+                    <ion-option *ngIf="orgCategory == '13'" value="86">Technology</ion-option>
+                    <ion-option *ngIf="orgCategory == '13'" value="87">Transportation, Delivery and Warehousing Services</ion-option>
+                    <ion-option *ngIf="orgCategory == '13'" value="89">Other Corporate</ion-option>
+                    <ion-option *ngIf="orgCategory == '13'" value="501">Financial Institution</ion-option>
+
+                    <ion-option *ngIf="orgCategory == '501'" value="501">Financial Institutions</ion-option>
+            </ion-select>            
+        </ion-item>
+        <ion-item no-lines *ngIf="indSubCategoryErrorMsg">
+            <p class="error-message">
+                This field is required.
+            </p>
+        </ion-item>
+        <ion-item no-lines>  
+            <p class="error-message" *ngIf="error_org">{{error_msg_org}}</p>          
+        </ion-item>        
+        <ion-row>
+            <ion-col center text-center >
+                <button ion-button block (click)="addNewOrganization()" >Add </button>
+            </ion-col>
+        </ion-row>
+    </form>
+
+</ion-content>

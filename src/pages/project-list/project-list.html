@@ -10,7 +10,7 @@
 <ion-content >
 
     <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="searchItems($event)"></ion-searchbar>  
-    
+    <fab-icon id = "fabButton"></fab-icon>  
   <ion-list >
       <!-- -->
      <ion-item tappable *ngFor="let project of this.SharedService.sharedAllProjects"  (click)="goToProjectDetailsPage($event, project)">

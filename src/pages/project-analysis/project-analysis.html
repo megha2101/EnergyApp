@@ -47,15 +47,15 @@
     <ion-item text-wrap class="carbonFS">
         <ion-row center text-center class="carbonFS">
             <ion-col col-6 >
-              Annual <a>Adjusted</a> Carbon emmissions (MTCO2e)
+              Annual Adjusted Carbon emmissions (MTCO2e)
             </ion-col>
 
             <ion-col col-3>
-                0
+                {{this.sharedService.convertAnalysisNumber(adjusted_emissions_per_sf(), 'per_day', 'per_sf', 'annual', 'project', 4)}}
             </ion-col>
 
             <ion-col col-3>
-                0
+                {{this.sharedService.convertAnalysisNumber(adjusted_emissions_per_sf(), 'per_day', 'per_sf', 'annual', 'per_sf', 4)}}
             </ion-col>
         </ion-row>
     </ion-item>
@@ -64,15 +64,15 @@
 
         <ion-row center text-center class="carbonFS">
             <ion-col col-6 >
-              Daily <a>Adjusted</a> Carbon Emmissions (MTCO2e)
+              Daily Adjusted Carbon Emmissions (MTCO2e)
             </ion-col>
 
             <ion-col col-3>
-                0
+                {{this.sharedService.convertAnalysisNumber(adjusted_emissions_per_sf(), 'per_day', 'per_sf', 'per_day', 'project', 4)}}
             </ion-col>
 
             <ion-col col-3>
-                0
+                {{this.sharedService.convertAnalysisNumber(adjusted_emissions_per_sf(), 'per_day', 'per_sf', 'per_day', 'per_sf', 4)}}
             </ion-col>
 
         </ion-row>
@@ -86,11 +86,12 @@
             </ion-col>
 
             <ion-col col-3>
-                0
+                {{(this.sharedService.convertAnalysisNumber(this.sharedService.energyAnalysisInfo["Scope1 Raw GHG (mtco2e/day)"], 'per_day', '', 'annual', '', 4) + this.sharedService.convertAnalysisNumber(this.sharedService.energyAnalysisInfo["Scope2 Raw GHG (mtco2e/day)"], 'per_day', '', 'annual', '', 4)).toFixed(4)}}
             </ion-col>
 
             <ion-col col-3>
-                0
+
+                {{(this.sharedService.convertAnalysisNumber(this.sharedService.energyAnalysisInfo["Scope1 Raw GHG (mtco2e/day)"], 'per_day', '', 'annual', 'per_sf', 4, 'per_sf_to_SI') + this.sharedService.convertAnalysisNumber(this.sharedService.energyAnalysisInfo["Scope2 Raw GHG (mtco2e/day)"], 'per_day', '', 'annual', 'per_sf', 4, 'per_sf_to_SI')).toFixed(4)}}
             </ion-col>
 
         </ion-row>
