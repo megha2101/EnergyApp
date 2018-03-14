@@ -57,7 +57,7 @@ export class AddMeterDataPage {
   }
 
  saveMeterData(reading){  
-    var validationResult = this. validateReadings(reading);
+    var validationResult = this.validateReadings(reading);
     if(!validationResult.status){
         this.showError = true;
         this.allReasons = validationResult.reason;
@@ -83,17 +83,17 @@ export class AddMeterDataPage {
   validateReadings(reading)
         {
             var status = true;
-            var reason = '';
+            var reason = [];
             var regex = /^[0-9]*(\.[0-9]{1,6})?$/;
             
             if(isNaN((this.myReading)) || String(this.myReading).length == 0)
             {
-                reason += 'Reading is not a valid number. ';
+                reason.push('Reading is not a valid number. ');
                 status = false;
             }
             else if(regex.test(String(this.myReading)) == false)
             {
-                reason += 'Maximum 6 decimals allowed. ';
+              reason.push('Maximum 6 decimals allowed.');
                 status = false;
             }           
             var curr_end_date = this.datepipe.transform(this.myEndDate, 'yyyy-MM-dd');
@@ -101,7 +101,8 @@ export class AddMeterDataPage {
             
             if(moment(curr_end_date).isBefore(curr_start_date))
             {
-                reason += 'Current ranges of ' + String(curr_start_date) + ' - ' + String(curr_end_date) + ' are overlapping. ';
+                var reson ='Current ranges of ' + String(curr_start_date) + ' - ' + String(curr_end_date) + ' are overlapping. ';
+                reason.push(reson);
                 status = false;
             }
             var meterObject ={
@@ -121,7 +122,8 @@ export class AddMeterDataPage {
                 
                 if(moment(current_end_date).isBetween(previous_start_date, previous_end_date) || moment(previous_start_date).isSameOrBefore(current_end_date))
                 {
-                    reason += 'Range ' + String(current_start_date) + ' - ' + String(current_end_date) + ' overlaps with ' + String(previous_start_date) + ' - ' + String(previous_end_date) + '. ';
+                    var reson ='Range ' + String(current_start_date) + ' - ' + String(current_end_date) + ' overlaps with ' + String(previous_start_date) + ' - ' + String(previous_end_date) + '. ';
+                    reason.push(reson);
                     status = false;
                 }
             }

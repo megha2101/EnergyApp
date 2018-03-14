@@ -37,15 +37,18 @@ export class AddProjectPage implements OnInit {
     ratingSystem           :any;
     custom_basic_config_header: any;
     selectedRatingSys      :any;
-    ownerType              :any = [];
     cancellerOrganization  :any = undefined;
     errorOrganization      :any = '';
     queryOrganization      :any = '';
     all_organizations      :any = [];
+    ownerType              :any = [];
+    ownertype              : any = "";
     ajax_done              :boolean = false;
     searchingOrganization  :boolean = false;
     loading_org_list       :boolean = false;
     checkValue             :boolean = true;
+    stateErrorMsg          :boolean = false;
+    createBtnEnableFlag    :boolean = false;
     org_query              :any;
     file                   :any;
     selStateFlag           :boolean = true;
@@ -61,9 +64,11 @@ export class AddProjectPage implements OnInit {
     lastModified           :any;
     submitDetaildata       :any;
     zipcodeData            :any;
-    isValidZipCode         :boolean = false;
+    zipCodeError         :boolean = false;
     isFormSubmitted        :boolean = false;
-    sign_addendum_agreement: boolean = true;
+    sign_addendum_agreement:boolean = true;
+    spaceTypeErrorMsg       :boolean = false;
+    ownertTypeErrorMsg      :boolean = false;
     project_agreement_nxt_btn :any;
     project_detail_nxt_btn :any = "Create Project";
     formdata               :any ;
@@ -77,6 +82,9 @@ export class AddProjectPage implements OnInit {
     }
 
     ngOnInit() {
+        if(!this.sharedService.newAddedOrgName == null){
+          this.org_query = this.sharedService.newAddedOrgName;
+        }       
         this.formdata={
             "name": "",            
             "gross_area": "",
@@ -85,7 +93,7 @@ export class AddProjectPage implements OnInit {
             "city": "",
             "country": "US",
             "state": "",
-            "project_type": "building",
+            "project_type":"building",
             "unitType": "IP",
             "spaceType": "",
             "confidential": false,
@@ -94,31 +102,184 @@ export class AddProjectPage implements OnInit {
             "year_constructed": "",
             "organization": '',
             "operating_hours": "", 
-            "rating_system":""  
+            "rating_system":"none"  
         };
 
         this.addProjectForm = this.formBuilder.group({
-            name: ['',Validators.compose([Validators.required, Validators.maxLength(40)])],
+            name: ['', Validators.compose([Validators.maxLength(40),Validators.pattern(this.sharedService.formValidation.name),Validators.required])],
             untype: [''],
             projectType: [''],
             ratingSystem:[''],
             ownerType: [''],
-            spaceType: [''],
+            spaceType: ['',Validators.compose([Validators.required])],
             ownerCountry:[''],
-            area:[''],
+            area:['',Validators.compose([Validators.pattern(this.sharedService.formValidation.grossArea),Validators.required])],
             privateProject: [''],
-            ownerOrg:[''],
-            ownerEmail:['', Validators.compose([Validators.pattern('[A-Za-z0-9._%+-]{2,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})')])],
-            address: [''],
-            city: [''],
-            countryName: ['selectCountry'],
-            state: ['stateSelect'],
-            zipcode: ['', Validators.pattern('[0-9 ]*')],
-            lat:[''],
-            long:['']      
+            ownerOrg:['',  Validators.compose([Validators.pattern(this.sharedService.formValidation.name),Validators.required])],
+            ownerEmail:['', Validators.compose([Validators.maxLength(40),Validators.pattern(this.sharedService.formValidation.email),Validators.required])],
+            address: ['',Validators.compose([Validators.required])],
+            city: ['', Validators.compose([Validators.maxLength(40),Validators.pattern(this.sharedService.formValidation.city),Validators.required])],
+            countryName: [''],
+            state: [''],
+            zipcode: ['',Validators.compose([Validators.required])], 
+            termsAccepted : ['', Validators.requiredTrue]   
         }); 
 
         this.projectRegistrationFuc();
+    }
+
+    validateSpaceTypeError(spaceType: any) {       
+        if(spaceType == ""){
+            this.spaceTypeErrorMsg = true;
+        }else{
+            this.spaceTypeErrorMsg = false;
+        }     
+    };
+
+    validateOwnerTypeError(ownerType: any) {             
+          if(ownerType == ""){
+              this.ownertTypeErrorMsg = true;
+          }else{
+              this.ownertTypeErrorMsg = false;
+          }  
+    };
+
+    validateStateError(state) {             
+        if(state == "selState"){
+            this.stateErrorMsg = true;
+        }else{
+            this.stateErrorMsg = false;
+        }  
+    };
+
+    // resetOrganizationDetails(){            
+    //     $scope.formdata.manageEntityCountry = "US";
+    //     $scope.org_query = "";
+    //     $scope.formdata.organization = "";
+    //     $('.ofac_invalid_modal').modal('hide');
+    // }
+
+    // goToMyProjectsPage(){
+    //     $('.ofac_invalid_modal').modal('hide');        
+    //     $('.ofac_invalid_modal').on('hidden.bs.modal', function () {
+    //         $state.go("app.projectsmyprojects", {"project-type": "all"});
+    //     })
+    // }
+
+    openModalWindow(){
+        let alert = this.alertCtrl.create({
+            title: 'Owner organization is blocked',
+            message: 'This project is located in a sanctioned country or belongs to a sanctioned entity according to the sanctions administered/enforced by OFAC, the U.S. Department of State, or the United Nations Security Council. Please <a href="mailto:legal@gbci.org" target="_top">contact us</a> for more details.',
+              buttons: [
+                {
+                  text: 'Continue',
+                  handler: () => {
+                   // this.resetOrganizationDetails();                    
+                  }
+                },
+                {
+                  text: 'Cancel',
+                  role: 'cancel',
+                  handler: () => {
+                   // this.goToMyProjectsPage();
+                  }
+                }
+              ]
+            });
+        alert.present();
+          // todo something
+      }
+
+    validateZipCode(){
+      var address = this.formdata.street + ',' + this.formdata.city + ',' + this.formdata.zip_code;
+      if(this.formdata.country!="SS"){            
+          if(this.formdata.state == '' || this.formdata.state == null){
+              this.zipcodeData = {
+                  "country": this.formdata.country,
+                  "zip_code": this.formdata.zip_code
+              }
+          }else{
+              this.zipcodeData = {
+                  "state": this.formdata.state,
+                  "country": this.formdata.country,
+                  "zip_code": this.formdata.zip_code
+              }
+          }              
+      }
+      
+      this.http.post(this.configService.basic_api_url + '/assets/validation/', this.zipcodeData, this.sharedService.config_header_new)
+      .subscribe((data)=> {
+          this.zipCodeError = false;
+      },error=> {
+          this.zipCodeError = true;             
+      });
+    }
+
+    removeZipError(){
+      this.zipCodeError = false;
+    } 
+
+    updateCountry(selectedCountry){
+        this.formdata.state = "selState";
+        var state_flag = false;          
+        for (let key in  this.data_divisions) {
+            if(selectedCountry == key){
+                state_flag = true;
+                this.states = this.sharedService.doSorting(this.data_divisions[key]);
+            }
+        }
+        if(state_flag == false){
+            this.states = [{code:"", name:"Not Available"}];
+            this.formdata.state = "";
+        }         
+    }
+
+    onTermsChecked(ev: any){
+      if(ev.checked){
+          this.createBtnEnableFlag = true;
+      }else{
+         this.createBtnEnableFlag = false;
+      }      
+    }
+
+    searchOrganization(query){
+        this.searchEnableOrganization();        
+        this.sharedService.formdata.organization = "";
+        this.all_organizations = [];
+        this.loading_org_list = true;       
+        this.registrationService.getOrganizations(query).subscribe((data)=>{
+            this.loading_org_list = false;
+            for(var i = 0; i< data.owner_type.length; i++)
+            this.all_organizations.push(data.owner_type[i]);
+        },
+        err => {
+            console.log("Error in getting organization list"+err);
+        });
+    };
+
+    searchDisableOrganization(){
+        this.searchingOrganization = false;
+    }        
+    searchEnableOrganization(){
+        this.searchingOrganization = true;
+    }
+    selectOrganization(org){
+        this.formdata.organization = org;
+        this.org_query = org;
+        this.searchDisableOrganization();
+    };
+
+    agreementURL() {
+        return this.sanitizer.bypassSecurityTrustResourceUrl('../../../assets/pdf/registration_agreement.htm');
+    }
+
+
+    projectregistration_updateStateData(data) {
+        this.ajax_done = true;
+        this.countries = this.sharedService.doSorting(data.countries);
+        this.states = this.sharedService.doSorting(data.divisions.US); // default is US
+        this.formdata.state = "DC";
+        this.data_divisions = data.divisions;      
     }
 
     projectRegistrationFuc(){
@@ -273,28 +434,16 @@ export class AddProjectPage implements OnInit {
         });
     }
 
-    projectregistration_updateStateData(data) {
-      this.ajax_done = true;
-      this.countries = this.sharedService.doSorting(data.countries);
-      this.states = this.sharedService.doSorting(data.divisions.US); // default is US
-      this.formdata.state = "DC";
-      this.data_divisions = data.divisions;      
+    addNewProject(){
+        
     }
-    submitDetails (isValid) {
-        this.isFormSubmitted = true;
-        // check to make sure the form is completely valid
-        
-        if(this.states[0].name != 'Not Available' && this.isFormSubmitted && this.formdata.state.length == 0 || this.formdata.state == null) {
-            return;
-        }      
-        if(this.formdata.organization.length == 0){
-            return;
-        }
-        
-        if(this.selectedProjType.value == 'empty'){
-            return;
-        }      
-        if (isValid) {
+    
+    submitDetails(){
+        this.submitAttempt = true;
+        this.validateSpaceTypeError(this.formdata.spaceType);
+        this.validateOwnerTypeError(this.ownertype);
+        this.validateStateError(this.formdata.state);
+        if(this.addProjectForm.valid && !this.spaceTypeErrorMsg && !this.ownertTypeErrorMsg && !this.stateErrorMsg){  
             $("#project-details-form").addClass("not-active");
             this.project_detail_nxt_btn = "Validating info...";         
             if(this.formdata.country!="SS"){                   
@@ -313,9 +462,7 @@ export class AddProjectPage implements OnInit {
                 //OFAC validation                
                 this.http.post(this.configService.basic_api_url + '/assets/validation/', this.submitDetaildata, this.sharedService.config_header_new).map(res => res.json())
                 .subscribe((data)=> {
-                    $("#zip_code").removeClass("parsley-error")
-                    $("#zip_code").next('ul.parsley-errors-list').remove();
-                    
+                    this.zipCodeError = false;                      
                     //OFAC validation starts
                     this.geoService.getCountryStates().subscribe((data)=> {
                         var org_country = this.formdata.manageEntityCountry;
@@ -325,7 +472,7 @@ export class AddProjectPage implements OnInit {
                             if(data.status){
                                 if(data.is_blocked){
                                     //*******$('.ofac_invalid_modal').modal('show'); 
-                                    this.project_detail_nxt_btn = "Next";
+                                    this.project_detail_nxt_btn = "Create Project";
                                     $("#project-details-form").removeClass("not-active");
                                 }else{
                                     // register project if not blocked
@@ -345,10 +492,7 @@ export class AddProjectPage implements OnInit {
                     
                     //OFAC validation ends                  
                 },err=> {
-                    $("#zip_code").addClass("parsley-error");
-                    if(!$("#zip_code").next('ul.parsley-errors-list').length){
-                        $("#zip_code").after('<ul class="parsley-errors-list filled"><li class="parsley-required">Enter a valid zip code.</li></ul>');
-                    } 
+                    this.zipCodeError = true; 
                     $("#project-details-form").removeClass("not-active");
                     this.project_detail_nxt_btn = "Next";        
                 })
@@ -356,90 +500,26 @@ export class AddProjectPage implements OnInit {
                 //$rootScope.appData.project_type
                 this.sharedService.project_details = this.formdata;
                 this.createProject();
-            }
-        
-      }
-
-    };
-
-
-  // country state validation starts  
-    validateZipCode(){
-        var address = this.formdata.street + ',' + this.formdata.city + ',' + this.formdata.zip_code;
-        this.isValidZipCode = false;
-        if(this.formdata.country!="SS"){            
-            if(this.formdata.state == '' || this.formdata.state == null){
-                this.zipcodeData = {
-                    "country": this.formdata.country,
-                    "zip_code": this.formdata.zip_code
-                }
-            }else{
-                this.zipcodeData = {
-                    "state": this.formdata.state,
-                    "country": this.formdata.country,
-                    "zip_code": this.formdata.zip_code
-                }
-            }              
+            } 
         }
-        
-        this.http.post(this.configService.basic_api_url + '/assets/validation/', this.zipcodeData, this.sharedService.config_header_new)
-        .subscribe((data)=> {
-            $("#zip_code").removeClass("parsley-error")
-            $("#zip_code").next('ul.parsley-errors-list').remove();
-
-            this.isValidZipCode = true;
-        },error=> {
-            this.isValidZipCode = false;
-            $("#zip_code").addClass("parsley-error");
-            if(!$("#zip_code").next('ul.parsley-errors-list').length){
-                $("#zip_code").after('<ul class="parsley-errors-list filled mbn5"><li class="parsley-required">Enter a valid zip code.</li></ul>');
-            }              
-        });
-    }
-
-    updateCountry(selectedCountry){
-        this.selStateFlag = true;
-        var state_flag = false;   
-        this.geoService.getCountryStates().subscribe((data)=>{
-            for (let key in data.divisions) {
-                if(selectedCountry == key){
-                    state_flag = true;
-                    this.states = this.sharedService.doSorting(data.divisions[key]);
-                }
-            }
-            if(state_flag == false){
-                this.states = [{code:"", name:"Not Available"}];
-                this.formdata.state = "";
-                this.selStateFlag = false;
-            }  
-        });                 
-        
-    }
- 
-    removeZipError(){
-      $("#zip_code").next().remove()
-      $("#zip_code").removeClass("parsley-error")
-    } 
+        else {        
+                      
+        }
+    };
 
     createProject(){            
         $("#project-details-form").addClass("not-active");
-        this.project_detail_nxt_btn = "Creating project...";
-        
-        var date_time = moment(new Date()).format("MMM DD, YYYY [at] HH:mm:ss ") +  moment().tz(moment.tz.guess()).zoneAbbr();
-        
+        this.project_detail_nxt_btn = "Creating project...";        
+        var date_time = moment(new Date()).format("MMM DD, YYYY [at] HH:mm:ss ") +  moment().tz(moment.tz.guess()).zoneAbbr();        
         $('#agreement_iframe').contents().find('#user_number').html(this.user_number);
         $('#agreement_iframe').contents().find('#date_time').html(date_time);
         $('#agreement_iframe').contents().find('#name').html(this.formdata.name);
-        $('#agreement_iframe').contents().find('#owner_name').html(this.formdata.owner_email);
-        
+        $('#agreement_iframe').contents().find('#owner_name').html(this.formdata.owner_email);        
         var mimeType = 'text/html';
-        var form_data = new FormData();
-        
+        var form_data = new FormData();        
         var file_agreement = new File([$('#agreement_iframe').contents().find('html').html()], "agreement.html", {type: mimeType});
         form_data.append('agreement', file_agreement);
-
-        this.sharedService.username = this.sharedService.getUserDetail();
-        
+        this.sharedService.username = this.sharedService.getUserDetail();        
         var agreement_post = 
         {
             'signer_name': this.sharedService.username,
@@ -448,14 +528,14 @@ export class AddProjectPage implements OnInit {
             "SoReference":this.SoReference
         }   
         var data = this.sharedService.project_details;
-        data['project_type']  = "building";
+        data['rating_system'] = this.formdata.rating_system;
+        data['project_type']  = this.formdata.project_type;
         if(data.confidential){
             data.leed_score_public = false;
         }
         else{
             data.leed_score_public = true;
-        }
-        
+        }      
         this.project_agreement_nxt_btn = "Creating project...";
         for (var key in data){
             if (data.hasOwnProperty(key)) {
@@ -481,53 +561,12 @@ export class AddProjectPage implements OnInit {
             this.navCtrl.push(ProjectListPage);
         },err=>{
             $("#project-details-form").removeClass("not-active");
-            this.project_detail_nxt_btn = "Next";
+            this.project_detail_nxt_btn = "Create Project";
         });
-    }
-
-    searchOrganization(query){
-        this.searchEnableOrganization();        
-        this.sharedService.formdata.organization = "";
-        this.all_organizations = [];
-        this.loading_org_list = true;       
-        this.registrationService.getOrganizations(query).subscribe((data)=>{
-            this.loading_org_list = false;
-            for(var i = 0; i< data.owner_type.length; i++)
-            this.all_organizations.push(data.owner_type[i]);
-        },
-        err => {
-            console.log("Error in getting organization list"+err);
-        });
-    };
-
-    searchDisableOrganization(){
-        this.searchingOrganization = false;
-    }        
-    searchEnableOrganization(){
-        this.searchingOrganization = true;
-    }
-    selectOrganization(org){
-        this.formdata.organization = org;
-        this.org_query = org;
-        this.searchDisableOrganization();
-    };
-
-    agreementURL() {
-        return this.sanitizer.bypassSecurityTrustResourceUrl('../../../assets/pdf/registration_agreement.htm');
     }
 
     goToAddNewOrganizationPage(){
         this.navCtrl.push(NewOrganizationPage);
-    }
-
-    addNewProject(){
-        this.submitAttempt = true;
-        if(!this.addProjectForm.valid){      
-        }
-        else {        
-          //this.setAllItems();
-          console.log("hello")
-        }
     }
 
 }

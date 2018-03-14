@@ -19,10 +19,6 @@
             <ion-datetime type="date"  placeholder="" max="2099-12-31" [(ngModel)]="myStartDate" formControlName="startDate" (ionChange)="validateReadings(myStartDate, this)"></ion-datetime>
             <ion-icon name="calendar" item-end></ion-icon>
         </ion-item>
-
-        <!-- <ion-item no-lines *ngIf="!addMeterReadingForm.controls.startDate.valid  && (addMeterReadingForm.controls.startDate.dirty || submitAttempt)">
-            <p class="error-message">Please enter a valid Date.</p>
-        </ion-item> -->
         
         <ion-item>
             <ion-label stacked>End Date</ion-label>
@@ -30,10 +26,6 @@
             <ion-icon name="calendar" item-end></ion-icon>
         </ion-item>
 
-        <!-- <ion-item no-lines *ngIf="!addMeterReadingForm.controls.endDate.valid  && (addMeterReadingForm.controls.endDate.dirty || submitAttempt)">
-            <p class="error-message">Please enter a valid Date.</p>
-        </ion-item>
-         -->
         <ion-item>
             <ion-label stacked>Reading</ion-label>
             <ion-input type="number" pattern="[0-9]*" placeholder="Enter Reading in unit kWh" [(ngModel)]="myReading" formControlName="reading" [class.invalid]="!addMeterReadingForm.controls.reading.valid && (addMeterReadingForm.controls.reading.dirty || submitAttempt)"></ion-input>
@@ -43,7 +35,9 @@
             <p class="error-message">Please enter a valid Reading.</p>
         </ion-item>
 
-        <ion-item no-lines *ngIf="showError" text-wrap>{{allReasons}}</ion-item>
+        <ion-item no-lines *ngIf="showError" text-wrap class="error-message">
+            <p *ngFor = "let reason of allReasons"> {{reason}}</p>
+         </ion-item>
  
         <ion-row>
             <ion-col >

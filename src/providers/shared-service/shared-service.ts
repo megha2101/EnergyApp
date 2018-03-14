@@ -67,7 +67,7 @@ export class SharedServiceProvider {
  project_details        : any;
 
   //New organization Page
-  org_query             :any;
+  newAddedOrgName       :any;
   formdata              :any  =   {
       "name": "",            
       "gross_area": "",
@@ -92,13 +92,6 @@ export class SharedServiceProvider {
 
 
   constructor(public http: HttpClient, private AmCharts: AmChartsService) {
-    this.validation_messages = {
-      'email': [
-        { type: 'pattern', message: 'Enter a valid email.' },
-        { type: 'required', message: 'Email is required.' },
-        
-      ]
-    }
     
   }
   ngOnInit(){
@@ -161,57 +154,57 @@ export class SharedServiceProvider {
 };
 
   convertAnalysisNumber(val, value_duration, value_type, result_duratiom, result_type, decimals){
-        var gross_area = isNaN(parseFloat(this.selBuildObject.gross_area)) ? 0 : this.selBuildObject.gross_area;
-        var occupancy = isNaN(parseFloat(this.selBuildObject.occupancy)) ? 0 : this.selBuildObject.occupancy;
+      var gross_area = isNaN(parseFloat(this.selBuildObject.gross_area)) ? 0 : this.selBuildObject.gross_area;
+      var occupancy = isNaN(parseFloat(this.selBuildObject.occupancy)) ? 0 : this.selBuildObject.occupancy;
 
-        let value = parseFloat(val);
+      let value = parseFloat(val);
 
-        if(isNaN(value) || value == Infinity)
-        {
-            value = 0.0000;
-        }
-        else
-        {
-            value = parseFloat(val);
-        }
+      if(isNaN(value) || value == Infinity)
+      {
+          value = 0.0000;
+      }
+      else
+      {
+          value = parseFloat(val);
+      }
 
-        if(value_type == 'per_sf')
-        {
-            value *= gross_area;
-        }
-        if(value_type == 'per_occupant')
-        {
-            value *= occupancy;
-        }
+      if(value_type == 'per_sf')
+      {
+          value *= gross_area;
+      }
+      if(value_type == 'per_occupant')
+      {
+          value *= occupancy;
+      }
 
-        if(result_type == 'per_sf')
-        {
-            value /= gross_area;
-        }
-        if(result_type == 'per_occupant')
-        {
-            value /= occupancy;
-        }
+      if(result_type == 'per_sf')
+      {
+          value /= gross_area;
+      }
+      if(result_type == 'per_occupant')
+      {
+          value /= occupancy;
+      }
 
-        if(value_duration == 'per_day')
-        {
-            value *= 365;
-        }
-        if(value_duration == 'per_month')
-        {
-            value *= 12;
-        }
+      if(value_duration == 'per_day')
+      {
+          value *= 365;
+      }
+      if(value_duration == 'per_month')
+      {
+          value *= 12;
+      }
 
-        if(result_duratiom == 'per_month')
-        {
-            value /= 12;
-        }
-        if(result_duratiom == 'per_day')
-        {
-            value /= 365;
-        }
+      if(result_duratiom == 'per_month')
+      {
+          value /= 12;
+      }
+      if(result_duratiom == 'per_day')
+      {
+          value /= 365;
+      }
 
-        return isNaN(parseFloat(value.toFixed(decimals))) || value == Infinity ? '-' : parseFloat(value.toFixed(decimals));
+      return isNaN(parseFloat(value.toFixed(decimals))) || value == Infinity ? '-' : parseFloat(value.toFixed(decimals));
   };
 
     getUserDetail(){

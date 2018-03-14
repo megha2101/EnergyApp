@@ -9,15 +9,23 @@
 
 <ion-content >
 
-    <!-- <p *ngIf="submitAttempt" ></p> -->
+    <p *ngIf="submitAttempt" ></p>
 
-    <form [formGroup]="addProjectForm" id="project-details-form" (ngSubmit)="submitDetails(addProjectForm.valid)" novalidate>
+    <form [formGroup]="addProjectForm" id="project-details-form" (ngSubmit)="submitDetails()" novalidate>
           
           <!-- Project Name -->
         
         <ion-item class="mtop" >
             <ion-label stacked>Project Name</ion-label>
-            <ion-input formControlName="name" type="text"  name="name" [(ngModel)]="formdata.name" ></ion-input>
+            <ion-input formControlName="name" type="text"  name="name" [(ngModel)]="formdata.name" [class.invalid]="!addProjectForm.get('name').valid && (addProjectForm.get('name').dirty || submitAttempt)" ></ion-input>
+        </ion-item>
+        <ion-item no-lines *ngIf="!addProjectForm.get('name').valid  && (addProjectForm.get('name').dirty || submitAttempt)">
+            <p class="error-message" *ngIf="addProjectForm.get('name').errors.pattern">
+                {{this.sharedService.formValidation.nameMsg}}
+            </p>
+            <p class="error-message" *ngIf="addProjectForm.get('name').errors.required">
+                This field is required.
+            </p>
         </ion-item>
 
         <!-- unit type -->
@@ -31,8 +39,7 @@
           <!-- project type -->
           <ion-item class="mtop">
               <ion-label stacked>Project Type</ion-label>
-              <ion-select name="projectType" [(ngModel)]="formdata.projectType" formControlName="projectType" text-wrap>
-                  <ion-option  value= "" selected disabled>Select Project Type </ion-option >
+              <ion-select name="projectType" [(ngModel)]="formdata.project_type" formControlName="projectType" text-wrap>
                   <ion-option  *ngFor="let type of projectType" value= {{type.value}}>{{type.name}} </ion-option >
               </ion-select>
           </ion-item>
@@ -41,7 +48,6 @@
           <ion-item class="mtop">
               <ion-label stacked>Rating System<span stacked class="fontSize"> (optional)</span></ion-label>
               <ion-select name="ratingSystem" [(ngModel)]="formdata.rating_system" formControlName="ratingSystem">
-                  <ion-option  value= "" selected disabled>Select Rating System </ion-option >
                   <ion-option  *ngFor="let rs of ratingSystem" value= {{rs.value}}>{{rs.name}}</ion-option >
               </ion-select>
           </ion-item>
@@ -49,25 +55,38 @@
            <!-- space type -->
            <ion-item class="mtop" text-wrap>
               <ion-label stacked>Space Type</ion-label>
-              <ion-select name="spaceType" [(ngModel)]="formdata.spaceType" formControlName="spaceType" text-wrap >
+              <ion-select name="spaceType" [(ngModel)]="formdata.spaceType" formControlName="spaceType" text-wrap (ionChange)="validateSpaceTypeError($event)"
+              [ngClass]="spaceTypeErrorMsg?'invalid' :''" >
                   <ion-option value="" selected disabled>Select Space Type</ion-option>
                   <ion-option  *ngFor="let spacetype of spaceType" value= {{spacetype}}>{{spacetype}}</ion-option >
               </ion-select>
+          </ion-item>
+          <ion-item no-lines *ngIf="spaceTypeErrorMsg">
+              <p class="error-message">
+                  This field is required.
+              </p>
           </ion-item>
 
         <!-- owner type -->
           <ion-item class="mtop" text-wrap>
               <ion-label stacked>Owner Type</ion-label>
-              <ion-select name="ownerType" [(ngModel)]="formdata.ownerType" formControlName="ownerType" text-wrap >
+              <ion-select name="ownerType" [(ngModel)]="ownertype" formControlName="ownerType" text-wrap (ionChange)="validateOwnerTypeError(formdata.ownerType)"
+              [ngClass]="ownertTypeErrorMsg?'invalid' :''">
                   <ion-option value="" selected disabled>Select Owner Type</ion-option>
                   <ion-option  *ngFor="let ownertype of ownerType" value= {{ownertype}} text-wrap>{{ownertype}}</ion-option >
               </ion-select>
           </ion-item>
+          <ion-item no-lines *ngIf="ownertTypeErrorMsg">
+              <p class="error-message">
+                  This field is required.
+              </p>
+          </ion-item>
 
-            <!-- owner organization -->          
+            <!-- owner organization -->  
           <ion-item class="mtop" item-content>
               <ion-label stacked text-wrap >Owner Organization </ion-label>         
-              <ion-input formControlName="ownerOrg" type="text" [(ngModel)]="org_query" (input)="$event.target.value.length > 0 && searchOrganization(org_query)"></ion-input>                   
+              <ion-input formControlName="ownerOrg" type="text" [(ngModel)]="org_query" (input)="$event.target.value.length > 0 && searchOrganization(org_query)"
+              [class.invalid]="!addProjectForm.get('ownerOrg').valid && (addProjectForm.get('ownerOrg').dirty || submitAttempt)"></ion-input>                   
           </ion-item>
           <ion-list *ngIf="searchingOrganization && all_organizations.length > 0">
               <ion-item *ngFor="let org of all_organizations" (click)="selectOrganization(org)">
@@ -77,11 +96,28 @@
           <ion-item no-lines>
             <p tappable (click)="goToAddNewOrganizationPage()"><a>Click here</a> to add new organization if not existing. </p>           
           </ion-item>
+          <ion-item no-lines *ngIf="!addProjectForm.get('ownerOrg').valid  && (addProjectForm.get('ownerOrg').dirty || submitAttempt)">
+              <p class="error-message" *ngIf="addProjectForm.get('ownerOrg').errors.required">
+                  This field is required.
+              </p>
+              <p class="error-message" *ngIf="addProjectForm.get('ownerOrg').errors.pattern">
+                  {{this.sharedService.formValidation.emailMsg}}
+              </p>
+          </ion-item>
 
           <!-- owner email -->
           <ion-item class="mtop">
               <ion-label stacked>Owner Email</ion-label>
-              <ion-input name="owner_email" [(ngModel)]="formdata.owner_email" formControlName="ownerEmail" type="Email"></ion-input>
+              <ion-input name="owner_email" [(ngModel)]="formdata.owner_email" formControlName="ownerEmail" type="Email"
+              [class.invalid]="!addProjectForm.get('ownerEmail').valid && (addProjectForm.get('ownerEmail').dirty || submitAttempt)"></ion-input>
+          </ion-item>
+          <ion-item no-lines *ngIf="!addProjectForm.get('ownerEmail').valid  && (addProjectForm.get('ownerEmail').dirty || submitAttempt)">
+              <p class="error-message" *ngIf="addProjectForm.get('ownerEmail').errors.pattern">
+                  {{this.sharedService.formValidation.emailMsg}}
+              </p>
+              <p class="error-message" *ngIf="addProjectForm.get('ownerEmail').errors.required">
+                  This field is required.
+              </p>
           </ion-item>
 
             <!-- owner country/region -->
@@ -95,11 +131,20 @@
           <!-- Area -->
           <ion-item class="mtop">
               <ion-label stacked>Area</ion-label>
-              <ion-input [(ngModel)]="formdata.gross_area" name="gross_area" formControlName="area" type="Number" max="{{formdata.unitType == 'square meters' ? unitType[1].max_value : unitType[0].max_value}}"></ion-input>
+              <ion-input [(ngModel)]="formdata.gross_area" name="gross_area" formControlName="area" type="Number" max="{{formdata.unitType == 'square meters' ? unitType[1].max_value : unitType[0].max_value}}"
+              [class.invalid]="!addProjectForm.get('area').valid && (addProjectForm.get('area').dirty || submitAttempt)"></ion-input>
           </ion-item>
 
           <ion-item no-lines> 
               <ion-label class="fontSize" style="color:#999"> Enter total built area in {{formdata.unitType == 'square meters' ? unitType[1].value1 : unitType[0].value1}}  (Max: {{formdata.unitType == 'square meters' ? unitType[1].max_value : unitType[0].max_value}} {{formdata.unitType == 'square meters' ? unitType[1].value1 : unitType[0].value1}})</ion-label>
+          </ion-item>
+          <ion-item no-lines *ngIf="!addProjectForm.get('area').valid  && (addProjectForm.get('area').dirty || submitAttempt)">
+              <p class="error-message" *ngIf="addProjectForm.get('area').errors.required">
+                  This field is required.
+              </p>
+              <p class="error-message" *ngIf="addProjectForm.get('area').errors.pattern">
+                  {{this.sharedService.formValidation.grossAreaMsg}}
+              </p>
           </ion-item>
           
           <ion-item no-lines style="margin-top: -16px">
@@ -110,70 +155,78 @@
           <!--  Address-->
           <ion-item class="mtop">
               <ion-label stacked>Address</ion-label>
-              <ion-textarea [(ngModel)]="formdata.street" formControlName="address"  type="Text" name="description"></ion-textarea>
+              <ion-textarea [(ngModel)]="formdata.street" formControlName="address"  type="Text" name="description"
+              [class.invalid]="!addProjectForm.get('address').valid && (addProjectForm.get('address').dirty || submitAttempt)">
+              </ion-textarea>
           </ion-item>  
-            <!-- city -->
-          
-          <ion-item class="mtop">
-              <ion-label stacked>City</ion-label>
-              <ion-input [(ngModel)]="formdata.city" id="city" name="city" formControlName="city" type="Text" [class.invalid]="!addProjectForm.controls.city.valid  && (addProjectForm.controls.city.dirty || submitAttempt)"></ion-input>
+          <ion-item no-lines *ngIf="!addProjectForm.get('address').valid  && (addProjectForm.get('address').dirty || submitAttempt)">
+              <p class="error-message" *ngIf="addProjectForm.get('address').errors.required">
+                  This field is required.
+              </p>
+              <p class="error-message" *ngIf="addProjectForm.get('address').errors.pattern">
+                  {{this.sharedService.formValidation.grossAreaMsg}}
+              </p>
           </ion-item>
 
-          <ion-item no-lines *ngIf="!addProjectForm.controls.city.valid  && (addProjectForm.controls.city.dirty || submitAttempt)">
-                <p class="error-message" text-wrap>Please specify city.</p>
+          <!-- city -->          
+          <ion-item class="mtop">
+              <ion-label stacked>City</ion-label>
+              <ion-input [(ngModel)]="formdata.city" id="city" name="city" formControlName="city" type="Text" 
+              [class.invalid]="!addProjectForm.get('city').valid  && (addProjectForm.get('city').dirty || submitAttempt)"></ion-input>
+          </ion-item>
+
+          <ion-item no-lines *ngIf="!addProjectForm.get('city').valid  && (addProjectForm.get('city').dirty || submitAttempt)">
+              <p class="error-message" *ngIf="addProjectForm.get('city').errors.required">
+                  This field is required.
+              </p>
+              <p class="error-message" *ngIf="addProjectForm.get('city').errors.pattern">
+                  {{this.sharedService.formValidation.cityMsg}}
+              </p>
           </ion-item> 
+
            <!-- Country/Region -->
-            <!-- (ngModelChange)="updateCountry($event)" -->
           <ion-item class="mtop">
               <ion-label stacked>Country/Region</ion-label>            
-              <ion-select [(ngModel)]="formdata.country" name="country" (ngModelChange)="updateCountry($event)" formControlName="countryName"  [class.invalid]="!addProjectForm.controls.countryName.valid  && (addProjectForm.controls.countryName.dirty || submitAttempt)">
+              <ion-select [(ngModel)]="formdata.country" name="country" (ionChange)="updateCountry($event)" formControlName="countryName"  [class.invalid]="!addProjectForm.controls.countryName.valid  && (addProjectForm.controls.countryName.dirty || submitAttempt)">
                   <ion-option  *ngFor="let country of countries" selected="{{country.code=='US'? true : false}}" value= {{country.code}}>{{country.name}}</ion-option >
               </ion-select>
           </ion-item>
   
-          <ion-item no-lines *ngIf="!addProjectForm.controls.countryName.valid  && (addProjectForm.controls.countryName.dirty || submitAttempt)">
-              <p class="error-message" text-wrap>Please select country.</p>
-          </ion-item>
-
+        <!-- state -->
           <ion-item class="mtop">
               <ion-label stacked>State</ion-label>
-              <ion-select [(ngModel)]="formdata.state" name="state" formControlName="state" *ngIf="ajax_done" [class.invalid]="!addProjectForm.controls.state.valid  && (addProjectForm.controls.state.dirty || submitAttempt)">
-                  <ion-option  *ngIf="selStateFlag" value= "" selected disabled>Select State </ion-option >
+              <ion-select [(ngModel)]="formdata.state" name="state" formControlName="state" *ngIf="ajax_done" 
+              (ionChange)="validateStateError(orgSubCategory)" [ngClass]="stateErrorMsg?'invalid' :''">
+                  <ion-option  value= "selState" selected disabled>Select State </ion-option >
                   <ion-option  *ngFor="let state of states" value= {{state.code}}>{{state.name}}</ion-option >
               </ion-select>
           </ion-item>
 
-          <ion-item no-lines *ngIf="!addProjectForm.controls.state.valid  && (addProjectForm.controls.state.dirty || submitAttempt)">
-              <p class="error-message" text-wrap>Please select state.</p>
+          <ion-item no-lines *ngIf="stateErrorMsg">
+              <p class="error-message" text-wrap>This field is required.</p>
           </ion-item>
+
           <!-- (keyup)="removeZipError()" (ionBlur)="validateZipCode()" -->
           <ion-item class="mtop">
               <ion-label stacked>Zip Code</ion-label>
-              <ion-input id="zip_code" name="zip_code" [(ngModel)]="formdata.zip_code" (keyup)="removeZipError()" formControlName="zipcode" (ionBlur)="validateZipCode()" type="number" ></ion-input>
+              <ion-input id="zip_code" name="zip_code" [(ngModel)]="formdata.zip_code" (keyup)="removeZipError()" formControlName="zipcode" (ionBlur)="validateZipCode()" type="number" 
+              [class.invalid]="!addProjectForm.get('zipcode').valid  && (addProjectForm.get('zipcode').dirty || submitAttempt)" [ngClass]="zipCodeError?'invalid' :''" ></ion-input>
           </ion-item> 
+          <ion-item no-lines *ngIf="!addProjectForm.get('zipcode').valid  && (addProjectForm.get('zipcode').dirty || submitAttempt)">
+              <p class="error-message" *ngIf="addProjectForm.get('zipcode').errors.required">
+                  This field is required.
+              </p>
+          </ion-item>
+          <ion-item no-lines *ngIf="zipCodeError">
+              <p class="error-message" text-wrap>Please enter a valid Zip Code.</p>
+          </ion-item>
 
-        <!-- <ion-item no-lines>
-            <ion-label >Geo location</ion-label>
-            <ion-icon name="pin" item-end></ion-icon>      
-        </ion-item>
+          <ion-item no-lines class="mtop">
+              <ion-label stacked text-wrap><p>I agree to the terms of our service agreement.</p></ion-label>
+              <ion-checkbox [(ngModel)]="formdata.sign_agreement" formControlName="termsAccepted" (ionChange)="onTermsChecked($event)"></ion-checkbox>
+          </ion-item>
 
-        <ion-item >
-            <ion-label stacked >Lat<span stacked class="fontSize"> (optional)</span></ion-label>
-            <ion-input formControlName="lat" type="Number" ></ion-input>
-        </ion-item>
-
-        <ion-item >
-            <ion-label stacked >Long<span stacked class="fontSize"> (optional)</span></ion-label>
-            <ion-input formControlName="long" type="Number" ></ion-input>
-        </ion-item> -->
-
-        <!-- <ion-item no-lines style="margin-top: 15px;">
-            <ion-label stacked style="color:#999;" text-wrap>I agree to the terms of our service agreement.</ion-label>
-            <ion-checkbox></ion-checkbox>
-        </ion-item> -->
-            
-         
-          <!-- <a href='../../../assets/pdf/registration_agreement.pdf' target='_blank' ></a> -->
+           <!-- <a href='../../../assets/pdf/registration_agreement.pdf' target='_blank' ></a> -->
           <ion-item no-lines>            
               <div class="hide">
                 <iframe id="agreement_iframe"  [src]='agreementURL()' frameborder="0"></iframe>
@@ -182,7 +235,8 @@
           
           <ion-row>
               <ion-col center text-center >
-                  <button ion-button block type="submit">{{project_detail_nxt_btn}}</button>
+                  <button ion-button block type="submit" [ngClass]="createBtnEnableFlag?'' :'not-active'" >
+                    {{project_detail_nxt_btn}}</button>
               </ion-col>
           </ion-row>
   </form>

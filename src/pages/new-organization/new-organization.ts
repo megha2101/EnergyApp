@@ -95,8 +95,8 @@ export class NewOrganizationPage{
             this.error_org = false;
             this.error_msg_org = '';
             this.sharedService.formdata.organization = this.orgName;
-            this.sharedService.org_query = this.orgName;
-            this.navCtrl.pop();
+            this.sharedService.newAddedOrgName = this.orgName;
+            this.navCtrl.pop()
         },err=> { 
             console.log("error in creating new owner organization.")
         })

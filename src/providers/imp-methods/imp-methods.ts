@@ -24,6 +24,29 @@ export class ImpMethodsProvider {
   
 // }
 
+// geoLocation code
+// <ion-item no-lines>
+// <ion-label >Geo location</ion-label>
+// <ion-icon name="pin" item-end></ion-icon>      
+// </ion-item>
+
+// <ion-item >
+// <ion-label stacked >Lat<span stacked class="fontSize"> (optional)</span></ion-label>
+// <ion-input formControlName="lat" type="Number" ></ion-input>
+// </ion-item>
+
+// <ion-item >
+// <ion-label stacked >Long<span stacked class="fontSize"> (optional)</span></ion-label>
+// <ion-input formControlName="long" type="Number" ></ion-input>
+// </ion-item> -->
+
+// <!-- <ion-item no-lines style="margin-top: 15px;">
+// <ion-label stacked style="color:#999;" text-wrap>I agree to the terms of our service agreement.</ion-label>
+// <ion-checkbox></ion-checkbox>
+// </ion-item> -->
+
+//******************* */
+//STORAGE 
 // getAllItems(){    
 //     this.storage.get(this.newProject).then((data) =>{
 //       if(data){
